@@ -55,7 +55,10 @@ class SessionsCategoryResults:
         change_dict['Country'] = 'Change'
         for key, value in total1.items():
             try:
-                change = round(((float(total1.get(key, 0))-float(total2.get(key, 0)))/float(total2.get(key,0))) * 100, 2)
+                if total2.get(key) == 0:
+                    change = 100
+                else:
+                    change = round(((float(total1.get(key, 0))-float(total2.get(key, 0)))/float(total2.get(key,0))) * 100, 2)
                 change_dict[key] = str(100 if change > 100 else change) + '%'
             except Exception as e:
                 # print e
