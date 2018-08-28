@@ -701,7 +701,109 @@ def print_conversions(results):
     for key, item in results:
         result.append(dict(ChainMap(*list(item))))
     return result
-#-----------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+def get_googleads(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:adClicks',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+def print_googleads(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+def get_googleads_cost(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:adCost',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_cost(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+
+def get_googleads_ctr(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:CTR',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_ctr(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+
+def get_googleads_imp(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:impressions',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_imp(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+def get_googleads_en(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:goalCompletionsAll',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_en(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+def get_googleads_cv(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:costPerConversion',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_cv(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+
+
+
+#----------------------------------------------------------------------------------------------------------------
 
 class mainClass:
 

@@ -24,15 +24,15 @@ $(document).ready(function(){
     });
 });
 function func1() {
-  document.getElementById("mySelect").value="Week"
+  document.getElementById("mySelect").value="7"
 };
 window.onload=func1;
 </script>
 <div class="row">
     <div>
-        <form class="form-inline" method="post" action="/">
+        <form class="form-inline" style="margin-left:-185px" method="post" action="/">
           <div class="form-group mb-2">
-              <label class="lb"><b>SELECT DATES:&nbsp;</b></label>
+              <label style="margin:-2px" class="lb"><b>SELECT DATES:&nbsp;</b></label>
               <select style="width:200px;border-color:#EB1414 !important" class="form-control sl"  name="option" onChange="myFunction()" id="mySelect">
                 <option value="7">Weekly Report</option>
                 <option value="Week">Last 7 days</option>
@@ -46,6 +46,7 @@ window.onload=func1;
           </div>
           <div id="demo" class="form-group "><input class="form-rounded" name="dates" id="reportrange" readonly/></div>
           <button style="margin:10px" type="submit" class="btn btn-danger">Submit</button>
+            <button data-href-template="" style="margin:10px" class="btn btn-danger">Send E-Mail</button>
         </form>
     </div>
 </div>
@@ -1161,6 +1162,195 @@ window.onload=func1;
                   </div>
                 </div>
               </div>
+<div class="content" id="online">
+        <div class="clearfix"></div>
+              <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Illustration Ads</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                      <!--</li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Campaign</th>
+                            <th>Clicks</th>
+                          <th>Impr</th>
+                          <th>CTR</th>
+                          <th>Cost</th>
+                            <th>Conv</th>
+                            <th>Cost/Conv</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">Anim UK</th>
+                            <td align="center">{{googleads['present'][0]['Animators UK']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Animators UK']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Animators UK']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Animators UK']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Animators UK']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Animators UK']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Anim USA</th>
+                            <td align="center">{{googleads['present'][0]['Animators USA']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Animators USA']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Animators USA']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Animators USA']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Animators USA']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Animators USA']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Competitors</th>
+                            <td align="center">{{googleads['present'][0]['Competitors']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Competitors']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Competitors']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Competitors']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Competitors']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Competitors']}}</td>
+                        </tr>
+                      <tr>
+                          <th scope="row">Illus ANZ</th>
+                          <td align="center">{{googleads['present'][0]['Illustration Search ANZ']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Illustration Search ANZ']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Illustration Search ANZ']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Illustration Search ANZ']}}</td>
+                          <td align="center">{{googleads_en['present'][0]['Illustration Search ANZ']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Illustration Search ANZ']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Illus UK</th>
+                            <td align="center">{{googleads['present'][0]['Illustration Search UK']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Illustration Search UK']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Illustration Search UK']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Illustration Search UK']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Illustration Search UK']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Illustration Search UK']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Illus USA</th>
+                            <td align="center">{{googleads['present'][0]['Illustration Search USA']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Illustration Search USA']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Illustration Search USA']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Illustration Search USA']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Illustration Search USA']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Illustration Search USA']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total</th>
+                            <td align="center">{{googleads['total']}}</td>
+                          <td align="center">{{googleads_imp['total']}}</td>
+                          <td align="center">{{googleads_ctr['total']}}%</td>
+                          <td align="center">${{googleads_cost['total']}}</td>
+                            <td align="center">{{googleads_en['total']}}</td>
+                          <td align="center">${{googleads_cv['total']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total(Prev)</th>
+                            <td align="center">{{googleads['total_prv']}}</td>
+                          <td align="center">{{googleads_imp['total_prv']}}</td>
+                          <td align="center">{{googleads_ctr['total_prv']}}%</td>
+                          <td align="center">${{googleads_cost['total_prv']}}</td>
+                            <td align="center">{{googleads_en['total_prv']}}</td>
+                          <td align="center">${{googleads_cv['total_prv']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Change</th>
+                            <td align="center">{{googleads['change']}}%</td>
+                          <td align="center">{{googleads_imp['change']}}%</td>
+                          <td align="center">{{googleads_ctr['change']}}%</td>
+                          <td align="center">{{googleads_cost['change']}}%</td>
+                            <td align="center">{{googleads_en['change']}}%</td>
+                          <td align="center">{{googleads_cv['change']}}%</td>
+                        </tr>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
+        <div class="col-md-6 col-sm-6 col-xs-12">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Stock Illustration Ads</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                      <!--</li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Campaign</th>
+                            <th>Clicks</th>
+                          <th>Impr</th>
+                          <th>CTR</th>
+                          <th>Cost</th>
+                             <th>Conv</th>
+                            <th>Cost/Conv</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">Stock UK</th>
+                          <td align="center">{{googleads['present'][0]['Stock UK']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Stock UK']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Stock UK']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Stock UK']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Stock UK']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Stock UK']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Stock USA</th>
+                            <td align="center">{{googleads['present'][0]['Stock USA']}}</td>
+                          <td align="center">{{googleads_imp['present'][0]['Stock USA']}}</td>
+                          <td align="center">{{googleads_ctr['present'][0]['Stock USA']}}%</td>
+                          <td align="center">${{googleads_cost['present'][0]['Stock USA']}}</td>
+                            <td align="center">{{googleads_en['present'][0]['Stock USA']}}</td>
+                          <td align="center">${{googleads_cv['present'][0]['Stock USA']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total</th>
+                            <td align="center">{{googleads['total_s']}}</td>
+                          <td align="center">{{googleads_imp['total_s']}}</td>
+                          <td align="center">{{googleads_ctr['total_s']}}%</td>
+                          <td align="center">${{googleads_cost['total_s']}}</td>
+                            <td align="center">{{googleads_en['total_s']}}</td>
+                          <td align="center">${{googleads_cv['total_s']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Total(Prev)</th>
+                            <td align="center">{{googleads['total_prvs']}}</td>
+                          <td align="center">{{googleads_imp['total_prvs']}}</td>
+                          <td align="center">{{googleads_ctr['total_prvs']}}%</td>
+                          <td align="center">${{googleads_cost['total_prvs']}}</td>
+                            <td align="center">{{googleads_en['total_prvs']}}</td>
+                          <td align="center">${{googleads_cv['total_prvs']}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Change</th>
+                            <td align="center">{{googleads['change_s']}}%</td>
+                          <td align="center">{{googleads_imp['change_s']}}%</td>
+                          <td align="center">{{googleads_ctr['change_s']}}%</td>
+                          <td align="center">{{googleads_cost['change_s']}}%</td>
+                            <td align="center">{{googleads_en['change_s']}}%</td>
+                          <td align="center">{{googleads_cv['change_s']}}%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
               <div class="clearfix"></div>
                   </div>
                 </div>
@@ -1175,7 +1365,7 @@ window.onload=func1;
 <script>
 var chartData1 = {
 labels: [
-      "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+      "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
   ],
 datasets: [{
  label: 'Change',
@@ -1261,7 +1451,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData2 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
         ],
 datasets: [{
  label: 'Change',
@@ -1338,7 +1528,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData3 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -1415,7 +1605,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData4 = {
 labels: [
-    "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+          "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -1492,7 +1682,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData5 = {
 labels: [
-           "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+           "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -1569,7 +1759,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData6 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -1646,7 +1836,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData7 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -1723,7 +1913,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData8 = {
 labels:[
-          "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+          "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
         ],
 datasets: [{
  label: 'Change',
@@ -1809,7 +1999,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData9 = {
 labels: [
-          "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+          "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
            ],
 datasets: [{
  label: 'Change',
@@ -1898,7 +2088,7 @@ var myChart = new Chart(ctx, {
 <script>
 var chartData10 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -1975,7 +2165,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData11 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -2052,7 +2242,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData12 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -2129,7 +2319,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData13 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -2206,7 +2396,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData14 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -2283,7 +2473,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData15 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -2360,7 +2550,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData16 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -2437,7 +2627,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData17 = {
 labels:[
-        "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+        "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',

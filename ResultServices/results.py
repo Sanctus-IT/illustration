@@ -248,8 +248,6 @@ class Topkeywords:
     def main(self):
         pre_top_key_words = self.current_results.top_key_words()
         prev_top_key_words = self.previous_results.top_key_words()
-        print(pre_top_key_words)
-        print(prev_top_key_words)
         change = {'mobiletablet_change': [((float(pre_top_key_words[0]['MobileTablet']) - float(
                                 prev_top_key_words[0]['MobileTablet'])) / float(prev_top_key_words[0]['MobileTablet'])) * 100 if float(
                                 prev_top_key_words[0]['MobileTablet']) != 0 else 100],
@@ -275,8 +273,6 @@ class Agents:
     def main(self):
         pre_agents = self.current_results.agents()
         prev_agents = self.previous_results.agents()
-        print(pre_agents)
-        print(prev_agents)
         change = {'call_change': [((float(pre_agents[0]['CallClick']) - float(
             prev_agents[0]['CallClick'])) / float(prev_agents[0]['CallClick'])) * 100 if float(
             prev_agents[0]['CallClick']) != 0 else 100],
@@ -296,8 +292,6 @@ class SideButton:
     def main(self):
         pre_side_button = self.current_results.side_button()
         prev_side_button = self.previous_results.side_button()
-        print(pre_side_button)
-        print(prev_side_button)
         change = {'help_change': [((float(pre_side_button[0]['Help']) - float(
             prev_side_button[0]['Help'])) / float(prev_side_button[0]['Help'])) * 100 if float(
             prev_side_button[0]['Help']) != 0 else 100],
@@ -314,8 +308,6 @@ class Portfolio:
     def main(self):
         pre_portfolio = self.current_results.portfolio()
         prev_portfolio = self.previous_results.portfolio()
-        print(pre_portfolio)
-        print(prev_portfolio)
         change ={'call_change' : [((float(pre_portfolio[0]['CallClick'])-float(prev_portfolio[0]['CallClick']))/float(prev_portfolio[0]['CallClick']))*100 if float(prev_portfolio[0]['CallClick']) !=0 else 100],
                 'email_change' : [((float(pre_portfolio[0]['EmailClick'])-float(prev_portfolio[0]['EmailClick']))/float(prev_portfolio[0]['EmailClick']))*100 if float(prev_portfolio[0]['EmailClick']) !=0 else 100] ,
                 'video_change' : [((float(pre_portfolio[0]['VideoImgClick'])-float(prev_portfolio[0]['VideoImgClick']))/float(prev_portfolio[0]['VideoImgClick']))*100 if float(prev_portfolio[0]['VideoImgClick']) !=0 else 100],
@@ -332,8 +324,6 @@ class Events:
     def main(self):
         pre_events = self.current_results.events()
         prev_events = self.previous_results.events()
-        print(pre_events)
-        print(prev_events)
         pre_total = float(pre_events[0]['HelloBar Events'])+float(pre_events[1]['HelloBar Events'])+float(pre_events[2]['HelloBar Events'])+float(pre_events[3]['HelloBar Events'])
         prev_total = float(prev_events[0]['HelloBar Events'])+float(prev_events[1]['HelloBar Events'])+float(prev_events[2]['HelloBar Events'])+float(prev_events[3]['HelloBar Events'])
         change = {'uk_change' : [((float(pre_events[0]['HelloBar Events'])-float(prev_events[0]['HelloBar Events']))/float(prev_events[0]['HelloBar Events']))*100 if float(prev_events[0]['HelloBar Events']) !=0 else 100],
@@ -352,8 +342,6 @@ class Devices:
     def main(self):
         pre_devices = self.current_results.devices()
         prev_devices = self.previous_results.devices()
-        print(pre_devices)
-        print(prev_devices)
         change = {'mobile_change': [((float(pre_devices[0]['mobile']) - float(prev_devices[0]['mobile'])) / float(
             prev_devices[0]['mobile'])) * 100 if prev_devices[0]['mobile'] != 0 else 100],
                   'tablet_change': [((float(pre_devices[0]['tablet']) - float(prev_devices[0]['tablet'])) / float(
@@ -362,4 +350,119 @@ class Devices:
                       prev_devices[0]['desktop'])) * 100 if prev_devices[0]['desktop'] != 0 else 100]}
 
         return {'present':pre_devices,'previous':prev_devices,'change':change}
+class Googleads:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_portfolio = self.current_results.googleads()
+        prev_portfolio = self.previous_results.googleads()
+        # print(pre_portfolio)
+        # print(prev_portfolio)
+        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
+        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
+        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
+        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        change=round((total-total_prv)/total_prv*100,2) if total_prv !=0 else 0
+        change_s=round((total_s-total_prvs)/total_prvs*100,2) if total_prvs !=0 else 0
+        return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
+                'change':change,'change_s':change_s}
+class Googleads_cost:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_portfolio = self.current_results.googleads_cost()
+        prev_portfolio = self.previous_results.googleads_cost()
+        # print(pre_portfolio)
+        # print(prev_portfolio)
+        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
+        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
+        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
+        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        change = round((total - total_prv) / total_prv * 100,2) if total_prv != 0 else 0
+        change_s = round((total_s - total_prvs) / total_prvs * 100,2) if total_prvs != 0 else 0
+        return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
+                'change':change,'change_s':change_s}
+
+class Googleads_ctr:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_portfolio = self.current_results.googleads_ctr()
+        prev_portfolio = self.previous_results.googleads_ctr()
+        # print(pre_portfolio)
+        # print(prev_portfolio)
+        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
+        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
+        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
+        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        change = round((total - total_prv) / total_prv * 100,2) if total_prv != 0 else 0
+        change_s = round((total_s - total_prvs) / total_prvs * 100,2) if total_prvs != 0 else 0
+        return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
+                'change':change,'change_s':change_s}
+class Googleads_imp:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_portfolio = self.current_results.googleads_imp()
+        prev_portfolio = self.previous_results.googleads_imp()
+        # print(pre_portfolio)
+        # print(prev_portfolio)
+        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
+        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
+        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
+        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        change = round((total - total_prv) / total_prv * 100,2) if total_prv != 0 else 0
+        change_s = round((total_s - total_prvs) / total_prvs * 100,2) if total_prvs != 0 else 0
+        return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
+                'change':change,'change_s':change_s}
+class Googleads_en:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_portfolio = self.current_results.googleads_en()
+        prev_portfolio = self.previous_results.googleads_en()
+        # print(pre_portfolio)
+        # print(prev_portfolio)
+        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
+        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
+        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
+        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        change = round((total - total_prv) / total_prv * 100,2) if total_prv != 0 else 0
+        change_s = round((total_s - total_prvs) / total_prvs * 100,2) if total_prvs != 0 else 0
+        return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
+                'change':change,'change_s':change_s}
+class Googleads_cv:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_portfolio = self.current_results.googleads_cv()
+        prev_portfolio = self.previous_results.googleads_cv()
+        # print(pre_portfolio)
+        # print(prev_portfolio)
+        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
+        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
+        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
+        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        change = round((total - total_prv) / total_prv * 100, 2) if total_prv != 0 else 0
+        change_s = round((total_s - total_prvs) / total_prvs * 100, 2) if total_prvs != 0 else 0
+        return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
+                'change':change,'change_s':change_s}
 
