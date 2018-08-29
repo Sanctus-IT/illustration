@@ -1156,3 +1156,108 @@ class mainClass:
                 'ReturningUsers': sum(ReturningUsers)
         }
 
+    def googleads(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads(result)
+            googleads_list.append(print_result)
+        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_cost(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_cost(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_cost(result)
+            googleads_list.append(print_result)
+        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_ctr(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_ctr(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_ctr(result)
+            googleads_list.append(print_result)
+        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_imp(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_imp(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_imp(result)
+            googleads_list.append(print_result)
+        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_en(self):
+        googleads = [
+            ('5110029', 'UK'),
+            ('84906789', 'USA'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_en(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_en(result)
+            googleads_list.append(print_result)
+        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_cv(self):
+        googleads = [
+            ('5110029', 'UK'),
+            ('84906789', 'USA'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_cv(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_cv(result)
+            googleads_list.append(print_result)
+        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+

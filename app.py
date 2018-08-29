@@ -169,7 +169,7 @@ def index():
           server.login('sanctusit.textmail@gmail.com', 'sanctusit.com')
           server.sendmail(fromx, to, msg.as_string())
           server.quit()
-          return render_template('last_7_days.html', result=result, dates=dates, Change=Change, option=option,
+          return render_template('last_week.html', result=result, dates=dates, Change=Change, option=option,
                                  days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
                                  agents=agents,
                                  sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
