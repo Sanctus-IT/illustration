@@ -5,6 +5,7 @@
 table, th, td {
     border: 1px solid black;
     border-collapse: collapse;
+
 }
 table#t01 th {
     background-color: #6E7472;
@@ -63,17 +64,15 @@ window.onload=func1;
 {% endblock %}
 {% block content %}
 <div  style="text-align:center;margin: 70px 10px 20px 10px;">
-    <h3> Your Website Traffic Report Has Been Sent to Your Email... <i class="fa fa-thumbs-o-up" style="font-size:30px;color:#099964"></i><br/>
-  <font size="2"> Here’s a copy of the report for your reference.</font></h3>
+   <h3> Your Website Traffic Report Has Been Sent to Your Email... <i class="fa fa-thumbs-o-up" style="font-size:35px;color:#099964"></i><br/>
+ <font size="2"> Here’s a copy of the report for your reference.</font></h3>
 </div>
-<footer>
-    <div class="pull-right">
-
+<footer style="margin:auto;">
 Hi,<br><br>
 Here’s your website traffic report for Last 7 Days (21-Aug-18 to 27-Aug-18) vs (14-Aug-18 to 20-Aug-18)<br><br>
 
 
-<b>Visits</b> &emsp;&emsp;                        : 14008(+4.72) —> [Search: +7.20%; Direct: -6.79%, Referral: +15.03%, Social: +15.52%, Paid: -2.04%]<br><br>
+<b>Visits</b> &emsp;&emsp;                        : 14008<font color="green">(+4.72)</font> —> [Search:<font color="green"> +7.20%</font>; Direct:<font color="red"> -6.79%</font>, Referral:<font color="green"> +15.03%</font>, Social: <font color="green">+15.52%</font>, Paid:<font color="red"> -2.04%</font>]<br><br>
 
 <b>Web Enquiries</b> &emsp;&emsp;          :  37 (+19.35%)<br>
 
@@ -81,56 +80,56 @@ By Source [Search: 15; Agent pop-up: 7; Ads: 5; Unknown: 8; Referral: 2; Social:
 By Region [UK: 13; USA: 13; ROW: 5, IND: 2; SEA: 0; FR: 1; CN: 0; ANZ: 3]<br>
 By Device [Desktop: 29; Mobile: 7]<br><br>
 
-<b>Newsletter widget</b> &emsp;&emsp;     : 40(-23.08%) subscriptions<br><br>
+ <b>Newsletter widget</b> &emsp;&emsp;     : 40(<font color="red">-23.08%</font>) subscriptions<br><br>
 
 <b>Social Stats</b>               : 121,351 followers (+426 this week) —> [Posts :30; Engagements : 4854; Connected : 2500]<br><br><br>
 <b>Online Ads</b><br>
 <table style="width:50%" id="t01">
-  <tr>
-    <th>Channel</th>
-    <th>Clicks</th>
-    <th>Impr.</th>
-      <th>CTR</th>
-    <th>Cost</th>
-    <th>Enquiries</th>
-      <th>Cost/ Conv</th>
-  </tr>
-  <tr>
-    <td>Google</td>
-    <td>161</td>
-    <td>2,976</td>
-      <td>5.41%</td>
-    <td>$188.10</td>
-    <td>5</td>
-      <td>$37.62</td>
-  </tr>
-  <tr>
-    <td>Bing</td>
-    <td>00</td>
-    <td>50</td>
-      <td>00</td>
-    <td>00</td>
-    <td>50</td>
-      <td>50</td>
-  </tr>
-  <tr>
-    <td>Facebook</td>
-    <td>00</td>
-    <td>50</td>
-      <td>--</td>
-    <td>--</td>
-    <td>50</td>
-      <td>50</td>
-  </tr>
-    <tr>
-    <td>Total</td>
-    <td>--</td>
-    <td>50</td>
-      <td>--</td>
-    <td>--</td>
-    <td>50</td>
-      <td>50</td>
-  </tr>
+ <tr>
+   <th>Channel</th>
+   <th>Clicks</th>
+   <th>Impr.</th>
+     <th>CTR</th>
+   <th>Cost</th>
+   <th>Enquiries</th>
+     <th>Cost/ Conv</th>
+ </tr>
+ <tr>
+   <td>Google</td>
+   <td>161</td>
+   <td>2,976</td>
+     <td>5.41%</td>
+   <td>$188.10</td>
+   <td>5</td>
+     <td>$37.62</td>
+ </tr>
+ <tr>
+   <td>Bing</td>
+   <td>--</td>
+   <td>--</td>
+     <td>--</td>
+   <td>--</td>
+   <td>--</td>
+     <td>--</td>
+ </tr>
+ <tr>
+   <td>Facebook</td>
+   <td>--</td>
+   <td>--</td>
+     <td>--</td>
+   <td>--</td>
+   <td>--</td>
+     <td>--</td>
+ </tr>
+   <tr>
+   <td>Total</td>
+   <td>--</td>
+   <td>--</td>
+     <td>--</td>
+   <td>--</td>
+   <td>--</td>
+     <td>--</td>
+ </tr>
 </table>
 <br><br>
 USA    : 1<br>
@@ -141,6 +140,5 @@ animators, art agents in slough, illustartor london, comission illustrators near
 <br><br>
 Many thanks,<br>
 Paul.
-    </div>
 </footer>
 {% endblock %}
