@@ -34,19 +34,17 @@ window.onload=func1;
           <div class="form-group mb-2">
               <label style="margin:-2px"  class="lb"><b>SELECT DATES:&nbsp;</b></label>
               <select style="width:200px;border-color:#EB1414 !important" class="form-control sl"  name="option" onChange="myFunction()" id="mySelect">
-                <option value="7">Weekly Report</option>
                 <option value="Week">Last 7 days</option>
                 <option value="30">This Month (Last 4 Weeks)</option>
                 <option value="LastMonth">Prev. Month</option>
                 <option value="LastMonthPrevYear">Prev. Month of Past Year</option>
                 <option value="12">Last 12 Months</option>
                 <option value="LastYear">Last Year</option>
-                <option value="CustomRange">Custom Range</option>
+                <option value="7">Weekly Report</option>
               </select>
           </div>
           <div id="demo" class="form-group "><input class="form-rounded" name="dates" id="reportrange" readonly/></div>
           <button style="margin:10px" type="submit" name="action" value="submit" class="btn btn-danger">Submit</button>
-            <button data-href-template="" style="margin:10px" name="action" value="mail" class="btn btn-danger">Send E-Mail</button>
         </form>
     </div>
 </div>
@@ -62,13 +60,13 @@ window.onload=func1;
       <div class="" role="tabpanel" data-example-id="togglable-tabs">
           <ul id="myTab" class="nav nav-tabs bar_tabs" role="tablist">
             <li role="presentation" class="active"><a href="#tab_content1" id="All-Traffic" role="tab" data-toggle="tab" aria-expanded="true">All Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="Search-Traffic" data-toggle="tab" aria-expanded="false">Search Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content3" id="Direct-Traffic" role="tab" data-toggle="tab" aria-expanded="true">Direct Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content4" role="tab" id="Referral-Traffic" data-toggle="tab" aria-expanded="false">Referral Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content5" role="tab" id="Ad-Traffic" data-toggle="tab" aria-expanded="false">Ad Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content6" id="Social-Traffic" role="tab" data-toggle="tab" aria-expanded="true">Social Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content7" role="tab" id="Email-Traffic" data-toggle="tab" aria-expanded="false">Email Traffic</a></li>
-            <li role="presentation" class=""><a href="#tab_content8" role="tab" id="Mobile+Tablet-Traffic" data-toggle="tab" aria-expanded="false">Mobile+Tablet Traffic</a></li>
+            <li role="presentation" class=""><a href="#tab_content2" role="tab" id="Search-Traffic" data-toggle="tab" aria-expanded="false">Search</a></li>
+            <li role="presentation" class=""><a href="#tab_content3" id="Direct-Traffic" role="tab" data-toggle="tab" aria-expanded="true">Direct</a></li>
+            <li role="presentation" class=""><a href="#tab_content4" role="tab" id="Referral-Traffic" data-toggle="tab" aria-expanded="false">Referral</a></li>
+            <li role="presentation" class=""><a href="#tab_content5" role="tab" id="Ad-Traffic" data-toggle="tab" aria-expanded="false">Paid</a></li>
+            <li role="presentation" class=""><a href="#tab_content6" id="Social-Traffic" role="tab" data-toggle="tab" aria-expanded="true">Social</a></li>
+            <li role="presentation" class=""><a href="#tab_content7" role="tab" id="Email-Traffic" data-toggle="tab" aria-expanded="false">Email</a></li>
+            <li role="presentation" class=""><a href="#tab_content8" role="tab" id="Mobile+Tablet-Traffic" data-toggle="tab" aria-expanded="false">Mobile+Tablet</a></li>
             <li role="presentation" class=""><a href="#tab_content9" role="tab" id="Returning-Users" data-toggle="tab" aria-expanded="false">Return Users</a></li>
           </ul>
           <div class="dashboard_graph" style="margin: -14px 0px -6px 0px !important;">
@@ -378,11 +376,6 @@ window.onload=func1;
           </div>
       </div>
     </div>
-  </div>
-</div>
-<div class="page-title">
-  <div class="title_left">
-    <h3>How did you acquire your users?</h3>
   </div>
 </div>
 <div class="row">
@@ -818,553 +811,7 @@ window.onload=func1;
     </div>
   </div>
 </div>
-<div class="content" id="tables">
-    <div class="row">
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Traffic by Region</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                      <!--</li>-->
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
 
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Country</th>
-                          <th>Organic Search</th>
-                          <th>Direct</th>
-                          <th>Referral</th>
-                          <th>Social</th>
-                          <th>Paid Search</th>
-                          <th>Email</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][0]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][0]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][0]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][0]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][0]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][0]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][0]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][1]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][1]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][1]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][1]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][1]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][1]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][1]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][2]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][2]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][2]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][2]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][2]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][2]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][2]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][3]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][3]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][3]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][3]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][3]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][3]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][3]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][4]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][4]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][4]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][4]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][4]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][4]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][4]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][5]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][5]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][5]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][5]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][5]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][5]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][5]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][6]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][6]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][6]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][6]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][6]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][6]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][6]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][7]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][7]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][7]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][7]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][7]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][7]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][7]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][8]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][8]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][8]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][8]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][8]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][8]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][8]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][9]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][9]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][9]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][9]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][9]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][9]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][9]['Email'] }}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">{{ sessions['sessions']['present'][10]['Country'] }}</th>
-                          <td align="center">{{ sessions['sessions']['present'][10]['Organic Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][10]['Direct'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][10]['Referral'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][10]['Social'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][10]['Paid Search'] }}</td>
-                          <td align="center">{{ sessions['sessions']['present'][10]['Email'] }}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-              </div>
-
-                <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Key Performance Indicators</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                      <!--</li>-->
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>METRIC</th>
-                          <th>Current</th>
-                          <th>Previous</th>
-                          <th>Change</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Mobile+Tablet</th>
-                          <td align="center">{{ topkeywords['present'][0]['MobileTablet'] }}</td>
-                          <td align="center">{{ topkeywords['previous'][0]['MobileTablet'] }}</td>
-                          <td align="center">{{ topkeywords['change']['mobiletablet_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Mobile+Tablet Bounce rate</th>
-                          <td align="center">{{ topkeywords['present'][0]['BounceRate']|round(2) }}%</td>
-                          <td align="center">{{ topkeywords['previous'][0]['BounceRate']|round(2) }}%</td>
-                          <td align="center">{{ topkeywords['change']['bouncerate_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Returning Visitor Conversions</th>
-                          <td align="center">{{ topkeywords['present'][0]['ReturningConversions']|round(2) }}%</td>
-                          <td align="center">{{ topkeywords['previous'][0]['ReturningConversions']|round(2) }}%</td>
-                          <td align="center">{{ topkeywords['change']['returnConv_change'][0]|round(2) }}%</td>
-                        </tr>
-                      <tr>
-                          <th scope="row">New/Unique Visitor Conversions</th>
-                          <td align="center">{{ topkeywords['present'][0]['UniqueConversions']|round(2) }}%</td>
-                          <td align="center">{{ topkeywords['previous'][0]['UniqueConversions']|round(2) }}%</td>
-                          <td align="center">{{ topkeywords['change']['unique_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Avg. Session Duration</th>
-                          <td align="center">{{ topkeywords['present'][0]['SessionDuration']|round(2) }}</td>
-                          <td align="center">{{ topkeywords['previous'][0]['SessionDuration']|round(2) }}</td>
-                          <td align="center">{{ topkeywords['change']['avgSession_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Agent CallClick</th>
-                          <td align="center">{{ agents['present'][0]['CallClick'] }}</td>
-                          <td align="center">{{ agents['previous'][0]['CallClick'] }}</td>
-                          <td align="center">{{ agents['change']['call_change'][0]|round(2) }}%</td>
-                        </tr>
-                      <tr>
-                          <th scope="row">Agent EmailClick</th>
-                          <td align="center">{{ agents['present'][0]['EmailClick'] }}</td>
-                          <td align="center">{{ agents['previous'][0]['EmailClick'] }}</td>
-                          <td align="center">{{ agents['change']['email_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Agent Click</th>
-                          <td align="center">{{ agents['present'][0]['Click'] }}</td>
-                          <td align="center">{{ agents['previous'][0]['Click'] }}</td>
-                          <td align="center">{{ agents['change']['click_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Side Nav - Help</th>
-                          <td align="center">{{ sidebutton['present'][0]['Help'] }}</td>
-                          <td align="center">{{ sidebutton['previous'][0]['Help'] }}</td>
-                          <td align="center">{{ sidebutton['change']['help_change'][0]|round(2) }}%</td>
-                        </tr>
-                      <tr>
-                          <th scope="row">Side Nav - RecentlyViewedPortfolios</th>
-                          <td align="center">{{ sidebutton['present'][0]['RecentlyViewedPortfolios'] }}</td>
-                          <td align="center">{{ sidebutton['previous'][0]['RecentlyViewedPortfolios'] }}</td>
-                          <td align="center">{{ sidebutton['change']['recentlyViewed_change'][0]|round(2)|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Artist Portfolio - PDFDownloads</th>
-                          <td align="center">{{ portfolio['present'][0]['PDFClick'] }}</td>
-                          <td align="center">{{ portfolio['previous'][0]['PDFClick'] }}</td>
-                          <td align="center">{{ portfolio['change']['pdf_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Artist Portfolio - EmailClick</th>
-                          <td align="center">{{ portfolio['present'][0]['EmailClick'] }}</td>
-                          <td align="center">{{ portfolio['previous'][0]['EmailClick'] }}</td>
-                          <td align="center">{{ portfolio['change']['email_change'][0]|round(2) }}%</td>
-                        </tr>
-                      <tr>
-                          <th scope="row">Artist Portfolio - VideoImgClick</th>
-                          <td align="center">{{ portfolio['present'][0]['VideoImgClick'] }}</td>
-                          <td align="center">{{ portfolio['previous'][0]['VideoImgClick'] }}</td>
-                          <td align="center">{{ portfolio['change']['video_change'][0]|round(2) }}%</td>
-                        </tr>
-                      <tr>
-                          <th scope="row">Artist Portfolio - CallClick</th>
-                          <td align="center">{{ portfolio['present'][0]['CallClick'] }}</td>
-                          <td align="center">{{ portfolio['previous'][0]['CallClick'] }}</td>
-                          <td align="center">{{ portfolio['change']['call_change'][0]|round(2) }}%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-                <div class="clearfix"></div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Newsletter Subscribes</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                      <!--</li>-->
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Country</th>
-                          <th>Present</th>
-                          <th>Previous</th>
-                          <th>Change</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">UK</th>
-                          <td align="center">{{ events['present'][0]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['previous'][0]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['change']['uk_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">USA</th>
-                          <td align="center">{{ events['present'][1]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['previous'][1]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['change']['usa_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">France</th>
-                          <td align="center">{{ events['present'][2]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['previous'][2]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['change']['france_change'][0]|round(2) }}%</td>
-                        </tr>
-                       <tr>
-                          <th scope="row">China</th>
-                          <td align="center">{{ events['present'][3]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['previous'][3]['HelloBar Events'] }}</td>
-                          <td align="center">{{ events['change']['china_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total</th>
-                          <td align="center">{{ events['total']['pre_total'] }}</td>
-                          <td align="center">{{ events['total']['prev_total'] }}</td>
-                          <td align="center">{{ events['change']['total_change'][0]|round(2) }}%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-
-                  </div>
-                </div>
-              </div>
-
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Goal Completions by Device</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                      <!--</li>-->
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Device</th>
-                          <th>Present</th>
-                          <th>Previous</th>
-                          <th>Change</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Desktop</th>
-                          <td align="center">{{ devices['present'][0]['desktop'] }}</td>
-                          <td align="center">{{ devices['previous'][0]['desktop'] }}</td>
-                          <td align="center">{{ devices['change']['desktop_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Mobile</th>
-                          <td align="center">{{ devices['present'][0]['mobile'] }}</td>
-                          <td align="center">{{ devices['previous'][0]['mobile'] }}</td>
-                          <td align="center">{{ devices['change']['mobile_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Tablet</th>
-                          <td align="center">{{ devices['present'][0]['tablet'] }}</td>
-                          <td align="center">{{ devices['previous'][0]['tablet'] }}</td>
-                          <td align="center">{{ devices['change']['tablet_change'][0]|round(2) }}%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-<div class="content" id="online">
-        <div class="clearfix"></div>
-              <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Illustration Ads</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                      <!--</li>-->
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Campaign</th>
-                            <th>Clicks</th>
-                          <th>Impr</th>
-                          <th>CTR</th>
-                          <th>Cost</th>
-                            <th>Conv</th>
-                            <th>Cost/Conv</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Anim UK</th>
-                            <td align="center">{{googleads['present'][0]['Animators UK']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Animators UK']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Animators UK']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Animators UK']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Animators UK']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Animators UK']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Anim USA</th>
-                            <td align="center">{{googleads['present'][0]['Animators USA']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Animators USA']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Animators USA']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Animators USA']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Animators USA']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Animators USA']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Competitors</th>
-                            <td align="center">{{googleads['present'][0]['Competitors']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Competitors']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Competitors']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Competitors']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Competitors']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Competitors']}}</td>
-                        </tr>
-                      <tr>
-                          <th scope="row">Illus ANZ</th>
-                          <td align="center">{{googleads['present'][0]['Illustration Search ANZ']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Illustration Search ANZ']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Illustration Search ANZ']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Illustration Search ANZ']}}</td>
-                          <td align="center">{{googleads_en['present'][0]['Illustration Search ANZ']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Illustration Search ANZ']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Illus UK</th>
-                            <td align="center">{{googleads['present'][0]['Illustration Search UK']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Illustration Search UK']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Illustration Search UK']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Illustration Search UK']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Illustration Search UK']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Illustration Search UK']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Illus USA</th>
-                            <td align="center">{{googleads['present'][0]['Illustration Search USA']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Illustration Search USA']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Illustration Search USA']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Illustration Search USA']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Illustration Search USA']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Illustration Search USA']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total</th>
-                            <td align="center">{{googleads['total']}}</td>
-                          <td align="center">{{googleads_imp['total']}}</td>
-                          <td align="center">{{googleads_ctr['total']}}%</td>
-                          <td align="center">${{googleads_cost['total']}}</td>
-                            <td align="center">{{googleads_en['total']}}</td>
-                          <td align="center">${{googleads_cv['total']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total(Prev)</th>
-                            <td align="center">{{googleads['total_prv']}}</td>
-                          <td align="center">{{googleads_imp['total_prv']}}</td>
-                          <td align="center">{{googleads_ctr['total_prv']}}%</td>
-                          <td align="center">${{googleads_cost['total_prv']}}</td>
-                            <td align="center">{{googleads_en['total_prv']}}</td>
-                          <td align="center">${{googleads_cv['total_prv']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Change</th>
-                            <td align="center">{{googleads['change']}}%</td>
-                          <td align="center">{{googleads_imp['change']}}%</td>
-                          <td align="center">{{googleads_ctr['change']}}%</td>
-                          <td align="center">{{googleads_cost['change']}}%</td>
-                            <td align="center">{{googleads_en['change']}}%</td>
-                          <td align="center">{{googleads_cv['change']}}%</td>
-                        </tr>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-        <div class="col-md-6 col-sm-6 col-xs-12">
-                <div class="x_panel">
-                  <div class="x_title">
-                    <h2>Stock Illustration Ads</h2>
-                    <ul class="nav navbar-right panel_toolbox">
-                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
-                      <!--</li>-->
-                    </ul>
-                    <div class="clearfix"></div>
-                  </div>
-                  <div class="x_content">
-
-                    <table class="table table-hover">
-                      <thead>
-                        <tr>
-                          <th>Campaign</th>
-                            <th>Clicks</th>
-                          <th>Impr</th>
-                          <th>CTR</th>
-                          <th>Cost</th>
-                             <th>Conv</th>
-                            <th>Cost/Conv</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <th scope="row">Stock UK</th>
-                          <td align="center">{{googleads['present'][0]['Stock UK']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Stock UK']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Stock UK']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Stock UK']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Stock UK']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Stock UK']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Stock USA</th>
-                            <td align="center">{{googleads['present'][0]['Stock USA']}}</td>
-                          <td align="center">{{googleads_imp['present'][0]['Stock USA']}}</td>
-                          <td align="center">{{googleads_ctr['present'][0]['Stock USA']}}%</td>
-                          <td align="center">${{googleads_cost['present'][0]['Stock USA']}}</td>
-                            <td align="center">{{googleads_en['present'][0]['Stock USA']}}</td>
-                          <td align="center">${{googleads_cv['present'][0]['Stock USA']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total</th>
-                            <td align="center">{{googleads['total_s']}}</td>
-                          <td align="center">{{googleads_imp['total_s']}}</td>
-                          <td align="center">{{googleads_ctr['total_s']}}%</td>
-                          <td align="center">${{googleads_cost['total_s']}}</td>
-                            <td align="center">{{googleads_en['total_s']}}</td>
-                          <td align="center">${{googleads_cv['total_s']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Total(Prev)</th>
-                            <td align="center">{{googleads['total_prvs']}}</td>
-                          <td align="center">{{googleads_imp['total_prvs']}}</td>
-                          <td align="center">{{googleads_ctr['total_prvs']}}%</td>
-                          <td align="center">${{googleads_cost['total_prvs']}}</td>
-                            <td align="center">{{googleads_en['total_prvs']}}</td>
-                          <td align="center">${{googleads_cv['total_prvs']}}</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Change</th>
-                            <td align="center">{{googleads['change_s']}}%</td>
-                          <td align="center">{{googleads_imp['change_s']}}%</td>
-                          <td align="center">{{googleads_ctr['change_s']}}%</td>
-                          <td align="center">{{googleads_cost['change_s']}}%</td>
-                            <td align="center">{{googleads_en['change_s']}}%</td>
-                          <td align="center">{{googleads_cv['change_s']}}%</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <div class="clearfix"></div>
-                  </div>
-                </div>
-              </div>
-           </div>
-      </div>
-   </div>
-  </div>
-
-</div>
 {% block Graph %}
 <script>
 var chartData1 = {
@@ -1383,9 +830,9 @@ datasets: [{
         }
         },
  data: [
- {% for item1, item2 in result['traffic']['AllTraffic']['present'][0:30]|zip(result['traffic']['AllTraffic']['previous'][0:30]) %}
-    {% if (item2['All Traffic']|int)!=0 %}
-    {% set change = ((((item1['All Traffic']|int)-(item2['All Traffic']|int))/(item2['All Traffic']|int)) * 100)|round(2) %}
+ {% for i in month_num[0:13] %}
+    {% if (result['traffic']['AllTraffic']['previous'][i-1]['All Traffic']|int)!=0 %}
+    {% set change = ((((result['traffic']['AllTraffic']['present'][i-1]['All Traffic']|int)-(result['traffic']['AllTraffic']['previous'][i-1]['All Traffic']|int))/(result['traffic']['AllTraffic']['previous'][i-1]['All Traffic']|int)) * 100)|round(2) %}
     {% if change > 100 %}
     "{{100}}",
     {% else %}
@@ -1404,8 +851,8 @@ datasets: [{
    label: 'All Traffic',
    type: 'bar',
    data: [
-        {% for item in result['traffic']['AllTraffic']['present'][0:30] %}
-            "{{item['All Traffic']}}",
+        {% for i in month_num[0:13] %}
+            "{{result['traffic']['AllTraffic']['present'][i-1]['All Traffic']}}",
         {% endfor %}
    ],
    borderColor: 'rgba(127, 182, 255, 0.5)',
@@ -1470,8 +917,8 @@ datasets: [{
         }
         },
  data: [
-    {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1]['Organic Search'].split("%")[0]}}",
+    {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][1]['Organic Search'].split("%")[0]}}",
     {% endfor %}
  ],
  fill: false,
@@ -1482,8 +929,8 @@ datasets: [{
    label: 'Search Traffic',
    type: 'bar',
    data: [
-        {% for i in range(0, result["session_category_line_data"]|length) %}
-        "{{result["session_category_line_data"][i][0]['Organic Search']}}",
+        {% for i in month_num[0:13] %}
+        "{{result["session_category_line_data"][i-1][0]['Organic Search']}}",
         {% endfor %}
    ],
    borderColor: 'rgba(233, 237, 158, 0.5)',
@@ -1548,8 +995,8 @@ datasets: [{
         }
         },
  data: [
- {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1]['Direct'].split("%")[0]}}",
+ {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][1]['Direct'].split("%")[0]}}",
     {% endfor %}
  ],
  fill: false,
@@ -1560,8 +1007,8 @@ datasets: [{
    label: 'Ad Traffic',
    type: 'bar',
    data: [
-        {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][0]['Direct']}}",
+        {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][0]['Direct']}}",
     {% endfor %}
    ],
    borderColor: 'rgba(151, 216, 213, 0.5)',
@@ -1626,8 +1073,8 @@ datasets: [{
         }
         },
  data: [
- {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1]['Referral'].split("%")[0]}}",
+ {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][1]['Referral'].split("%")[0]}}",
     {% endfor %}
  ],
  fill: false,
@@ -1638,8 +1085,8 @@ datasets: [{
    label: 'Social Traffic',
    type: 'bar',
    data: [
-    {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][0]['Referral']}}",
+    {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][0]['Referral']}}",
     {% endfor %}
    ],
    borderColor: 'rgba(144, 206, 164, 0.5)',
@@ -1704,8 +1151,8 @@ datasets: [{
         }
         },
  data: [
- {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1]['Paid Search'].split("%")[0]}}",
+ {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][1]['Paid Search'].split("%")[0]}}",
     {% endfor %}
  ],
  fill: false,
@@ -1716,8 +1163,8 @@ datasets: [{
    label: 'Ad Traffic',
    type: 'bar',
    data: [
-        {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][0]['Paid Search']}}",
+        {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][0]['Paid Search']}}",
     {% endfor %}
    ],
    borderColor: 'rgba(255, 153, 178, 0.5)',
@@ -1782,8 +1229,8 @@ datasets: [{
         }
         },
  data: [
- {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1]['Social'].split("%")[0]}}",
+ {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][1]['Social'].split("%")[0]}}",
     {% endfor %}
  ],
  fill: false,
@@ -1794,8 +1241,8 @@ datasets: [{
    label: 'Social Traffic',
    type: 'bar',
    data: [
-    {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][0]['Social']}}",
+    {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][0]['Social']}}",
     {% endfor %}
    ],
    borderColor: 'rgba(176, 231, 252, 0.8)',
@@ -1860,8 +1307,8 @@ datasets: [{
         }
         },
  data: [
- {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1]['Email'].split("%")[0]}}",
+ {% for i in month_num[0:13] %}
+    "{{result["session_category_line_data"][i-1][1]['Email'].split("%")[0]}}",
     {% endfor %}
  ],
  fill: false,
@@ -1872,8 +1319,8 @@ datasets: [{
    label: 'Email Traffic',
    type: 'bar',
    data: [
-        {% for i in range(0, result["session_category_line_data"]|length) %}
-        "{{result["session_category_line_data"][i][0]['Email']}}",
+        {% for i in month_num[0:13] %}
+        "{{result["session_category_line_data"][i-1][0]['Email']}}",
         {% endfor %}
    ],
    borderColor: 'rgba(169, 193, 127, 0.5)',
@@ -1938,9 +1385,9 @@ datasets: [{
         }
         },
  data: [
- {% for item1, item2 in result['traffic']['MobileTabletTraffic']['present'][0:30]|zip(result['traffic']['MobileTabletTraffic']['previous'][0:30]) %}
-    {% if (item2['traffic']|int)!=0 %}
-    {% set change = ((((item1['traffic']|int)-(item2['traffic']|int))/(item2['traffic']|int)) * 100)|round(2) %}
+ {% for i in month_num[0:13] %}
+    {% if (result['traffic']['MobileTabletTraffic']['previous'][i-1]['traffic']|int)!=0 %}
+    {% set change = ((((result['traffic']['MobileTabletTraffic']['present'][i-1]['traffic']|int)-(result['traffic']['MobileTabletTraffic']['previous'][i-1]['traffic']|int))/(result['traffic']['MobileTabletTraffic']['previous'][i-1]['traffic']|int)) * 100)|round(2) %}
     {% if change > 100 %}
     "{{100}}",
     {% else %}
@@ -1959,8 +1406,8 @@ datasets: [{
    label: 'Mobile+Tablet Traffic',
    type: 'bar',
    data: [
-        {% for item in result['traffic']['MobileTabletTraffic']['present'][0:30] %}
-            "{{item['traffic']}}",
+        {% for i in month_num[0:13] %}
+            "{{result['traffic']['MobileTabletTraffic']['present'][i-1]['traffic']}}",
         {% endfor %}
    ],
    borderColor: 'rgba(211, 197, 158, 0.5)',
@@ -2025,9 +1472,9 @@ datasets: [{
         }
         },
  data: [
- {% for item1, item2 in result['traffic']['returningusers']['present'][0:30]|zip(result['traffic']['returningusers']['previous'][0:30]) %}
-    {% if (item2['traffic']|int)!=0 %}
-    {% set change = ((((item1['traffic']|int)-(item2['traffic']|int))/(item2['traffic']|int)) * 100)|round(2) %}
+ {% for i in month_num[0:13] %}
+    {% if (result['traffic']['returningusers']['previous'][i-1]['traffic']|int)!=0 %}
+    {% set change = ((((result['traffic']['returningusers']['present'][i-1]['traffic']|int)-(result['traffic']['returningusers']['previous'][i-1]['traffic']|int))/(result['traffic']['returningusers']['previous'][i-1]['traffic']|int)) * 100)|round(2) %}
     {% if change > 100 %}
     "{{100}}",
     {% else %}
@@ -2046,8 +1493,8 @@ datasets: [{
    label: 'Return Users',
    type: 'bar',
    data: [
-        {% for item in result['traffic']['returningusers']['present'][0:30] %}
-            "{{item['traffic']}}",
+        {% for i in month_num[0:13] %}
+            "{{result['traffic']['returningusers']['present'][i-1]['traffic']}}",
         {% endfor %}
    ],
    borderColor: 'rgba(175, 145, 191, 0.8)',
@@ -3014,7 +2461,7 @@ var myChart = new Chart(ctx, {
                 },
                 label: ['Paid Search'],
                 data: [{{result['session_category'][0].get('Paid Search', 0)}},{{result['session_category'][1].get('Paid Search', 0)}},
-                {{result['session_category'][2].get('Paid Search', 0)}},{{result['session_category'][3].get('Paid Search', 0)}},
+                0,0,
                 {{result['session_category'][4].get('Paid Search', 0)}},{{result['session_category'][5].get('Paid Search', 0)}},
                 {{result['session_category'][6].get('Paid Search', 0)}},{{result['session_category'][7].get('Paid Search', 0)}}],
                 backgroundColor: [

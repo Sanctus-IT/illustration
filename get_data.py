@@ -1030,7 +1030,7 @@ class mainClass:
         res_data = []
         for i, j, k, l in zip(traffic[0], traffic[1], traffic[2], traffic[3]):
             new = {'option': i['option'],
-                   'traffic': int(i['traffic']) + int(i['traffic']) + int(i['traffic']) + int(i['traffic'])}
+                   'traffic': int(i['traffic']) + int(j['traffic']) + int(k['traffic']) + int(l['traffic'])}
             res_data.append(new)
 
         return res_data
@@ -1055,7 +1055,7 @@ class mainClass:
         res_data = []
         for i, j, k, l in zip(traffic[0], traffic[1], traffic[2], traffic[3]):
             new = {'option': i['option'],
-                   'traffic': int(i['traffic']) + int(i['traffic']) + int(i['traffic']) + int(i['traffic'])}
+                   'traffic': int(i['traffic']) + int(j['traffic']) + int(k['traffic']) + int(l['traffic'])}
             res_data.append(new)
 
         return res_data
