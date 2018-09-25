@@ -800,6 +800,35 @@ def print_googleads_cv(results):
     present_result = (dict(results.get('rows', [["", ""]])))
     # print(present_result)
     return present_result
+# ----------------------------------------------------------------------------------------------------------------
+def get_converted_keywords(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:'+profile_id,
+        start_date = str(pre_startDate),
+        end_date = str(pre_endDate),
+        metrics='ga:goalCompletionsAll',
+        dimensions = 'ga:adMatchedQuery',
+        filters='ga:goalCompletionsAll==1'
+    ).execute()
+    return result
+
+def print_converted_keywords(results):
+    present_result = (dict(results.get('rows', [["", ""]])))
+    return present_result
+#----------------------------------------------------------------------------------------------------------------
+
+def get_agent_pop_ups(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:'+profile_id,
+        start_date = str(pre_startDate),
+        end_date = str(pre_endDate),
+        metrics='ga:uniqueEvents',
+        dimensions = 'ga:eventLabel',
+        filters='ga:eventAction==Impressions;ga:eventCategory==Agent Pop;ga:eventLabel==Juliette,ga:eventLabel==Alice,ga:eventLabel==Chad,ga:eventLabel==Archana,ga:eventLabel==Choon Meng,ga:eventLabel==Stacey,ga:eventLabel==Karen,ga:eventLabel==Lauren',
+        sort='ga:uniqueEvents',
+    ).execute()
+    # print('agent',result)
+    return result
 
 
 
@@ -1261,3 +1290,26 @@ class mainClass:
         # print(res_data)
         return res_data
 
+    def converted_keywords(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States,ga:country==Canada'),
+        ]
+        converted_keywords_list=[]
+        for profile_id in profile_ids:
+            result = get_converted_keywords(self.service,profile_id[0],self.start_date,self.end_date)
+            print_result = print_converted_keywords(result)
+            converted_keywords_list.append(print_result)
+        return converted_keywords_list
+
+    def agent_pop_ups(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States,ga:country==Canada'),
+        ]
+        agent_pop_ups_list=[]
+        for profile_id in profile_ids:
+            result = get_agent_pop_ups(self.service,profile_id[0],self.start_date,self.end_date)
+            print_result = print_converted_keywords(result)
+            agent_pop_ups_list.append(print_result)
+        return agent_pop_ups_list

@@ -46,534 +46,534 @@ def index():
   except:
       dates = {}
   try:
-              if dates == {} or dates['option'] == "Week":
-                  option = 'Last 7 Days'
-                  dates = get_dates_yest(7)
-                  # print(dates)
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'date').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  conversions = Conversions(present, previous, 'month').main()
-                  traffic = WebsiteTrafficResults(present, previous, 'date').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+      if dates == {} or dates['option'] == "Week":
+          option = 'Last 7 Days'
+          dates = get_dates_yest(7)
+          print(dates)
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'date').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          conversions = Conversions(present, previous, 'month').main()
+          traffic = WebsiteTrafficResults(present, previous, 'date').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
 
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
 
-                  session['credentials'] = credentials_to_dict(credentials)
+          session['credentials'] = credentials_to_dict(credentials)
 
-                  return render_template('last_7_days.html', result=result, dates=dates, Change=Change, option=option,
-                                         days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
-                                         agents=agents,sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices)
-              elif dates['option'] == "LastMonthPrevYear":
-                  option = 'Prev. Month of Past Year'
-                  dates = prev_month_last_year()
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'date').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  traffic = WebsiteTrafficResults(present, previous, 'date').main()
-                  conversions = Conversions(present, previous, 'month').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+          return render_template('last_7_days.html', result=result, dates=dates, Change=Change, option=option,
+                                 days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
+                                 agents=agents,sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices)
+      elif dates['option'] == "LastMonthPrevYear":
+          option = 'Prev. Month of Past Year'
+          dates = prev_month_last_year()
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'date').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          traffic = WebsiteTrafficResults(present, previous, 'date').main()
+          conversions = Conversions(present, previous, 'month').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  session['credentials'] = credentials_to_dict(credentials)
-                  return render_template('last_month_prev_year.html', result=result, dates=dates, Change=Change,
-                                         option=option, visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                         sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
-              elif dates['option'] == "30":
-                  dates = get_dates(30)
-                  option = 'This Month (Last 4 Weeks)'
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'date').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  traffic = WebsiteTrafficResults(present, previous, 'date').main()
-                  conversions = Conversions(present, previous, 'month').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          session['credentials'] = credentials_to_dict(credentials)
+          return render_template('last_month_prev_year.html', result=result, dates=dates, Change=Change,
+                                 option=option, visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
+                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+      elif dates['option'] == "30":
+          dates = get_dates(30)
+          option = 'This Month (Last 4 Weeks)'
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'date').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          traffic = WebsiteTrafficResults(present, previous, 'date').main()
+          conversions = Conversions(present, previous, 'month').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
 
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
 
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  session['credentials'] = credentials_to_dict(credentials)
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          session['credentials'] = credentials_to_dict(credentials)
 
-                  return render_template('last_30_days.html', result=result, dates=dates, Change=Change, option=option,
-                                         visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                         sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
-              elif dates['option'] == "LastMonth":
-                  dates = get_two_month_dates()
-                  # print(dates)
-                  option = 'Prev. Month'
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'date').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  traffic = WebsiteTrafficResults(present, previous, 'date').main()
-                  conversions = Conversions(present, previous, 'month').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
+          return render_template('last_30_days.html', result=result, dates=dates, Change=Change, option=option,
+                                 visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
+                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+      elif dates['option'] == "LastMonth":
+          dates = get_two_month_dates()
+          # print(dates)
+          option = 'Prev. Month'
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'date').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          traffic = WebsiteTrafficResults(present, previous, 'date').main()
+          conversions = Conversions(present, previous, 'month').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
 
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
 
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  session['credentials'] = credentials_to_dict(credentials)
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          session['credentials'] = credentials_to_dict(credentials)
 
-                  return render_template('last_month.html', result=result, dates=dates, Change=Change, option=option,
-                                         visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                         sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+          return render_template('last_month.html', result=result, dates=dates, Change=Change, option=option,
+                                 visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
+                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
 
-              elif dates['option'] == "12":
-                  option = 'Last 12 Months'
-                  dates = get12months()
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'month').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  traffic = WebsiteTrafficResults(present, previous, 'month').main()
-                  conversions = Conversions(present, previous, 'month').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
+      elif dates['option'] == "12":
+          option = 'Last 12 Months'
+          dates = get12months()
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'month').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          traffic = WebsiteTrafficResults(present, previous, 'month').main()
+          conversions = Conversions(present, previous, 'month').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
 
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
 
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
 
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  months = [(day.today() - relativedelta(months=i)).strftime("%b") for i in range(1, 13)]
-                  month_num = [(day.today() - relativedelta(months=i)).month for i in range(1, 13)]
-                  month_num = month_num[::-1]
-                  session['credentials'] = credentials_to_dict(credentials)
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          months = [(day.today() - relativedelta(months=i)).strftime("%b") for i in range(1, 13)]
+          month_num = [(day.today() - relativedelta(months=i)).month for i in range(1, 13)]
+          month_num = month_num[::-1]
+          session['credentials'] = credentials_to_dict(credentials)
 
-                  return render_template('last_12_months.html', result=result, dates=dates, Change=Change, option=option,
-                                         months=months,month_num=month_num, visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                         sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+          return render_template('last_12_months.html', result=result, dates=dates, Change=Change, option=option,
+                                 months=months,month_num=month_num, visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
+                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
 
-              elif dates['option'] == "LastYear":
-                  option = 'Last Year'
-                  dates = last_year()
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'month').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  traffic = WebsiteTrafficResults(present, previous, 'month').main()
-                  conversions = Conversions(present, previous, 'year  ').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
+      elif dates['option'] == "LastYear":
+          option = 'Last Year'
+          dates = last_year()
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'month').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          traffic = WebsiteTrafficResults(present, previous, 'month').main()
+          conversions = Conversions(present, previous, 'year  ').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
 
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
 
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  session['credentials'] = credentials_to_dict(credentials)
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          session['credentials'] = credentials_to_dict(credentials)
 
-                  return render_template('last_year.html', result=result, dates=dates, Change=Change, option=option,
-                                         visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                         sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
-              elif dates['option'] == "7":
-                  option = 'Last week'
-                  dates = get_week()
-                  # print(dates)
-                  present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-                  previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-                  sessions = SessionsCategoryResults(present, previous, 'date').main()
-                  topkeywords = Topkeywords(present, previous).main()
-                  agents = Agents(present, previous).main()
-                  sidebutton = SideButton(present, previous).main()
-                  portfolio = Portfolio(present, previous).main()
-                  events = Events(present, previous).main()
-                  devices = Devices(present, previous).main()
-                  conversions = Conversions(present, previous, 'month').main()
-                  traffic = WebsiteTrafficResults(present, previous, 'date').main()
-                  bouncerate = BounceRateResults(present, previous).main()
-                  avgduration = AvgSessionDuration(present, previous).main()
-                  result = {
-                      "sessions": sessions['totalSessions'],
-                      "session_category": sessions['sessions']['present'],
-                      'traffic': traffic,
-                      'conversions': conversions,
-                      'goalconversions': sessions['goalconversions'],
-                      'session_category_line_data': sessions['session_category_line_data'],
-                      'session_region_line_data': sessions['session_region_line_data'],
-                      'bouncerate': bouncerate,
-                      'avgduration': avgduration,
-                  }
-                  AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
-                                     result['session_category'][8].get('Direct', 0) +
-                                     result['session_category'][8].get('Referral', 0) +
-                                     result['session_category'][8].get('Social', 0) +
-                                     result['session_category'][8].get('Paid Search', 0) +
-                                     result['session_category'][8].get('Email', 0))
-                  AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
-                                      sessions['sessions']['present'][9].get('Direct', 0) +
-                                      sessions['sessions']['present'][9].get('Referral', 0) +
-                                      sessions['sessions']['present'][9].get('Social', 0) +
-                                      sessions['sessions']['present'][9].get('Paid Search', 0) +
-                                      sessions['sessions']['present'][9].get('Email', 0))
-                  MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
+          return render_template('last_year.html', result=result, dates=dates, Change=Change, option=option,
+                                 visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
+                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+      elif dates['option'] == "7":
+          option = 'Last week'
+          dates = get_week()
+          # print(dates)
+          present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+          previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+          sessions = SessionsCategoryResults(present, previous, 'date').main()
+          topkeywords = Topkeywords(present, previous).main()
+          agents = Agents(present, previous).main()
+          sidebutton = SideButton(present, previous).main()
+          portfolio = Portfolio(present, previous).main()
+          events = Events(present, previous).main()
+          devices = Devices(present, previous).main()
+          conversions = Conversions(present, previous, 'month').main()
+          traffic = WebsiteTrafficResults(present, previous, 'date').main()
+          bouncerate = BounceRateResults(present, previous).main()
+          avgduration = AvgSessionDuration(present, previous).main()
+          result = {
+              "sessions": sessions['totalSessions'],
+              "session_category": sessions['sessions']['present'],
+              'traffic': traffic,
+              'conversions': conversions,
+              'goalconversions': sessions['goalconversions'],
+              'session_category_line_data': sessions['session_category_line_data'],
+              'session_region_line_data': sessions['session_region_line_data'],
+              'bouncerate': bouncerate,
+              'avgduration': avgduration,
+          }
+          AllVisitors_pre = (result['session_category'][8].get('Organic Search', 0) +
+                             result['session_category'][8].get('Direct', 0) +
+                             result['session_category'][8].get('Referral', 0) +
+                             result['session_category'][8].get('Social', 0) +
+                             result['session_category'][8].get('Paid Search', 0) +
+                             result['session_category'][8].get('Email', 0))
+          AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                              sessions['sessions']['present'][9].get('Direct', 0) +
+                              sessions['sessions']['present'][9].get('Referral', 0) +
+                              sessions['sessions']['present'][9].get('Social', 0) +
+                              sessions['sessions']['present'][9].get('Paid Search', 0) +
+                              sessions['sessions']['present'][9].get('Email', 0))
+          MobileTablet_pre = topkeywords['present'][0]['MobileTablet']
 
-                  Return_pre, Return_prev = [], []
+          Return_pre, Return_prev = [], []
 
-                  for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
-                                          result['traffic']['returningusers']['previous'][0:30]):
-                      Return_pre.append(item5['traffic'])
-                      Return_prev.append(item6['traffic'])
-                  visitors = {'visits': AllVisitors_pre, 'change_visits': round(
-                      ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
-                          AllVisitors_prev)) * 100, 2),
-                              'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
-                          float(topkeywords['change']['mobiletablet_change'][0]), 2),
-                              'Return_visits': sum(Return_pre), 'change_Return_visits': round(
-                          ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
-                              }
+          for item5, item6 in zip(result['traffic']['returningusers']['present'][0:30],
+                                  result['traffic']['returningusers']['previous'][0:30]):
+              Return_pre.append(item5['traffic'])
+              Return_prev.append(item6['traffic'])
+          visitors = {'visits': AllVisitors_pre, 'change_visits': round(
+              ((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(
+                  AllVisitors_prev)) * 100, 2),
+                      'MobileTablet_visits': MobileTablet_pre, 'change_MobileTablet_visits': round(
+                  float(topkeywords['change']['mobiletablet_change'][0]), 2),
+                      'Return_visits': sum(Return_pre), 'change_Return_visits': round(
+                  ((float(sum(Return_pre)) - float(sum(Return_prev))) / float(sum(Return_prev))) * 100, 2)
+                      }
 
-                  dates = {
-                      'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                      'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-                  }
+          dates = {
+              'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+              'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+          }
 
-                  keys = (sessions['sessions']['present'][0].keys())
-                  keys = [x for x in keys if x != 'Country']
-                  Change = {
-                      i: change(source=i, result=sessions['sessions']) for i in keys
-                  }
-                  Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
-                      5] = 0, 0, 0, 0
-                  days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+          keys = (sessions['sessions']['present'][0].keys())
+          keys = [x for x in keys if x != 'Country']
+          Change = {
+              i: change(source=i, result=sessions['sessions']) for i in keys
+          }
+          Change['Paid Search'][2], Change['Paid Search'][3], Change['Paid Search'][4], Change['Paid Search'][
+              5] = 0, 0, 0, 0
+          days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
 
-                  session['credentials'] = credentials_to_dict(credentials)
+          session['credentials'] = credentials_to_dict(credentials)
 
-                  return render_template('last_week.html', result=result, dates=dates, Change=Change, option=option,
-                                         days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
-                                         agents=agents,
-                                         sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
-                                         )
+          return render_template('last_week.html', result=result, dates=dates, Change=Change, option=option,
+                                 days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
+                                 agents=agents,
+                                 sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
+                                 )
 
 
   except Exception as e:
@@ -969,6 +969,337 @@ def ads():
                                    googleads_imp=googleads_imp,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
+
+    except Exception as e:
+        print(e)
+        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
+        return redirect('authorize')
+        # else:
+        #     return render_template("page_500.html")
+@app.route("/report" , methods=["GET", "POST"])
+def report():
+    if 'credentials' not in session:
+        return redirect('authorize')
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    service = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    try:
+        dates = request.form.to_dict()
+    except:
+        dates = {}
+    try:
+        if dates == {} or dates['option'] == "7":
+            option = 'Last week'
+            dates = get_week()
+            print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present,previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            # print(keywords)
+            # print(googleads)
+            # print(googleads_cost)
+            # print(googleads_ctr)
+            # print(googleads_imp)
+            # print(googleads_en)
+            # print(googleads_cv)
+
+            lst = ','.join(keywords['pre_keywords'])
+            clicks_on = str(googleads['total'] + googleads['total_s'])
+            impr = str(googleads_imp['total'] + googleads_imp['total_s'])
+            ctr = str(googleads_ctr['total'] + googleads_ctr['total_s'])
+            cost = str(googleads_cost['total'] + googleads_cost['total_s'])
+            en = str(googleads_en['total'] + googleads_en['total_s'])
+            c_con = str(googleads_cv['total'] + googleads_cv['total_s'])
+            fromx = 'sanctusit.textmail@gmail.com'
+            to = 'veeresh@sanctusit.com'
+            msg = MIMEText(
+                "Hi All   \n\nHere are my weekly metrics \n\n Data for mail" )
+            # "\n\n    Illustration Ads     : [Clicks:"+str(googleads['total'])+"; Impr:"+str(googleads_imp['total'])+"; CTR:"+str(googleads_ctr['total'])+"%; Cost:$"+str(googleads_cost['total'])+"; Conv:"+str(googleads_en['total'])+"; Cost/Conv:$"+str(googleads_cv['total'])+";]\n\n    Stock Illustration Ads:[Clicks:"+str(googleads['total_s'])+"; Impr:"+str(googleads_imp['total_s'])+"; CTR:"+str(googleads_ctr['total_s'])+"%; Cost:$"+str(googleads_cost['total_s'])+"; Conv:"+str(googleads_en['total_s'])+"; Cost/Conv:$"+str(googleads_cv['total_s'])+";]\n\n\n\n\n\nThanks and Regards,")
+            msg['Subject'] = 'Weekly Metrics report'
+            msg['From'] = fromx
+            msg['To'] = to
+
+            server = smtplib.SMTP('smtp.gmail.com:587')
+            server.starttls()
+            server.ehlo()
+            server.login('sanctusit.textmail@gmail.com', 'sanctusit.com')
+            server.sendmail(fromx, to, msg.as_string())
+            server.quit()
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('mail_data.html',dates=dates,option=option, keywords = keywords, sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+
+        elif dates['option'] == "LastMonthPrevYear":
+            option = 'Prev. Month of Past Year'
+            dates = prev_month_last_year()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present, previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            lst = ','.join(keywords['pre_keywords'])
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+            return render_template('mail_data.html',dates=dates,option=option,
+                                   keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+
+        elif dates['option'] == "30":
+            dates = get_dates(30)
+            option = 'This Month (Last 4 Weeks)'
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present, previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            lst = ','.join(keywords['pre_keywords'])
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+            return render_template('mail_data.html',dates=dates,option=option,
+                                   keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+
+        elif dates['option'] == "LastMonth":
+            dates = get_two_month_dates()
+            # print(dates)
+            option = 'Prev. Month'
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present, previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            lst = ','.join(keywords['pre_keywords'])
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+            return render_template('mail_data.html',dates=dates,option=option,
+                                   keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+
+        elif dates['option'] == "12":
+            option = 'Last 12 Months'
+            dates = get12months()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present, previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            lst = ','.join(keywords['pre_keywords'])
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+            return render_template('mail_data.html',dates=dates,option=option,
+                                   keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+
+        elif dates['option'] == "LastYear":
+            option = 'Last Year'
+            dates = last_year()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present, previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            lst = ','.join(keywords['pre_keywords'])
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+            return render_template('mail_data.html',dates=dates,option=option,
+                                   keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+
+        elif dates['option'] == "Week":
+            option = 'Last 7 Days'
+            dates = get_dates_yest(7)
+            print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            keywords = Converted_keywords(present, previous).main()
+            session_category = sessions['sessions']['present']
+            googleads = Googleads(present, previous).main()
+            googleads_cost = Googleads_cost(present, previous).main()
+            googleads_ctr = Googleads_ctr(present, previous).main()
+            googleads_imp = Googleads_imp(present, previous).main()
+            googleads_en = Googleads_en(present, previous).main()
+            googleads_cv = Googleads_cv(present, previous).main()
+            devices = Devices(present, previous).main()
+            AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
+                               session_category[8].get('Direct', 0) +
+                               session_category[8].get('Referral', 0) +
+                               session_category[8].get('Social', 0) +
+                               session_category[8].get('Paid Search', 0) +
+                               session_category[8].get('Email', 0))
+            AllVisitors_prev = (sessions['sessions']['present'][9].get('Organic Search', 0) +
+                                sessions['sessions']['present'][9].get('Direct', 0) +
+                                sessions['sessions']['present'][9].get('Referral', 0) +
+                                sessions['sessions']['present'][9].get('Social', 0) +
+                                sessions['sessions']['present'][9].get('Paid Search', 0) +
+                                sessions['sessions']['present'][9].get('Email', 0))
+            lst = ','.join(keywords['pre_keywords'])
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+            return render_template('mail_data.html', dates=dates, option=option, keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
+                                   AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
+                                       googleads_imp=googleads_imp,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
 
     except Exception as e:
         print(e)

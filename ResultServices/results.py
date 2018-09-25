@@ -466,3 +466,22 @@ class Googleads_cv:
         return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,
                 'change':change,'change_s':change_s}
 
+class Converted_keywords:
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_keywords = self.current_results.converted_keywords()
+        prev_keywords = self.previous_results.converted_keywords()
+
+        pre_agent_pop_ups = self.current_results.agent_pop_ups()
+        prev_agent_pop_ups = self.previous_results.agent_pop_ups()
+        # print(pre_keywords)
+        all_keys = set().union(*(d.keys() for d in pre_keywords))
+        pre_keywords = [i.__str__() for i in all_keys]
+        # print(prev_keywords)
+        # print(pre_agent_pop_ups)
+        # print(prev_agent_pop_ups)
+        return {'pre_keywords':pre_keywords,'prev_keywords':prev_keywords,
+                 'pre_agent_pop_ups':pre_agent_pop_ups,'prev_agent_pop_ups':prev_agent_pop_ups}
