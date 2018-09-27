@@ -3,14 +3,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(function() {
-    var start = moment().subtract(1, 'days').subtract(6,'days');
-    var end = moment().subtract(1, 'days');
+    var start = moment().subtract(3, 'days').subtract(6,'days');
+    var end = moment().subtract(3, 'days');
     function cb(start, end) {
         $('#reportrange').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
     $('#reportrange').daterangepicker({
         "minDate": "1/1/2016",
-        maxDate:moment().subtract(1, 'days'),
+        maxDate:moment().subtract(3, 'days'),
         startDate: start,
         endDate: end,
         "opens": "center",
@@ -59,11 +59,11 @@ Hi,<br><br>
 Here’s your website traffic report for {{ option }} ({{dates['pre_date']}}) vs ({{dates['prev_date']}})<br><br>
 
 
-<b>Visits</b> &emsp;&emsp;                        : {{AllVisitors_pre}}<font color="green">(+6.08)</font> —> [Search: {% if (sessions['sessions']['present'][-1]['Organic Search'].split('%')[0]|float) > 0 %}<font color="green">{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% endif %},
-  Direct: {% if (sessions['sessions']['present'][-1]['Direct'].split('%')[0]|float) > 0 %}<font color="green">{{sessions['sessions']['present'][-1]['Direct']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Direct']}}</font>{% endif %},
-  Referral: {% if (sessions['sessions']['present'][-1]['Referral'].split('%')[0]|float) > 0 %}<font color="green">{{sessions['sessions']['present'][-1]['Referral']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Referral']}}</font>{% endif %},
-  Social: {% if (sessions['sessions']['present'][-1]['Social'].split('%')[0]|float) > 0 %}<font color="green">{{sessions['sessions']['present'][-1]['Social']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Social']}}</font>{% endif %},
-  Paid: {% if (sessions['sessions']['present'][-1]['Paid Search'].split('%')[0]|float) > 0 %}<font color="green">{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% endif %}]<br><br>
+<b>Visits</b> &emsp;&emsp;                        : {{AllVisitors_pre}} {% if (change_vists|float) >= 0 %}<font color="green">(+{{(change_vists|float)}})</font>{% else %}<font color="red">({{change_vists|float}})</font>{% endif %} —> [Search: {% if (sessions['sessions']['present'][-1]['Organic Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% endif %},
+  Direct: {% if (sessions['sessions']['present'][-1]['Direct'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Direct']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Direct']}}</font>{% endif %},
+  Referral: {% if (sessions['sessions']['present'][-1]['Referral'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Referral']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Referral']}}</font>{% endif %},
+  Social: {% if (sessions['sessions']['present'][-1]['Social'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Social']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Social']}}</font>{% endif %},
+  Paid: {% if (sessions['sessions']['present'][-1]['Paid Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% endif %}]<br><br>
 
 <b>Web Enquiries</b> &emsp;&emsp;          :  37 (+19.35%)<br>
 
@@ -71,7 +71,7 @@ By Source [Search: 15; Agent pop-up: 7; Ads: 5; Unknown: 8; Referral: 2; Social:
 By Region [UK: 13; USA: 13; ROW: 5, IND: 2; SEA: 0; FR: 1; CN: 0; ANZ: 3]<br>
 By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['present'][0]['mobile'] }}]<br><br>
 
- <b>Newsletter widget</b> &emsp;&emsp;     : 40(<font color="red">-23.08%</font>) subscriptions<br><br>
+ <b>Newsletter widget</b> &emsp;&emsp;     : {{events['pre_total']}} ({% if (events['change']|float) >= 0 %}<font color="green">+{{events['change']}}</font>{% else %}<font color="red">{{events['change']}}</font>{% endif %}) subscriptions<br><br>
 
 <b>Social Stats</b>               : 121,351 followers (+426 this week) —> [Posts :30; Engagements : 4854; Connected : 2500]<br><br><br>
 
@@ -99,63 +99,63 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
             <tr>
               <th scope="row">Stacey</th>
                 <td align="center">USA</td>
-              <td align="center">0</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][1]['Stacey']}}</td>
               <td align="center">0.00%</td>
             </tr>
             <tr>
               <th scope="row">Karen</th>
                 <td align="center">US</td>
-              <td align="center">0</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][1]['Karen']}}</td>
               <td align="center">0.00%</td>
             </tr>
             <tr>
               <th scope="row">Lauren</th>
                 <td align="center">US</td>
-              <td align="center">0</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][1]['Lauren']}}</td>
               <td align="center">0.00%</td>
             </tr>
             <tr>
               <th scope="row">Juliette</th>
                 <td align="center">UK</td>
-              <td align="center">5</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][0]['Juliette']}}</td>
               <td align="center">0.21%</td>
             </tr>
             <tr>
               <th scope="row">Alice</th>
                 <td align="center">UK</td>
-              <td align="center">2</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][0]['Alice']}}</td>
               <td align="center">0.36%</td>
             </tr>
             <tr>
               <th scope="row">Chad</th>
                 <td align="center">UK</td>
-              <td align="center">0</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][0]['Chad']}}</td>
               <td align="center">0.85%</td>
             </tr>
             <tr>
               <th scope="row">Choon Meng</th>
                 <td align="center">SG</td>
-              <td align="center">0</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][0]['Choon Meng']}}</td>
               <td align="center">0.85%</td>
             </tr>
             <tr>
               <th scope="row">Archana</th>
                 <td align="center">IN</td>
-              <td align="center">2</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][0]['Archana']}}</td>
               <td align="center">0.00%</td>
             </tr>
             <tr>
               <th scope="row">Total</th>
                 <td align="center"></td>
-              <td align="center">7</td>
+              <td align="center">-</td>
               <td align="center">{{keywords['pre_agent_pop_ups'][1]['Stacey']|int+
                                     keywords['pre_agent_pop_ups'][1]['Lauren']|int+
                                     keywords['pre_agent_pop_ups'][1]['Karen']|int+
@@ -198,10 +198,10 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
               <th scope="row">Google</th>
                 <td align="center">{{googleads['total']}}</td>
               <td align="center">{{googleads_imp['total']}}</td>
-              <td align="center">{{googleads_ctr['total']}}%</td>
+              <td align="center">{{googleads_ctr['total']|round(2)}}%</td>
               <td align="center">${{googleads_cost['total']}}</td>
                 <td align="center">{{googleads_en['total']}}</td>
-              <td align="center">${{googleads_cv['total']}}</td>
+              <td align="center">${{googleads_cost['total']/googleads_en['total']|round(2)}}</td>
             </tr>
             <tr>
               <th scope="row">Bing</th>

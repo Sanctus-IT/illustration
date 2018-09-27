@@ -1196,7 +1196,6 @@ class mainClass:
             # print(result)
             print_result = print_googleads(result)
             googleads_list.append(print_result)
-        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
         keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
                 'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
         res_data = self.group(googleads_list, keys)
@@ -1213,10 +1212,18 @@ class mainClass:
             # print(result)
             print_result = print_googleads_cost(result)
             googleads_list.append(print_result)
-        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
         keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
                 'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
-        res_data = self.group(googleads_list, keys)
+        # res_data = self.group(googleads_list, keys)
+        res_data = []
+        new = {}
+        for key in keys:
+            if key != 'country' and key != 'date':
+                x = 0
+                for data in googleads_list:
+                    x += float(data.get(key, 0))
+                new[key] = x
+        res_data.append(new)
         # print(res_data)
         return res_data
     def googleads_ctr(self):
@@ -1230,11 +1237,18 @@ class mainClass:
             # print(result)
             print_result = print_googleads_ctr(result)
             googleads_list.append(print_result)
-        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
         keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
                 'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
-        res_data = self.group(googleads_list, keys)
-        # print(res_data)
+        # res_data = self.group(googleads_list, keys)
+        res_data = []
+        new = {}
+        for key in keys:
+            if key != 'country' and key != 'date':
+                x = 0
+                for data in googleads_list:
+                    x += float(data.get(key, 0))
+                new[key] = x
+        res_data.append(new)
         return res_data
     def googleads_imp(self):
         googleads = [
@@ -1247,7 +1261,6 @@ class mainClass:
             # print(result)
             print_result = print_googleads_imp(result)
             googleads_list.append(print_result)
-        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
         keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
                 'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
         res_data = self.group(googleads_list, keys)
@@ -1265,7 +1278,6 @@ class mainClass:
             # print(result)
             print_result = print_googleads_en(result)
             googleads_list.append(print_result)
-        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
         keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
                 'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
         res_data = self.group(googleads_list, keys)
@@ -1283,10 +1295,19 @@ class mainClass:
             # print(result)
             print_result = print_googleads_cv(result)
             googleads_list.append(print_result)
-        keys = ['EmailClick', 'CallClick', 'VideoImgClick', 'PDFClick']
+        # print(googleads_list)
         keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
                 'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
-        res_data = self.group(googleads_list, keys)
+        # res_data = self.group(googleads_list, keys)
+        res_data = []
+        new = {}
+        for key in keys:
+            if key != 'country' and key != 'date':
+                x = 0
+                for data in googleads_list:
+                    x += float(data.get(key, 0))
+                new[key] = x
+        res_data.append(new)
         # print(res_data)
         return res_data
 

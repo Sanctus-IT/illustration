@@ -808,7 +808,7 @@ def ads():
         if dates == {} or dates['option'] == "Week":
             option = 'Last 7 Days'
             dates = get_dates_yest(7)
-            # print(dates)
+            print(dates)
             present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
             previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
             googleads = Googleads(present, previous).main()
@@ -818,6 +818,16 @@ def ads():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
 
+            total=googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv =googleads_cost['total_prv']/googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total':total,'total_prv': total_prv,
+                  'change':((float(total)-float(total_prv))/float(total_prv))*100 if total_prv!=0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
+
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
@@ -826,7 +836,7 @@ def ads():
 
             return render_template('ads_tables.html',dates=dates,option=option, googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "LastMonthPrevYear":
             option = 'Prev. Month of Past Year'
@@ -839,6 +849,15 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total': total, 'total_prv': total_prv,
+                  'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -848,7 +867,7 @@ def ads():
             return render_template('ads_tables.html',dates=dates,option=option,
                                    googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "30":
             dates = get_dates(30)
@@ -861,6 +880,15 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total': total, 'total_prv': total_prv,
+                  'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -871,7 +899,7 @@ def ads():
             return render_template('ads_tables.html',dates=dates,option=option,
                                    googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "LastMonth":
             dates = get_two_month_dates()
@@ -885,6 +913,15 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total': total, 'total_prv': total_prv,
+                  'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -895,7 +932,7 @@ def ads():
             return render_template('ads_tables.html',dates=dates,option=option,
                                    googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "12":
@@ -909,6 +946,15 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total': total, 'total_prv': total_prv,
+                  'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -919,7 +965,7 @@ def ads():
             return render_template('ads_tables.html',dates=dates,option=option,
                                    googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastYear":
@@ -933,6 +979,15 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total': total, 'total_prv': total_prv,
+                  'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -942,7 +997,7 @@ def ads():
             return render_template('ads_tables.html',dates=dates,option=option,
                                    googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "7":
             option = 'Last week'
@@ -956,6 +1011,15 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            cv = {'total': total, 'total_prv': total_prv,
+                  'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
+                  'total_s': total_s, 'total_prvs': total_prvs,
+                  'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
+                  }
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -966,7 +1030,7 @@ def ads():
             return render_template('ads_tables.html',dates=dates,option=option,
                                    googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,
+                                   googleads_imp=googleads_imp,cv=cv,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
 
@@ -1006,6 +1070,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1018,6 +1083,8 @@ def report():
                                 sessions['sessions']['present'][9].get('Social', 0) +
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
+            change_vists = round((float(AllVisitors_pre)-float(AllVisitors_prev))/float(AllVisitors_prev)*100,2)
+
             # print(keywords)
             # print(googleads)
             # print(googleads_cost)
@@ -1025,6 +1092,8 @@ def report():
             # print(googleads_imp)
             # print(googleads_en)
             # print(googleads_cv)
+            events={'pre_total':events['total']['pre_total'],
+                    'change':round(events['change']['total_change'][0], 2)}
 
             lst = ','.join(keywords['pre_keywords'])
             clicks_on = str(googleads['total'] + googleads['total_s'])
@@ -1032,7 +1101,7 @@ def report():
             ctr = str(googleads_ctr['total'] + googleads_ctr['total_s'])
             cost = str(googleads_cost['total'] + googleads_cost['total_s'])
             en = str(googleads_en['total'] + googleads_en['total_s'])
-            c_con = str(googleads_cv['total'] + googleads_cv['total_s'])
+            # c_con = str(googleads_cv['total'] + googleads_cv['total_s'])
             fromx = 'sanctusit.textmail@gmail.com'
             to = 'veeresh@sanctusit.com'
             msg = MIMEText(
@@ -1057,8 +1126,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option, keywords = keywords, sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
-                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+                                       googleads_imp=googleads_imp,events=events,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv,change_vists=change_vists)
 
         elif dates['option'] == "LastMonthPrevYear":
             option = 'Prev. Month of Past Year'
@@ -1075,6 +1144,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1087,6 +1157,9 @@ def report():
                                 sessions['sessions']['present'][9].get('Social', 0) +
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
+            change_vists = round((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(AllVisitors_prev) * 100, 2)
+            events = {'pre_total': events['total']['pre_total'],
+                      'change': round(events['change']['total_change'][0], 2)}
             lst = ','.join(keywords['pre_keywords'])
 
             dates = {
@@ -1097,8 +1170,8 @@ def report():
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
-                                       googleads_en=googleads_en, googleads_cv=googleads_cv)
+                                       googleads_imp=googleads_imp,events=events,
+                                       googleads_en=googleads_en, googleads_cv=googleads_cv,change_vists=change_vists)
 
         elif dates['option'] == "30":
             dates = get_dates(30)
@@ -1115,6 +1188,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1127,6 +1201,9 @@ def report():
                                 sessions['sessions']['present'][9].get('Social', 0) +
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
+            change_vists = round((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(AllVisitors_prev) * 100, 2)
+            events = {'pre_total': events['total']['pre_total'],
+                      'change': round(events['change']['total_change'][0], 2)}
             lst = ','.join(keywords['pre_keywords'])
 
             dates = {
@@ -1136,8 +1213,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastMonth":
@@ -1156,6 +1233,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1168,6 +1246,9 @@ def report():
                                 sessions['sessions']['present'][9].get('Social', 0) +
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
+            change_vists = round((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(AllVisitors_prev) * 100, 2)
+            events = {'pre_total': events['total']['pre_total'],
+                      'change': round(events['change']['total_change'][0], 2)}
             lst = ','.join(keywords['pre_keywords'])
 
             dates = {
@@ -1177,8 +1258,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "12":
@@ -1196,6 +1277,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1208,6 +1290,9 @@ def report():
                                 sessions['sessions']['present'][9].get('Social', 0) +
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
+            change_vists = round((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(AllVisitors_prev) * 100, 2)
+            events = {'pre_total': events['total']['pre_total'],
+                      'change': round(events['change']['total_change'][0], 2)}
             lst = ','.join(keywords['pre_keywords'])
 
             dates = {
@@ -1217,8 +1302,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastYear":
@@ -1236,6 +1321,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1248,6 +1334,9 @@ def report():
                                 sessions['sessions']['present'][9].get('Social', 0) +
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
+            change_vists = round((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(AllVisitors_prev) * 100, 2)
+            events = {'pre_total': events['total']['pre_total'],
+                      'change': round(events['change']['total_change'][0], 2)}
             lst = ','.join(keywords['pre_keywords'])
 
             dates = {
@@ -1257,8 +1346,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "Week":
@@ -1277,6 +1366,7 @@ def report():
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
+            events = Events(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1290,6 +1380,9 @@ def report():
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
             lst = ','.join(keywords['pre_keywords'])
+            events = {'pre_total': events['total']['pre_total'],
+                      'change': round(events['change']['total_change'][0], 2)}
+            change_vists = round((float(AllVisitors_pre) - float(AllVisitors_prev)) / float(AllVisitors_prev) * 100, 2)
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -1297,8 +1390,8 @@ def report():
             }
             return render_template('mail_data.html', dates=dates, option=option, keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
     except Exception as e:
