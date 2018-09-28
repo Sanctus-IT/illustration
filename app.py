@@ -68,9 +68,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -1400,6 +1400,55 @@ def report():
         return redirect('authorize')
         # else:
         #     return render_template("page_500.html")
+
+@app.route("/region" , methods=["GET", "POST"])
+def region():
+    if 'credentials' not in session:
+        return redirect('authorize')
+
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    service = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    try:
+        dates = request.form.to_dict()
+    except:
+        dates = {}
+    try:
+        if dates == {} or dates['option'] == "Week":
+            option = 'Last 7 Days'
+            dates = get_dates_yest(7)
+            # print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            result = {
+                "sessions": sessions['totalSessions'],
+                'goalconversions': sessions['goalconversions'],
+                'session_region_line_data': sessions['session_region_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+
+            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('region.html', dates=dates, option=option,
+                                   days=days, sessions=sessions,result=result)
+    except Exception as e:
+        print(e)
+        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
+        return redirect('authorize')
+        # else:
+        #     return render_template("page_500.html")
+
+
 
 @app.route('/authorize')
 def authorize():

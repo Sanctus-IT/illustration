@@ -3,14 +3,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(function() {
-    var start = moment().subtract(3, 'days').subtract(6,'days');
-    var end = moment().subtract(3, 'days');
+    var start = moment().subtract(4, 'days').subtract(6,'days');
+    var end = moment().subtract(4, 'days');
     function cb(start, end) {
         $('#reportrange').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
     $('#reportrange').daterangepicker({
         "minDate": "1/1/2016",
-        maxDate:moment().subtract(3, 'days'),
+        maxDate:moment().su}}, 'days'),
         startDate: start,
         endDate: end,
         "opens": "center",
