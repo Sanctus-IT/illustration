@@ -158,7 +158,6 @@ def prev_month_last_year():
     num_days = calendar.monthrange(year, prev_month)
     pre_start = datetime.date(year, prev_month, 1)
     pre_end = datetime.date(year, prev_month, num_days[1])
-    print(pre_start, pre_end)
     prv_start = datetime.date(year - 1, prev_month, 1)
     prv_end = datetime.date(year - 1, prev_month, num_days[1])
 
@@ -242,4 +241,3 @@ def get_month_names(date1, date2):
 if __name__ == '__main__':
     get_week()
     get_dates(7)
-    print(get_two_month_dates())
