@@ -63,7 +63,6 @@ window.onload=func1;
             <li role="presentation" class=""><a href="#tab_content2" role="tab" id="Search-Traffic" data-toggle="tab" aria-expanded="false">Search</a></li>
             <li role="presentation" class=""><a href="#tab_content3" id="Direct-Traffic" role="tab" data-toggle="tab" aria-expanded="true">Direct</a></li>
             <li role="presentation" class=""><a href="#tab_content4" role="tab" id="Referral-Traffic" data-toggle="tab" aria-expanded="false">Referral</a></li>
-            <li role="presentation" class=""><a href="#tab_content5" role="tab" id="Ad-Traffic" data-toggle="tab" aria-expanded="false">Paid</a></li>
             <li role="presentation" class=""><a href="#tab_content6" id="Social-Traffic" role="tab" data-toggle="tab" aria-expanded="true">Social</a></li>
             <li role="presentation" class=""><a href="#tab_content7" role="tab" id="Email-Traffic" data-toggle="tab" aria-expanded="false">Email</a></li>
             <li role="presentation" class=""><a href="#tab_content8" role="tab" id="Mobile+Tablet-Traffic" data-toggle="tab" aria-expanded="false">Mobile+Tablet Traffic</a></li>
@@ -128,20 +127,6 @@ window.onload=func1;
                       </div>
                       <canvas id="myChart4" height="90"></canvas>
                   </div>
-                </div>
-                <div role="tabpanel" class="tab-pane fade" id="tab_content5" aria-labelledby="Email Traffic">
-                    <div>
-                      <div style="color:#8e9299;font-weight:bold">
-                          <div><font size="4"> {{result['session_category'][-3]['Paid Search']}} Visits {% if (result['session_category'][-1]['Paid Search'].split('%')[0]|float) > 0 %}<img src="static/images/arrowup.png" height="20"/>{% else %}<img src="static/images/arrowdown.png" height="20"/>{% endif %} {{result['session_category'][-1]['Paid Search']}} |
-                          {%if result['conversions']['prev_conversions']['sources']['Paid Search'] != 0%}
-                          {% set change = ((result['conversions']['pre_conversions']['sources']['Paid Search']-result['conversions']['prev_conversions']['sources']['Paid Search'])/result['conversions']['prev_conversions']['sources']['Paid Search'])*100 %}
-                          {{result['conversions']['pre_conversions']['sources']['Paid Search']}} Conversions {% if change > 0 %}<img src="static/images/arrowup.png" height="20"/>{% else %}<img src="static/images/arrowdown.png" height="20"/>{% endif %} {{change|round(2)}}%
-                          {% else %}
-                          {{result['conversions']['pre_conversions']['sources']['Paid Search']}} Conversions {% if change > 0 %}<img src="static/images/arrowup.png" height="20"/>{% else %}<img src="static/images/arrowdown.png" height="20"/>{% endif %} {%if result['conversions']['pre_conversions']['sources']['Paid Search'] ==0 %} 0% {% else %} 100% {% endif %}
-                          {% endif %}</font></div>
-                      </div>
-                    </div>
-                  <canvas id="myChart5" height="90"></canvas>
                 </div>
                 <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="Mobile+Tablet Traffic">
                     <div>
@@ -917,85 +902,6 @@ var myChart = new Chart(ctx, {
    responsive: true,
    type: 'bar',
    data: chartData4,
-   options: {
-       plugins: {
-              datalabels: {
-                align: 'end',
-                anchor: 'end',
-                backgroundColor: null,
-                borderColor: null,
-                borderRadius: 4,
-                borderWidth: 1,
-                color:'#14141f',
-                font: {
-                  size: 8,
-                  weight: 600
-                },
-                offset: 0,
-                padding: 0,
-              }
-            },
-       scales: {
-           yAxes: [{
-               ticks: {
-                   beginAtZero: true
-               },
-               stacked: true
-           }, {
-             type: 'linear',
-             id: '2ndAxis',
-             position: 'right',
-             stacked: true,
-             ticks: {
-               beginAtZero: true
-             }
-           }]
-       }
-   }
-});
-var chartData5 = {
-labels: [
-           "Day-1", "Day-2", "Day-3", "Day-4", "Day-5", "Day-6", "Day-7", "Day-8", "Day-9", "Day-10",
-          "Day-11", "Day-12", "Day-13", "Day-14", "Day-15", "Day-16", "Day-17", "Day-18", "Day-19", "Day-20",
-          "Day-21", "Day-22", "Day-23", "Day-24", "Day-25", "Day-26", "Day-27", "Day-28", "Day-29", "Day-30", "Day-31"
-          ],
-datasets: [{
- label: 'Change',
- lineTension: 0,
- yAxisID: '2ndAxis',
- type: 'line',
-  datalabels: {
-    formatter: function(value, context) {
-            return context.dataset.data[context.dataIndex] + ' %';
-        }
-        },
- data: [
- {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][1].get('Paid Search', "0%").split("%")[0]}}",
-    {% endfor %}
- ],
- fill: false,
- borderColor: 'rgba(2, 194, 252, 0.8)',
- backgroundColor: 'rgba(2, 194, 252, 1)',
- borderWidth: 2
-},{
-   label: 'Ad Traffic',
-   type: 'bar',
-   data: [
-        {% for i in range(0, result["session_category_line_data"]|length) %}
-    "{{result["session_category_line_data"][i][0].get('Paid Search', 0)}}",
-    {% endfor %}
-   ],
-   borderColor: 'rgba(255, 153, 178, 0.5)',
-   backgroundColor: 'rgba(255, 153, 178, 1)',
-   borderWidth: 2
-}]
-   };
-var ctx = document.getElementById("myChart5").getContext("2d");
-var myChart = new Chart(ctx, {
-   responsive: true,
-   type: 'bar',
-   data: chartData5,
    options: {
        plugins: {
               datalabels: {

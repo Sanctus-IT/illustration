@@ -143,9 +143,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -215,9 +215,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -290,9 +290,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -365,9 +365,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -444,9 +444,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -518,9 +518,9 @@ def index():
               "session_category": sessions['sessions']['present'],
               'traffic': traffic,
               'conversions': conversions,
-              'goalconversions': sessions['goalconversions'],
+              # 'goalconversions': sessions['goalconversions'],
               'session_category_line_data': sessions['session_category_line_data'],
-              'session_region_line_data': sessions['session_region_line_data'],
+              # 'session_region_line_data': sessions['session_region_line_data'],
               'bouncerate': bouncerate,
               'avgduration': avgduration,
           }
@@ -1595,6 +1595,200 @@ def region():
             return render_template('Region_last_week.html', result=result, dates=dates, option=option,
                                    days=days, sessions=sessions
                                    )
+    except Exception as e:
+        print(e)
+        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
+        return redirect('authorize')
+        # else:
+        #     return render_template("page_500.html")
+
+@app.route("/stock" , methods=["GET", "POST"])
+def stock():
+    if 'credentials' not in session:
+        return redirect('authorize')
+
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    service = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    try:
+        dates = request.form.to_dict()
+    except:
+        dates = {}
+    try:
+        if dates == {} or dates['option'] == "Week":
+            option = 'Last 7 Days'
+            dates = get_dates_yest(7)
+            print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data']
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('stock_last_7.html', result=result, dates=dates, option=option,
+                                   days=days)
+
+        elif dates['option'] == "LastMonthPrevYear":
+            option = 'Prev. Month of Past Year'
+            dates = prev_month_last_year()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            session['credentials'] = credentials_to_dict(credentials)
+            return render_template('stock_last_month_prev_year.html', result=result, dates=dates,
+                                   option=option)
+
+        elif dates['option'] == "30":
+            dates = get_dates(30)
+            option = 'This Month (Last 4 Weeks)'
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('stock_last_30.html', result=result, dates=dates, option=option,
+                                   )
+
+        elif dates['option'] == "LastMonth":
+            dates = get_two_month_dates()
+            # print(dates)
+            option = 'Prev. Month'
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('stock_last_month.html', result=result, dates=dates, option=option,
+                                   )
+
+        elif dates['option'] == "12":
+            option = 'Last 12 Months'
+            dates = get12months()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'month').main()
+            conversions = Conversions(present, previous, 'month').main()
+
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            months = [(day.today() - relativedelta(months=i)).strftime("%b") for i in range(1, 13)]
+            month_num = [(day.today() - relativedelta(months=i)).month for i in range(1, 13)]
+            month_num = month_num[::-1]
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('stock_last_12_months.html', result=result, dates=dates, option=option,
+                                   months=months, month_num=month_num)
+
+        elif dates['option'] == "LastYear":
+            option = 'Last Year'
+            dates = last_year()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'month').main()
+            conversions = Conversions(present, previous, 'year  ').main()
+
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('stock_last_year.html', result=result, dates=dates, option=option,
+                                   )
+        elif dates['option'] == "7":
+            option = 'Last week'
+            dates = get_week()
+            # print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+
+            session['credentials'] = credentials_to_dict(credentials)
+
+            return render_template('stock_last_week.html', result=result, dates=dates, option=option,
+                                   days=days)
     except Exception as e:
         print(e)
         # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
