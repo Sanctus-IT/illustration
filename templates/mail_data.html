@@ -3,14 +3,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(function() {
-    var start = moment().subtract(4, 'days').subtract(6,'days');
-    var end = moment().subtract(4, 'days');
+    var start = moment().subtract(1, 'days').subtract(6,'days');
+    var end = moment().subtract(1, 'days');
     function cb(start, end) {
         $('#reportrange').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
     $('#reportrange').daterangepicker({
         "minDate": "1/1/2016",
-        maxDate:moment().su}}, 'days'),
+        maxDate:moment().subtract(1, 'days'),
         startDate: start,
         endDate: end,
         "opens": "center",
@@ -65,17 +65,17 @@ Here’s your website traffic report for {{ option }} ({{dates['pre_date']}}) vs
   Social: {% if (sessions['sessions']['present'][-1]['Social'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Social']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Social']}}</font>{% endif %},
   Paid: {% if (sessions['sessions']['present'][-1]['Paid Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% endif %}]<br><br>
 
-<b>Web Enquiries</b> &emsp;&emsp;          :  37 (+19.35%)<br>
+<b>Web Enquiries</b> &emsp;&emsp;          :  --- (--%)<br>
 
-By Source [Search: 15; Agent pop-up: 7; Ads: 5; Unknown: 8; Referral: 2; Social:0]<br>
-By Region [UK: 13; USA: 13; ROW: 5, IND: 2; SEA: 0; FR: 1; CN: 0; ANZ: 3]<br>
+By Source [Search: -; Agent pop-up: -; Ads: -; Unknown: -; Referral: -; Social:-]<br>
+By Region [UK: -; USA: -; ROW: -, IND: -; SEA: -; FR: -; CN: -; ANZ: -]<br>
 By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['present'][0]['mobile'] }}]<br><br>
 
  <b>Newsletter widget</b> &emsp;&emsp;     : {{events['pre_total']}} ({% if (events['change']|float) >= 0 %}<font color="green">+{{events['change']}}</font>{% else %}<font color="red">{{events['change']}}</font>{% endif %}) subscriptions<br><br>
 
-<b>Social Stats</b>               : 121,351 followers (+426 this week) —> [Posts :30; Engagements : 4854; Connected : 2500]<br><br><br>
+<b>Social Stats</b>               : ------ followers (--- this week) —> [Posts :-; Engagements : -; Connected : -]<br><br><br>
 
-<div class="col-md-6 col-sm-6 col-xs-12">
+<div class="col-md-6 col-sm-6 col-xs-12" style="clear:both;">
     <div class="x_panel">
       <div class="x_title">
         <h2>Agent Pop-Ups</h2>
@@ -171,7 +171,7 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
       </div>
     </div>
   </div>
-<div class="col-md-6 col-sm-6 col-xs-12">
+<div class="col-md-6 col-sm-6 col-xs-12" style="clear:both; width:60% !important;">
     <div class="x_panel">
       <div class="x_title">
         <h2>Online Ads</h2>
@@ -235,14 +235,16 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
       </div>
     </div>
   </div>
-<br/><br>
-    <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-<br/>USA    : 1<br>
-UK     : 3<br>
-ANZ     : 1<br><br>
+  <div style="clear:both;">
+<br/>USA    : {{googleads_en['present'][0]['Animators USA']+googleads_en['present'][0]['Illustration Search USA']}}<br>
+UK     : {{googleads_en['present'][0]['Animators UK']+googleads_en['present'][0]['Illustration Search UK']+googleads_en['present'][0]['Competitors']}}<br>
+ANZ     : {{googleads_en['present'][0]['Illustration Search ANZ']}}<br><br>
 <b>Converted Search terms:</b><br>
 {{lst}}<br><br>
 Many thanks,<br>
 Paul.
+
+  </div>
+
 </footer>
 {% endblock %}

@@ -400,10 +400,10 @@ class Googleads_ctr:
         prev_portfolio = self.previous_results.googleads_ctr()
         # print(pre_portfolio)
         # print(prev_portfolio)
-        total=pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA']
-        total_prv=prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA']
-        total_s=pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA']
-        total_prvs=prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA']
+        total=(pre_portfolio[0]['Animators UK']+pre_portfolio[0]['Animators USA']+pre_portfolio[0]['Competitors']+pre_portfolio[0]['Illustration Search ANZ']+pre_portfolio[0]['Illustration Search UK']+pre_portfolio[0]['Illustration Search USA'])/5
+        total_prv=(prev_portfolio[0]['Animators UK']+prev_portfolio[0]['Animators USA']+prev_portfolio[0]['Competitors']+prev_portfolio[0]['Illustration Search ANZ']+prev_portfolio[0]['Illustration Search UK']+prev_portfolio[0]['Illustration Search USA'])/5
+        total_s=(pre_portfolio[0]['Stock UK']+pre_portfolio[0]['Stock USA'])/2
+        total_prvs=(prev_portfolio[0]['Stock UK']+prev_portfolio[0]['Stock USA'])/2
         change = round((total - total_prv) / total_prv * 100,1) if total_prv != 0 else 100
         change_s = round((total_s - total_prvs) / total_prvs * 100,1) if total_prvs != 0 else 100
         return {'present':pre_portfolio,'previous':prev_portfolio,'total':total,'total_prv':total_prv,'total_s':total_s,'total_prvs':total_prvs,

@@ -242,3 +242,4 @@ def get_month_names(date1, date2):
 if __name__ == '__main__':
     get_week()
     get_dates(7)
+    print(get_two_month_dates())
