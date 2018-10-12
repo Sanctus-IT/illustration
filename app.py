@@ -817,27 +817,41 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data']
+            }
 
-            total=googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv =googleads_cost['total_prv']/googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            total=googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv =googleads_cost['total_prv']/googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total':total,'total_prv': total_prv,
                   'change':((float(total)-float(total_prv))/float(total_prv))*100 if total_prv!=0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
-
+            total_ctr = (float(googleads['total'])/float(googleads_imp['total']))*100 if googleads_imp['total']!=0 else 0
+            total_ctr_prev = (float(googleads['total_prv'])/float(googleads_imp['total_prv']))*100 if googleads_imp['total_prv']!=0 else 0
+            ctr = {'total':total_ctr,'total_prv':total_ctr_prev,
+                   'change':((float(total_ctr) - float(total_ctr_prev)) / float(total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
+            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+
+            session['credentials'] = credentials_to_dict(credentials)
 
 
-            return render_template('ads_tables.html',dates=dates,option=option, googleads=googleads,
+            return render_template('ads_last_7.html',dates=dates,option=option, googleads=googleads,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,result=result,days=days,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
+
         elif dates['option'] == "LastMonthPrevYear":
             option = 'Prev. Month of Past Year'
             dates = prev_month_last_year()
@@ -849,25 +863,37 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
-            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total': total, 'total_prv': total_prv,
                   'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
+            total_ctr = (float(googleads['total']) / float(googleads_imp['total'])) * 100 if googleads_imp['total'] != 0 else 0
+            total_ctr_prev = (float(googleads['total_prv']) / float(googleads_imp['total_prv'])) * 100 if googleads_imp['total_prv'] != 0 else 0
+            ctr = {'total': total_ctr, 'total_prv': total_ctr_prev,
+                   'change': ((float(total_ctr) - float(total_ctr_prev)) / float(
+                       total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
-
-            return render_template('ads_tables.html',dates=dates,option=option,
-                                   googleads=googleads,
+            session['credentials'] = credentials_to_dict(credentials)
+            return render_template('ads_last_month_prev_year.html',dates=dates,option=option,
+                                   googleads=googleads,result=result,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "30":
             dates = get_dates(30)
@@ -880,26 +906,38 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
-            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total': total, 'total_prv': total_prv,
                   'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
+            total_ctr = (float(googleads['total']) / float(googleads_imp['total'])) * 100 if googleads_imp['total'] != 0 else 0
+            total_ctr_prev = (float(googleads['total_prv']) / float(googleads_imp['total_prv'])) * 100 if googleads_imp['total_prv'] != 0 else 0
+            ctr = {'total': total_ctr, 'total_prv': total_ctr_prev,
+                   'change': ((float(total_ctr) - float(total_ctr_prev)) / float(
+                       total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
-
-
-            return render_template('ads_tables.html',dates=dates,option=option,
-                                   googleads=googleads,
+            session['credentials'] = credentials_to_dict(credentials)
+            return render_template('ads_last_30.html',dates=dates,option=option,
+                                   googleads=googleads,result=result,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "LastMonth":
             dates = get_two_month_dates()
@@ -913,26 +951,38 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
-            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total': total, 'total_prv': total_prv,
                   'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
+            total_ctr = (float(googleads['total']) / float(googleads_imp['total'])) * 100 if googleads_imp['total'] != 0 else 0
+            total_ctr_prev = (float(googleads['total_prv']) / float(googleads_imp['total_prv'])) * 100 if googleads_imp['total_prv'] != 0 else 0
+            ctr = {'total': total_ctr, 'total_prv': total_ctr_prev,
+                   'change': ((float(total_ctr) - float(total_ctr_prev)) / float(
+                       total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
+            session['credentials'] = credentials_to_dict(credentials)
 
-
-            return render_template('ads_tables.html',dates=dates,option=option,
-                                   googleads=googleads,
+            return render_template('ads_last_month.html',dates=dates,option=option,
+                                   googleads=googleads,result=result,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "12":
@@ -946,26 +996,43 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
-            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            sessions = SessionsCategoryResults(present, previous, 'month').main()
+            conversions = Conversions(present, previous, 'month').main()
+
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total': total, 'total_prv': total_prv,
                   'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
+            total_ctr = (float(googleads['total']) / float(googleads_imp['total'])) * 100 if googleads_imp['total'] != 0 else 0
+            total_ctr_prev = (float(googleads['total_prv']) / float(googleads_imp['total_prv'])) * 100 if googleads_imp['total_prv'] != 0 else 0
+            ctr = {'total': total_ctr, 'total_prv': total_ctr_prev,
+                   'change': ((float(total_ctr) - float(total_ctr_prev)) / float(
+                       total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
+            months = [(day.today() - relativedelta(months=i)).strftime("%b") for i in range(1, 13)]
+            month_num = [(day.today() - relativedelta(months=i)).month for i in range(1, 13)]
+            month_num = month_num[::-1]
+            session['credentials'] = credentials_to_dict(credentials)
 
 
-            return render_template('ads_tables.html',dates=dates,option=option,
-                                   googleads=googleads,
+            return render_template('ads_last_12_months.html',dates=dates,option=option,
+                                   googleads=googleads,result=result,months=months, month_num=month_num,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastYear":
@@ -979,25 +1046,39 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
-            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            sessions = SessionsCategoryResults(present, previous, 'month').main()
+            conversions = Conversions(present, previous, 'year  ').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total': total, 'total_prv': total_prv,
                   'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
 
+            total_ctr = (float(googleads['total']) / float(googleads_imp['total'])) * 100 if googleads_imp['total'] != 0 else 0
+            total_ctr_prev = (float(googleads['total_prv']) / float(googleads_imp['total_prv'])) * 100 if googleads_imp['total_prv'] != 0 else 0
+            ctr = {'total': total_ctr, 'total_prv': total_ctr_prev,
+                   'change': ((float(total_ctr) - float(total_ctr_prev)) / float(
+                       total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
+
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
+            session['credentials'] = credentials_to_dict(credentials)
 
-            return render_template('ads_tables.html',dates=dates,option=option,
-                                   googleads=googleads,
+            return render_template('ads_last_year.html',dates=dates,option=option,
+                                   googleads=googleads,result=result,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
         elif dates['option'] == "7":
             option = 'Last week'
@@ -1011,26 +1092,39 @@ def ads():
             googleads_imp = Googleads_imp(present, previous).main()
             googleads_en = Googleads_en(present, previous).main()
             googleads_cv = Googleads_cv(present, previous).main()
-            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total'] else 0
-            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv'] else 0
-            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s'] else 0
-            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs'] else 0
+            sessions = SessionsCategoryResults(present, previous, 'date').main()
+            conversions = Conversions(present, previous, 'month').main()
+            result = {
+                "session_category": sessions['sessions']['present'],
+                'conversions': conversions,
+                'session_category_line_data': sessions['session_category_line_data'],
+            }
+            total = googleads_cost['total'] / googleads_en['total'] if googleads_en['total']!=0 else 0
+            total_prv = googleads_cost['total_prv'] / googleads_en['total_prv'] if googleads_en['total_prv']!=0 else 0
+            total_s = googleads_cost['total_s'] / googleads_en['total_s'] if googleads_en['total_s']!=0 else 0
+            total_prvs = googleads_cost['total_prvs'] / googleads_en['total_prvs'] if googleads_en['total_prvs']!=0 else 0
             cv = {'total': total, 'total_prv': total_prv,
                   'change': ((float(total) - float(total_prv)) / float(total_prv)) * 100 if total_prv != 0 else 0,
                   'total_s': total_s, 'total_prvs': total_prvs,
                   'change_s': ((float(total_s) - float(total_prvs)) / float(total_prvs)) * 100 if total_prvs != 0 else 0
                   }
+            total_ctr = (float(googleads['total']) / float(googleads_imp['total'])) * 100 if googleads_imp['total'] != 0 else 0
+            total_ctr_prev = (float(googleads['total_prv']) / float(googleads_imp['total_prv'])) * 100 if googleads_imp['total_prv'] != 0 else 0
+            ctr = {'total': total_ctr, 'total_prv': total_ctr_prev,
+                   'change': ((float(total_ctr) - float(total_ctr_prev)) / float(total_ctr_prev)) * 100 if total_ctr_prev != 0 else 0}
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
                 'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
             }
+            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
+            session['credentials'] = credentials_to_dict(credentials)
 
 
-            return render_template('ads_tables.html',dates=dates,option=option,
-                                   googleads=googleads,
+            return render_template('ads_last_week.html',dates=dates,option=option,
+                                   googleads=googleads,result=result,days=days,
                                    googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                   googleads_imp=googleads_imp,cv=cv,
+                                   googleads_imp=googleads_imp,cv=cv,ctr=ctr,
                                    googleads_en=googleads_en, googleads_cv=googleads_cv)
 
 
@@ -1096,11 +1190,11 @@ def report():
                     'change':round(events['change']['total_change'][0], 2)}
 
             lst = ','.join(keywords['pre_keywords'])
-            clicks_on = str(googleads['total'] + googleads['total_s'])
-            impr = str(googleads_imp['total'] + googleads_imp['total_s'])
-            ctr = str(googleads_ctr['total'] + googleads_ctr['total_s'])
-            cost = str(googleads_cost['total'] + googleads_cost['total_s'])
-            en = str(googleads_en['total'] + googleads_en['total_s'])
+            # clicks_on = str(googleads['total'] + googleads['total_s'])
+            # impr = str(googleads_imp['total'] + googleads_imp['total_s'])
+            # ctr = str(googleads_ctr['total'] + googleads_ctr['total_s'])
+            # cost = str(googleads_cost['total'] + googleads_cost['total_s'])
+            # en = str(googleads_en['total'] + googleads_en['total_s'])
             # c_con = str(googleads_cv['total'] + googleads_cv['total_s'])
             fromx = 'sanctusit.textmail@gmail.com'
             to = 'veeresh@sanctusit.com'
@@ -1601,202 +1695,6 @@ def region():
         return redirect('authorize')
         # else:
         #     return render_template("page_500.html")
-
-@app.route("/stock" , methods=["GET", "POST"])
-def stock():
-    if 'credentials' not in session:
-        return redirect('authorize')
-
-    credentials = google.oauth2.credentials.Credentials(
-        **session['credentials'])
-
-    service = googleapiclient.discovery.build(
-        API_SERVICE_NAME, API_VERSION, credentials=credentials)
-    try:
-        dates = request.form.to_dict()
-    except:
-        dates = {}
-    try:
-        if dates == {} or dates['option'] == "Week":
-            option = 'Last 7 Days'
-            dates = get_dates_yest(7)
-            print(dates)
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'date').main()
-            conversions = Conversions(present, previous, 'month').main()
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data']
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
-
-            session['credentials'] = credentials_to_dict(credentials)
-
-            return render_template('stock_last_7.html', result=result, dates=dates, option=option,
-                                   days=days)
-
-        elif dates['option'] == "LastMonthPrevYear":
-            option = 'Prev. Month of Past Year'
-            dates = prev_month_last_year()
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'date').main()
-            conversions = Conversions(present, previous, 'month').main()
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data'],
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-            session['credentials'] = credentials_to_dict(credentials)
-            return render_template('stock_last_month_prev_year.html', result=result, dates=dates,
-                                   option=option)
-
-        elif dates['option'] == "30":
-            dates = get_dates(30)
-            option = 'This Month (Last 4 Weeks)'
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'date').main()
-            conversions = Conversions(present, previous, 'month').main()
-
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data'],
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-            session['credentials'] = credentials_to_dict(credentials)
-
-            return render_template('stock_last_30.html', result=result, dates=dates, option=option,
-                                   )
-
-        elif dates['option'] == "LastMonth":
-            dates = get_two_month_dates()
-            # print(dates)
-            option = 'Prev. Month'
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'date').main()
-            conversions = Conversions(present, previous, 'month').main()
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data'],
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-
-            session['credentials'] = credentials_to_dict(credentials)
-
-            return render_template('stock_last_month.html', result=result, dates=dates, option=option,
-                                   )
-
-        elif dates['option'] == "12":
-            option = 'Last 12 Months'
-            dates = get12months()
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'month').main()
-            conversions = Conversions(present, previous, 'month').main()
-
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data'],
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-            months = [(day.today() - relativedelta(months=i)).strftime("%b") for i in range(1, 13)]
-            month_num = [(day.today() - relativedelta(months=i)).month for i in range(1, 13)]
-            month_num = month_num[::-1]
-            session['credentials'] = credentials_to_dict(credentials)
-
-            return render_template('stock_last_12_months.html', result=result, dates=dates, option=option,
-                                   months=months, month_num=month_num)
-
-        elif dates['option'] == "LastYear":
-            option = 'Last Year'
-            dates = last_year()
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'month').main()
-            conversions = Conversions(present, previous, 'year  ').main()
-
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data'],
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-            session['credentials'] = credentials_to_dict(credentials)
-
-            return render_template('stock_last_year.html', result=result, dates=dates, option=option,
-                                   )
-        elif dates['option'] == "7":
-            option = 'Last week'
-            dates = get_week()
-            # print(dates)
-            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
-            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
-            sessions = SessionsCategoryResults(present, previous, 'date').main()
-            conversions = Conversions(present, previous, 'month').main()
-            result = {
-                "session_category": sessions['sessions']['present'],
-                'conversions': conversions,
-                'session_category_line_data': sessions['session_category_line_data'],
-            }
-
-            dates = {
-                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
-                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
-            }
-
-            days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
-
-            session['credentials'] = credentials_to_dict(credentials)
-
-            return render_template('stock_last_week.html', result=result, dates=dates, option=option,
-                                   days=days)
-    except Exception as e:
-        print(e)
-        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
-        return redirect('authorize')
-        # else:
-        #     return render_template("page_500.html")
-
-
 
 @app.route('/authorize')
 def authorize():

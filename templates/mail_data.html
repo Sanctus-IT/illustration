@@ -198,10 +198,10 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
               <th scope="row">Google</th>
                 <td align="center">{{googleads['total']}}</td>
               <td align="center">{{googleads_imp['total']}}</td>
-              <td align="center">{{googleads_ctr['total']|round(2)}}%</td>
+              <td align="center">{{((googleads['total']/googleads_imp['total'])*100)|round(2)}}%</td>
               <td align="center">${{googleads_cost['total']}}</td>
                 <td align="center">{{googleads_en['total']}}</td>
-              <td align="center">${{googleads_cost['total']/googleads_en['total']|round(2)}}</td>
+              <td align="center">${{(googleads_cost['total']/googleads_en['total'])|round(2)}}</td>
             </tr>
             <tr>
               <th scope="row">Bing</th>
