@@ -59,7 +59,7 @@ Hi,<br><br>
 Here’s your website traffic report for {{ option }} ({{dates['pre_date']}}) vs ({{dates['prev_date']}})<br><br>
 
 
-<b>Visits</b> &emsp;&emsp;                        : {{AllVisitors_pre}} {% if (change_vists|float) >= 0 %}<font color="green">(+{{(change_vists|float)}})</font>{% else %}<font color="red">({{change_vists|float}})</font>{% endif %} —> [Search: {% if (sessions['sessions']['present'][-1]['Organic Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% endif %},
+<b>Visits</b> &emsp;&emsp;                        : {{AllVisitors_pre}} ({% if (change_vists|float) >= 0 %}<font color="green">+{{(change_vists|float)}}%</font>{% else %}<font color="red">{{change_vists|float}}%</font>{% endif %}) —> [Search: {% if (sessions['sessions']['present'][-1]['Organic Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Organic Search']}}</font>{% endif %},
   Direct: {% if (sessions['sessions']['present'][-1]['Direct'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Direct']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Direct']}}</font>{% endif %},
   Referral: {% if (sessions['sessions']['present'][-1]['Referral'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Referral']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Referral']}}</font>{% endif %},
   Social: {% if (sessions['sessions']['present'][-1]['Social'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Social']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Social']}}</font>{% endif %},
@@ -67,13 +67,21 @@ Here’s your website traffic report for {{ option }} ({{dates['pre_date']}}) vs
 
 <b>Web Enquiries</b> &emsp;&emsp;          :  --- (--%)<br>
 
-By Source [Search: -; Agent pop-up: -; Ads: -; Unknown: -; Referral: -; Social:-]<br>
-By Region [UK: -; USA: -; ROW: -, IND: -; SEA: -; FR: -; CN: -; ANZ: -]<br>
+By Source [Search: --; Agent pop-up: --; Ads: --; Unknown: --; Referral: --; Social:--]<br>
+By Region [UK: --; USA: -; ROW: --, IND: --; SEA: --; FR: --; CN: --; ANZ: --]<br>
 By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['present'][0]['mobile'] }}]<br><br>
 
- <b>Newsletter widget</b> &emsp;&emsp;     : {{events['pre_total']}} ({% if (events['change']|float) >= 0 %}<font color="green">+{{events['change']}}</font>{% else %}<font color="red">{{events['change']}}</font>{% endif %}) subscriptions<br><br>
+ <b>Newsletter widget</b> &emsp;&emsp;     : {{events['pre_total']}} ({% if (events['change']|float) >= 0 %}<font color="green">+{{events['change']}}%</font>{% else %}<font color="red">{{events['change']}}%</font>{% endif %}) subscriptions<br><br>
 
-<b>Social Stats</b>               : ------ followers (--- this week) —> [Posts :-; Engagements : -; Connected : -]<br><br><br>
+ <b>Social Stats</b>               : ------ followers (--- this week) —> [Posts :-; Engagements : -; Connected : -]<br><br>
+
+    <b>Commission Guide</b>           : {{commission['total_pre']}} ({% if commission['changes']['total_change'] >=0 %}<font color="green">+{{ commission['changes']['total_change']|round(2) }}%</font>{% else %}<font color="red">{{ commission['changes']['total_change']|round(2) }}%</font>{%  endif %})—> [
+    UK: {{ commission['present'][0]['UK'] }} ;
+    USA: {{ commission['present'][0]['USA'] }} ;
+    India: {{ commission['present'][0]['India'] }} ;
+    SEA: {{ commission['present'][0]['SG'] }} ;
+    ANZ: {{ commission['present'][0]['ANZ'] }} ;
+    ROW: {{ commission['present'][1]['ROW'] }} ]<br><br><br>
 
 <div class="col-md-6 col-sm-6 col-xs-12" style="clear:both;">
     <div class="x_panel">

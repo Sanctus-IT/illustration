@@ -834,6 +834,25 @@ def get_agent_pop_ups(service, profile_id,pre_startDate,pre_endDate):
 
 #----------------------------------------------------------------------------------------------------------------
 
+def get_commission(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:'+profile_id,
+        start_date = str(pre_startDate),
+        end_date = str(pre_endDate),
+        metrics='ga:uniqueEvents',
+        dimensions = 'ga:eventLabel',
+        filters='ga:eventCategory==CommissioningGuide',
+    ).execute()
+    # print('commision',result)
+    return result
+
+def print_commission(results):
+    present_result = (dict(results.get('rows', [["", ""]])))
+    return present_result
+
+
+#----------------------------------------------------------------------------------------------------------------
+
 class mainClass:
 
     def __init__(self, start_date, end_date, service):
@@ -1334,3 +1353,17 @@ class mainClass:
             print_result = print_converted_keywords(result)
             agent_pop_ups_list.append(print_result)
         return agent_pop_ups_list
+    def commission(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States'),
+        ]
+        commission_list=[]
+        for profile_id in profile_ids:
+            result = get_commission(self.service,profile_id[0],self.start_date,self.end_date)
+            print_result = print_commission(result)
+            commission_list.append(print_result)
+        keys = ['AE', 'ANZ', 'India', 'SG','UK', 'ZZ','USA']
+        res_data = self.group(commission_list, keys)
+        res_data.append({"ROW":res_data[0]['ZZ']+res_data[0]['AE']})
+        return res_data

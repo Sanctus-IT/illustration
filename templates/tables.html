@@ -402,6 +402,75 @@ window.onload=func1;
                   </div>
                 </div>
               </div>
+              <div class="col-md-6 col-sm-6 col-xs-12" style="clear:both !important;">
+                <div class="x_panel">
+                  <div class="x_title">
+                    <h2>Commisions Guide</h2>
+                    <ul class="nav navbar-right panel_toolbox">
+                      <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                      <!--</li>-->
+                    </ul>
+                    <div class="clearfix"></div>
+                  </div>
+                  <div class="x_content">
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th>Commision Guide</th>
+                          <th>Present</th>
+                          <th>Previous</th>
+                          <th>Change</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">UK</th>
+                          <td align="center">{{ commission['present'][0]['UK'] }}</td>
+                          <td align="center">{{ commission['previous'][0]['UK'] }}</td>
+                          <td align="center">{{ commission['changes']['UK']|round(2) }}%</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">USA</th>
+                          <td align="center">{{ commission['present'][0]['USA'] }}</td>
+                          <td align="center">{{ commission['previous'][0]['USA'] }}</td>
+                          <td align="center">{{ commission['changes']['USA']|round(2) }}%</td>
+                        </tr>
+                        <tr>
+                          <th scope="row">India</th>
+                          <td align="center">{{ commission['present'][0]['India'] }}</td>
+                          <td align="center">{{ commission['previous'][0]['India'] }}</td>
+                          <td align="center">{{ commission['changes']['India']|round(2) }}%</td>
+                        </tr>
+                      <tr>
+                          <th scope="row">SEA</th>
+                          <td align="center">{{ commission['present'][0]['SG'] }}</td>
+                          <td align="center">{{ commission['previous'][0]['SG'] }}</td>
+                          <td align="center">{{ commission['changes']['SEA']|round(2) }}%</td>
+                        </tr>
+                      <tr>
+                        <th scope="row">ANZ</th>
+                        <td align="center">{{ commission['present'][0]['ANZ'] }}</td>
+                        <td align="center">{{ commission['previous'][0]['ANZ'] }}</td>
+                        <td align="center">{{ commission['changes']['ANZ']|round(2) }}%</td>
+                      </tr>
+                      <tr>
+                          <th scope="row">ROW</th>
+                          <td align="center">{{ commission['present'][1]['ROW'] }}</td>
+                          <td align="center">{{ commission['previous'][1]['ROW'] }}</td>
+                          <td align="center">{{ commission['changes']['ROW']|round(2) }}%</td>
+                        </tr>
+                      <tr>
+                          <th scope="row">Total</th>
+                          <td align="center">{{ commission['total_pre'] }}</td>
+                          <td align="center">{{ commission['total_prev'] }}</td>
+                          <td align="center">{{ commission['changes']['total_change']|round(2) }}%</td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </div>
+                </div>
+              </div>
     </div>
 </div>
 {% endblock %}

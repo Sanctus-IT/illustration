@@ -484,3 +484,26 @@ class Converted_keywords:
         # print(prev_agent_pop_ups)
         return {'pre_keywords':pre_keywords,'prev_keywords':prev_keywords,
                  'pre_agent_pop_ups':pre_agent_pop_ups,'prev_agent_pop_ups':prev_agent_pop_ups}
+class Commissions:
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def com_change(self,present,previous):
+        change = round(((float(present)-float(previous))/float(previous))*100,2) if float(previous)!=0 else 100
+        return change
+
+    def main(self):
+        pre_commission = self.current_results.commission()
+        prev_commission = self.previous_results.commission()
+        total_pre = pre_commission[0]['UK']+pre_commission[0]['USA']+pre_commission[0]['India']+pre_commission[0]['SG']+pre_commission[0]['ANZ']+pre_commission[1]['ROW']
+        total_prev = prev_commission[0]['UK'] + prev_commission[0]['USA'] + prev_commission[0]['India'] + prev_commission[0]['SG'] + prev_commission[0]['ANZ'] + prev_commission[1]['ROW']
+        changes = {"UK": self.com_change(pre_commission[0]['UK'],prev_commission[0]['UK']),
+                   "USA": self.com_change(pre_commission[0]['USA'], prev_commission[0]['USA']),
+                   "India": self.com_change(pre_commission[0]['India'], prev_commission[0]['India']),
+                   "SEA": self.com_change(pre_commission[0]['SG'], prev_commission[0]['SG']),
+                   "ANZ": self.com_change(pre_commission[0]['ANZ'], prev_commission[0]['ANZ']),
+                   "ROW": self.com_change(pre_commission[1]['ROW'], prev_commission[1]['ROW']),
+                   "total_change" : self.com_change(total_pre, total_prev)
+                   }
+        return {'present':pre_commission,'previous':prev_commission,'total_pre':total_pre,'total_prev':total_prev,'changes':changes}

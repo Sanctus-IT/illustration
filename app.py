@@ -49,7 +49,7 @@ def index():
       if dates == {} or dates['option'] == "Week":
           option = 'Last 7 Days'
           dates = get_dates_yest(7)
-          print(dates)
+          # print(dates)
           present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'date').main()
@@ -612,6 +612,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present,previous).main()
 
 
             dates = {
@@ -627,7 +628,7 @@ def metrics():
             return render_template('tables.html', dates=dates, option=option,
                                    days=days, sessions=sessions, topkeywords=topkeywords,
                                    agents=agents, sidebutton=sidebutton, portfolio=portfolio, events=events,
-                                   devices=devices
+                                   devices=devices,commission=commission,
                                    )
         elif dates['option'] == "LastMonthPrevYear":
             option = 'Prev. Month of Past Year'
@@ -641,6 +642,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present, previous).main()
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -650,7 +652,7 @@ def metrics():
             session['credentials'] = credentials_to_dict(credentials)
             return render_template('tables.html', dates=dates,
                                    option=option, sessions=sessions, topkeywords=topkeywords,
-                                   agents=agents,
+                                   agents=agents,commission=commission,
                                    sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
                                    )
         elif dates['option'] == "30":
@@ -665,6 +667,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present, previous).main()
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -675,7 +678,7 @@ def metrics():
             session['credentials'] = credentials_to_dict(credentials)
 
             return render_template('tables.html', dates=dates, option=option, sessions=sessions, topkeywords=topkeywords, agents=agents,
-                                   sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
+                                   sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,commission=commission,
                                    )
         elif dates['option'] == "LastMonth":
             dates = get_two_month_dates()
@@ -690,6 +693,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present, previous).main()
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -699,7 +703,7 @@ def metrics():
             session['credentials'] = credentials_to_dict(credentials)
 
             return render_template('tables.html', dates=dates, option=option,
-                                   sessions=sessions, topkeywords=topkeywords, agents=agents,
+                                   sessions=sessions, topkeywords=topkeywords, agents=agents,commission=commission,
                                    sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
                                    )
 
@@ -715,6 +719,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present, previous).main()
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -725,7 +730,7 @@ def metrics():
 
             return render_template('tables.html', dates=dates, option=option,
                                    sessions=sessions, topkeywords=topkeywords,
-                                   agents=agents,
+                                   agents=agents,commission=commission,
                                    sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
                                    )
 
@@ -741,6 +746,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present, previous).main()
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -751,7 +757,7 @@ def metrics():
             session['credentials'] = credentials_to_dict(credentials)
 
             return render_template('tables.html', dates=dates,option=option,
-                                   sessions=sessions, topkeywords=topkeywords, agents=agents,
+                                   sessions=sessions, topkeywords=topkeywords, agents=agents,commission=commission,
                                    sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
                                    )
         elif dates['option'] == "7":
@@ -767,6 +773,7 @@ def metrics():
             portfolio = Portfolio(present, previous).main()
             events = Events(present, previous).main()
             devices = Devices(present, previous).main()
+            commission = Commissions(present, previous).main()
 
             dates = {
                 'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
@@ -779,7 +786,7 @@ def metrics():
 
             return render_template('tables.html',dates=dates,option=option,
                                    days=days, sessions=sessions, topkeywords=topkeywords,
-                                   agents=agents,
+                                   agents=agents,commission=commission,
                                    sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
                                    )
 
@@ -808,7 +815,7 @@ def ads():
         if dates == {} or dates['option'] == "Week":
             option = 'Last 7 Days'
             dates = get_dates_yest(7)
-            print(dates)
+            # print(dates)
             present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
             previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
             googleads = Googleads(present, previous).main()
@@ -1151,7 +1158,7 @@ def report():
         if dates == {} or dates['option'] == "7":
             option = 'Last week'
             dates = get_week()
-            print(dates)
+            # print(dates)
             present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
             previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
             sessions = SessionsCategoryResults(present, previous, 'date').main()
@@ -1165,6 +1172,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1178,29 +1186,37 @@ def report():
                                 sessions['sessions']['present'][9].get('Paid Search', 0) +
                                 sessions['sessions']['present'][9].get('Email', 0))
             change_vists = round((float(AllVisitors_pre)-float(AllVisitors_prev))/float(AllVisitors_prev)*100,2)
-
-            # print(keywords)
-            # print(googleads)
-            # print(googleads_cost)
-            # print(googleads_ctr)
-            # print(googleads_imp)
-            # print(googleads_en)
-            # print(googleads_cv)
             events={'pre_total':events['total']['pre_total'],
                     'change':round(events['change']['total_change'][0], 2)}
-
             lst = ','.join(keywords['pre_keywords'])
-            # clicks_on = str(googleads['total'] + googleads['total_s'])
-            # impr = str(googleads_imp['total'] + googleads_imp['total_s'])
-            # ctr = str(googleads_ctr['total'] + googleads_ctr['total_s'])
-            # cost = str(googleads_cost['total'] + googleads_cost['total_s'])
-            # en = str(googleads_en['total'] + googleads_en['total_s'])
-            # c_con = str(googleads_cv['total'] + googleads_cv['total_s'])
+            ctr = round(((float(googleads['total']) / float(googleads_imp['total'])) * 100), 2)
+            usa = googleads_en['present'][0]['Animators USA'] + googleads_en['present'][0]['Illustration Search USA']
+            uk = googleads_en['present'][0]['Animators UK'] + googleads_en['present'][0]['Illustration Search UK'] + \
+                 googleads_en['present'][0]['Competitors']
             fromx = 'sanctusit.textmail@gmail.com'
             to = 'veeresh@sanctusit.com'
             msg = MIMEText(
-                "Hi All   \n\nHere are my weekly metrics \n\n Data for mail" )
-            # "\n\n    Illustration Ads     : [Clicks:"+str(googleads['total'])+"; Impr:"+str(googleads_imp['total'])+"; CTR:"+str(googleads_ctr['total'])+"%; Cost:$"+str(googleads_cost['total'])+"; Conv:"+str(googleads_en['total'])+"; Cost/Conv:$"+str(googleads_cv['total'])+";]\n\n    Stock Illustration Ads:[Clicks:"+str(googleads['total_s'])+"; Impr:"+str(googleads_imp['total_s'])+"; CTR:"+str(googleads_ctr['total_s'])+"%; Cost:$"+str(googleads_cost['total_s'])+"; Conv:"+str(googleads_en['total_s'])+"; Cost/Conv:$"+str(googleads_cv['total_s'])+";]\n\n\n\n\n\nThanks and Regards,")
+                "Hi   \n\nHere are my weekly metrics \n\nVisits:  " + str(AllVisitors_pre) + "  ( " + str(
+                          change_vists) + " %) " + "--->[Search: " + str(
+                    sessions['sessions']['present'][-1]['Organic Search']) + "; Direct: " + str(
+                    sessions['sessions']['present'][-1]['Direct']) + "; Referral:" + str(
+                    sessions['sessions']['present'][-1]['Referral']) + ", Social: " + str(
+                    sessions['sessions']['present'][-1]['Social']) + ", Paid:" + str(
+                    sessions['sessions']['present'][-1]['Paid Search']) + "]" + "" \
+                                                                                 "\n\n\n\nWeb enquiries:---(--%)\n\n    By Source: [Search:---;Agent Pop-Up:---;Ads:---;Unknown:---;Refferal:---;Social:---]\n\n    By Region: [UK:---;USA:---;ROW:---;IND:---;SEA:---;FR:---;cn:---;ANZ---;]\n\n    By Device: [Desktop: " + str(
+                          devices['present'][0]['desktop']) + "; Mobile: " + str(
+                          devices['present'][0]['mobile']) + ";]\n\n\nNewsletter widget: " + str(
+                    events['pre_total']) + "(" + str(
+                    events['change']) + "%)subscriptions.\n\n\nSocial Stats:---followers( this week)-->[Posts:--- ;Engagements:--- ;Connected:--- ]\n\nCommission Guide: "+str(commission['total_pre'])+
+                                           " ("+str(commission['changes']['total_change'])+"%) --->[ UK: "+str(commission['present'][0]['UK'])+" ;USA: "+str(commission['present'][0]['USA'])+" ;India: "+str(commission['present'][0]['India'])+" ;SEA: "+str(commission['present'][0]['SG'])+" ;ANZ: "+str(commission['present'][0]['ANZ'])+" ;ROW: "+str(commission['present'][1]['ROW'])+" ]"+
+                                           "\n\n\n\nOnline adds:\n\nChannel     Clicks  Impr    CTR     Cost    Enq     Cost/Conv.\n\n" \
+                                           "google         " + str(googleads['total']) + "      " + str(googleads_imp['total']) + "    " + str(
+                          ctr) + "%    $" + str(googleads_cost['total']) + "    " + str(googleads_en['total']) + "         $" + str(round((googleads_cost['total']/googleads_en['total']),2)) + "" \
+                                                                                                       "\n\n  Bing            --       --       --             --       --           --" \
+                                                                                                       "\n\nFacebook      --      --      --              --         --          --" \
+                                                                                                       "\n\n  Total         --        --        --            --          --       --\n\n"+"USA: "+str(usa)+"\nUK: "+str(uk)+"\nANZ: "+str(googleads_en['present'][0]['Illustration Search ANZ'])+"\n\nConverted Search terms:\n            "+str(lst)+"\n\nMany thanks\nPaul.")
+
+
             msg['Subject'] = 'Weekly Metrics report'
             msg['From'] = fromx
             msg['To'] = to
@@ -1220,7 +1236,7 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option, keywords = keywords, sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,events=events,
+                                       googleads_imp=googleads_imp,events=events,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv,change_vists=change_vists)
 
         elif dates['option'] == "LastMonthPrevYear":
@@ -1239,6 +1255,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1264,7 +1281,7 @@ def report():
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,events=events,
+                                       googleads_imp=googleads_imp,events=events,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv,change_vists=change_vists)
 
         elif dates['option'] == "30":
@@ -1283,6 +1300,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1308,7 +1326,7 @@ def report():
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastMonth":
@@ -1328,6 +1346,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1353,7 +1372,7 @@ def report():
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "12":
@@ -1372,6 +1391,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1397,7 +1417,7 @@ def report():
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastYear":
@@ -1416,6 +1436,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1441,13 +1462,13 @@ def report():
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "Week":
             option = 'Last 7 Days'
             dates = get_dates_yest(7)
-            print(dates)
+            # print(dates)
             present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
             previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
             sessions = SessionsCategoryResults(present, previous, 'date').main()
@@ -1461,6 +1482,7 @@ def report():
             googleads_cv = Googleads_cv(present, previous).main()
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
+            commission = Commissions(present, previous).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1485,7 +1507,7 @@ def report():
             return render_template('mail_data.html', dates=dates, option=option, keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
                                        googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
     except Exception as e:
