@@ -1194,7 +1194,7 @@ def report():
             uk = googleads_en['present'][0]['Animators UK'] + googleads_en['present'][0]['Illustration Search UK'] + \
                  googleads_en['present'][0]['Competitors']
             fromx = 'sanctusit.textmail@gmail.com'
-            to = 'veeresh@sanctusit.com'
+            to = ['nbveeresh1995@gmail.com','veeresh@sanctusit.com']
             msg = MIMEText(
                 "Hi   \n\nHere are my weekly metrics \n\nVisits:  " + str(AllVisitors_pre) + "  ( " + str(
                           change_vists) + " %) " + "--->[Search: " + str(
@@ -1202,14 +1202,15 @@ def report():
                     sessions['sessions']['present'][-1]['Direct']) + "; Referral:" + str(
                     sessions['sessions']['present'][-1]['Referral']) + ", Social: " + str(
                     sessions['sessions']['present'][-1]['Social']) + ", Paid:" + str(
-                    sessions['sessions']['present'][-1]['Paid Search']) + "]" + "" \
+                    sessions['sessions']['present'][-1]['Paid Search']) + ", Email:" + str(
+                    sessions['sessions']['present'][-1]['Email']) + "]" + "" \
                                                                                  "\n\n\n\nWeb enquiries:---(--%)\n\n    By Source: [Search:---;Agent Pop-Up:---;Ads:---;Unknown:---;Refferal:---;Social:---]\n\n    By Region: [UK:---;USA:---;ROW:---;IND:---;SEA:---;FR:---;cn:---;ANZ---;]\n\n    By Device: [Desktop: " + str(
                           devices['present'][0]['desktop']) + "; Mobile: " + str(
-                          devices['present'][0]['mobile']) + ";]\n\n\nNewsletter widget: " + str(
+                          devices['present'][0]['mobile']) + ";]\n\n\nNewsletter Subscriptions: " + str(
                     events['pre_total']) + "(" + str(
-                    events['change']) + "%)subscriptions.\n\n\nSocial Stats:---followers( this week)-->[Posts:--- ;Engagements:--- ;Connected:--- ]\n\nCommission Guide: "+str(commission['total_pre'])+
+                    events['change']) + "%).\n\nCommissioning Guide Views: "+str(commission['total_pre'])+
                                            " ("+str(commission['changes']['total_change'])+"%) --->[ UK: "+str(commission['present'][0]['UK'])+" ;USA: "+str(commission['present'][0]['USA'])+" ;India: "+str(commission['present'][0]['India'])+" ;SEA: "+str(commission['present'][0]['SG'])+" ;ANZ: "+str(commission['present'][0]['ANZ'])+" ;ROW: "+str(commission['present'][1]['ROW'])+" ]"+
-                                           "\n\n\n\nOnline adds:\n\nChannel     Clicks  Impr    CTR     Cost    Enq     Cost/Conv.\n\n" \
+                                           "\n\nSocial Stats:---followers( this week)-->[Posts:--- ;Engagements:--- ;Connected:--- ]\n\n\n\nOnline adds:\n\nChannel     Clicks  Impr    CTR     Cost    Enq     Cost/Conv.\n\n" \
                                            "google         " + str(googleads['total']) + "      " + str(googleads_imp['total']) + "    " + str(
                           ctr) + "%    $" + str(googleads_cost['total']) + "    " + str(googleads_en['total']) + "         $" + str(round((googleads_cost['total']/googleads_en['total']),2)) + "" \
                                                                                                        "\n\n  Bing            --       --       --             --       --           --" \
@@ -1219,7 +1220,7 @@ def report():
 
             msg['Subject'] = 'Weekly Metrics report'
             msg['From'] = fromx
-            msg['To'] = to
+            msg['To'] = ", ".join(to)
 
             server = smtplib.SMTP('smtp.gmail.com:587')
             server.starttls()

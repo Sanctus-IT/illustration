@@ -63,7 +63,8 @@ Here’s your website traffic report for {{ option }} ({{dates['pre_date']}}) vs
   Direct: {% if (sessions['sessions']['present'][-1]['Direct'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Direct']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Direct']}}</font>{% endif %},
   Referral: {% if (sessions['sessions']['present'][-1]['Referral'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Referral']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Referral']}}</font>{% endif %},
   Social: {% if (sessions['sessions']['present'][-1]['Social'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Social']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Social']}}</font>{% endif %},
-  Paid: {% if (sessions['sessions']['present'][-1]['Paid Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% endif %}]<br><br>
+  Paid: {% if (sessions['sessions']['present'][-1]['Paid Search'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Paid Search']}}</font>{% endif %},
+  Email: {% if (sessions['sessions']['present'][-1]['Email'].split('%')[0]|float) >= 0 %}<font color="green">+{{sessions['sessions']['present'][-1]['Email']}}</font>{% else %}<font color="red">{{sessions['sessions']['present'][-1]['Email']}}</font>{% endif %}]<br><br>
 
 <b>Web Enquiries</b> &emsp;&emsp;          :  --- (--%)<br>
 
@@ -71,31 +72,25 @@ By Source [Search: --; Agent pop-up: --; Ads: --; Unknown: --; Referral: --; Soc
 By Region [UK: --; USA: -; ROW: --, IND: --; SEA: --; FR: --; CN: --; ANZ: --]<br>
 By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['present'][0]['mobile'] }}]<br><br>
 
- <b>Newsletter widget</b> &emsp;&emsp;     : {{events['pre_total']}} ({% if (events['change']|float) >= 0 %}<font color="green">+{{events['change']}}%</font>{% else %}<font color="red">{{events['change']}}%</font>{% endif %}) subscriptions<br><br>
+ <b>Newsletter Subscriptions</b> &emsp;&emsp;     : {{events['pre_total']}} ({% if (events['change']|float) >= 0 %}<font color="green">+{{events['change']}}%</font>{% else %}<font color="red">{{events['change']}}%</font>{% endif %})<br><br>
 
- <b>Social Stats</b>               : ------ followers (--- this week) —> [Posts :-; Engagements : -; Connected : -]<br><br>
 
-    <b>Commission Guide</b>           : {{commission['total_pre']}} ({% if commission['changes']['total_change'] >=0 %}<font color="green">+{{ commission['changes']['total_change']|round(2) }}%</font>{% else %}<font color="red">{{ commission['changes']['total_change']|round(2) }}%</font>{%  endif %})—> [
+    <b>Commissioning Guide Views</b>           : {{commission['total_pre']}} ({% if commission['changes']['total_change'] >=0 %}<font color="green">+{{ commission['changes']['total_change']|round(2) }}%</font>{% else %}<font color="red">{{ commission['changes']['total_change']|round(2) }}%</font>{%  endif %})—> [
     UK: {{ commission['present'][0]['UK'] }} ;
     USA: {{ commission['present'][0]['USA'] }} ;
     India: {{ commission['present'][0]['India'] }} ;
     SEA: {{ commission['present'][0]['SG'] }} ;
     ANZ: {{ commission['present'][0]['ANZ'] }} ;
-    ROW: {{ commission['present'][1]['ROW'] }} ]<br><br><br>
-
+    ROW: {{ commission['present'][1]['ROW'] }} ]<br><br>
+ <b>Social Stats</b>               : ------ followers (--- this week) —> [Posts :--; Engagements : --; Connected : --]<br><br><br>
+<div style="clear:both;"><h2>Agent Pop-Ups</h2></div>
 <div class="col-md-6 col-sm-6 col-xs-12" style="clear:both;">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Agent Pop-Ups</h2>
-        <ul class="nav navbar-right panel_toolbox">
-        </ul>
-        <div class="clearfix"></div>
-      </div>
+    <div class="x_panel" style="width:80%; border:none; padding:0px 0px !important;">
       <div class="x_content">
 
         <table class="table table-hover " style="float: left">
           <thead>
-            <tr>
+            <tr bgcolor="#999999" style="color: white !important;">
               <th>Agent</th>
                <th>Region</th>
                <th>Enquires</th>
@@ -179,19 +174,13 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
       </div>
     </div>
   </div>
+    <div style="clear:both;"><h2>Online Ads</h2></div>
 <div class="col-md-6 col-sm-6 col-xs-12" style="clear:both; width:60% !important;">
-    <div class="x_panel">
-      <div class="x_title">
-        <h2>Online Ads</h2>
-        <ul class="nav navbar-right panel_toolbox">
-        </ul>
-        <div class="clearfix"></div>
-      </div>
+    <div class="x_panel" style="width:50%; border:none; padding:0px 0px !important;">
       <div class="x_content">
-
         <table class="table table-hover">
           <thead>
-            <tr>
+            <tr bgcolor="#999999" style="color: white !important;">
               <th>Channel</th>
                <th>Clicks</th>
                <th>Impr.</th>
