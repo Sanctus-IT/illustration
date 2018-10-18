@@ -1194,7 +1194,7 @@ def report():
             uk = googleads_en['present'][0]['Animators UK'] + googleads_en['present'][0]['Illustration Search UK'] + \
                  googleads_en['present'][0]['Competitors']
             fromx = 'sanctusit.textmail@gmail.com'
-            to = ['nbveeresh1995@gmail.com','veeresh@sanctusit.com']
+            to = ['paul@sanctusit.com','veeresh@sanctusit.com']
             msg = MIMEText(
                 "Hi   \n\nHere are my weekly metrics \n\nVisits:  " + str(AllVisitors_pre) + "  ( " + str(
                           change_vists) + " %) " + "--->[Search: " + str(
