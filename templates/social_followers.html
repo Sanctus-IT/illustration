@@ -1,0 +1,140 @@
+{% extends 'base.html' %}
+{% block topNav %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function() {
+    var start = moment().subtract(1, 'days').subtract(6,'days');
+    var end = moment().subtract(1, 'days');
+    function cb(start, end) {
+        $('#reportrange').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+    $('#reportrange').daterangepicker({
+        "minDate": "1/1/2016",
+        maxDate:moment().subtract(1, 'days'),
+        startDate: start,
+        endDate: end,
+        "opens": "center",
+        "alwaysShowCalendars": false,
+    }, cb);
+    cb(start, end);
+});
+$(document).ready(function(){
+    $(".applyBtn").off().on('click', function(){
+        $("#mySelect").val("CustomRange")
+    });
+});
+function func1() {
+  document.getElementById("mySelect").value="Week"
+};
+window.onload=func1;
+</script>
+<div class="row">
+    <div>
+        <form class="form-inline" method="post" action="/social">
+          <div class="form-group mb-2">
+              <label style="margin:-2px"  class="lb"><b>SELECT DATES:&nbsp;</b></label>
+              <select style="width:200px;border-color:#EB1414 !important" class="form-control sl"  name="option" onChange="myFunction()" id="mySelect">
+                <option value="Week">Last 7 days</option>
+                <option value="30">This Month (Last 4 Weeks)</option>
+                <option value="LastMonth">Prev. Month</option>
+                <option value="LastMonthPrevYear">Prev. Month of Past Year</option>
+                <option value="12">Last 12 Months</option>
+                <option value="LastYear">Last Year</option>
+                  <option value="7">Weekly Report</option>
+              </select>
+          </div>
+          <div id="demo" class="form-group "><input class="form-rounded" name="dates" id="reportrange" readonly/></div>
+          <button style="margin:10px" type="submit" name="action" value="submit" class="btn btn-danger">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div  style="text-align:center;margin: 70px 10px 20px 10px;">
+  <h3>Your Social Followers Snapshots for {{day.now().strftime("%d-%b-%Y")}}</h3>
+</div>
+<footer style="margin:auto; background-color:#f7f7f7 !important;">
+<div>
+<h2>Illustration Social Followers</h2>
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="x_panel" style="width:70%; border: 1px solid #c1b8b8; padding:1px 0px !important;">
+
+      <div class="x_content">
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th align="center">Network</th>
+              <th align="center">This Week</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Instagram</th>
+              <td align="center">{{social_stats['instagram']}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Facebook</th>
+              <td align="center">{{social_stats['facebook']}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Twitter</th>
+              <td align="center">{{social_stats['twitter']}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Pinterest</th>
+              <td align="center">{{social_stats['pintrest']}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Linkedin</th>
+              <td align="center">-</td>
+            </tr>
+            <tr bgcolor="#eeeeee">
+              <th scope="row">Total</th>
+              <td align="center">{{social_stats['total']}}</td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+<div>
+    <h2>Stock Illustration Social Followers</h2>
+<div class="col-md-6 col-sm-6 col-xs-12">
+    <div class="x_panel" style="width:70%; border: 1px solid #c1b8b8; padding:1px 0px !important;">
+      <div class="x_content">
+
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th align="center">Network</th>
+              <th align="center">This Week</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row">Instagram</th>
+              <td align="center">{{social_stats['stock_instagram']}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Twitter</th>
+              <td align="center">{{social_stats['stock_twitter']}}</td>
+            </tr>
+            <tr>
+              <th scope="row">Pinterest</th>
+              <td align="center">{{social_stats['stock_pintrest']}}</td>
+            </tr>
+            <tr bgcolor="#eeeeee">
+              <th scope="row">Total</th>
+              <td align="center">{{social_stats['total_stock']}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+</footer>
+{% endblock %}

@@ -507,3 +507,56 @@ class Commissions:
                    "total_change" : self.com_change(total_pre, total_prev)
                    }
         return {'present':pre_commission,'previous':prev_commission,'total_pre':total_pre,'total_prev':total_prev,'changes':changes}
+
+import requests
+from bs4 import BeautifulSoup as soup
+
+class Social_stats:
+    def __init__(self,date):
+        self.date = date
+
+    def scraping(self,url):
+        data = requests.get(url)
+        html_text = soup(data.text,'html.parser')
+        return html_text
+
+    def main(self):
+        pintrest = 'https://in.pinterest.com/illustrationltd/'
+        facebook = 'https://www.facebook.com/pg/IllustrationLtd/community/'
+        twitter = 'https://twitter.com/Illustrationweb'
+        # linkedin = 'https://www.linkedin.com/company/illustration'
+        instagram = 'https://www.instagram.com/illustrationweb/'
+
+
+        pintrest_followers = int(self.scraping(pintrest).find("meta",  property="pinterestapp:followers")['content'])
+        # print('Pintrest {} followers'.format(pintrest_followers))
+
+        facebook_followers = int(str(self.scraping(facebook).find_all('div',{'class':'_3xom'})[1].text).replace(',',''))
+        # print('Facebook {} followers'.format(facebook_followers))
+
+        twitter_followers = int(self.scraping(twitter).find_all('span',{'class':'ProfileNav-value'})[2]['data-count'])
+        # print('Twitter {} followers'.format(twitter_followers))
+
+        instagram_followers = str(self.scraping(instagram).find_all('script',{'type':'text/javascript'})[3].text)
+        indx = instagram_followers.find('edge_followed_by')
+        instagram_followers = int(instagram_followers[indx+27:indx+32])
+        # print('Instagram {} followers'.format(instagram_followers))
+        total = pintrest_followers+facebook_followers+twitter_followers+instagram_followers
+
+        stock_pintrest = int(self.scraping('https://www.pinterest.co.uk/stockillustrations').find("meta", property="pinterestapp:followers")['content'])
+        # print('Stock Pintrest {} followers'.format(stock_pintrest))
+
+        stock_twitter = int(self.scraping("https://twitter.com/Stock_Artworks").find_all('span', {'class': 'ProfileNav-value'})[2]['data-count'])
+        # print('Stock Twitter {} followers'.format(stock_twitter))
+
+        stock_instagram = str(self.scraping("https://www.instagram.com/stockillustrations/").find_all('script', {'type': 'text/javascript'})[3].text)
+        indx = stock_instagram.find('edge_followed_by')
+        stock_instagram = int(stock_instagram[indx + 27:indx + 31])
+        # print('Stock Instagram {} followers'.format(stock_instagram))
+        total_stock = stock_twitter + stock_pintrest + stock_instagram
+
+
+
+        return {'pintrest':pintrest_followers,'facebook':facebook_followers,'twitter':twitter_followers,
+                'instagram':instagram_followers,'total':total,'total_stock':total_stock,
+                'stock_pintrest':stock_pintrest,'stock_twitter':stock_twitter,'stock_instagram':stock_instagram}

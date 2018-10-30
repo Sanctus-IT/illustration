@@ -82,10 +82,10 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
     SEA: {{ commission['present'][0]['SG'] }} ;
     ANZ: {{ commission['present'][0]['ANZ'] }} ;
     ROW: {{ commission['present'][1]['ROW'] }} ]<br><br>
- <b>Social Stats</b>               : ------ followers (--- this week) —> [Posts :--; Engagements : --; Connected : --]<br><br><br>
+ <b>Social Stats</b>               : {{social_stats['total']}} followers (as on {{day.now().strftime("%d-%b-%y")}}) —> [Posts :--; Engagements : --; Connected : --]<br><br><br>
 <div style="clear:both;"><h2>Agent Pop-Ups</h2></div>
 <div class="col-md-6 col-sm-6 col-xs-12" style="clear:both;">
-    <div class="x_panel" style="width:80%; border:none; padding:0px 0px !important;">
+    <div class="x_panel" style="width:80%; border: 1px solid #c1b8b8; padding:0px 0px !important;">
       <div class="x_content">
 
         <table class="table table-hover " style="float: left">
@@ -176,7 +176,7 @@ By Device [Desktop: {{ devices['present'][0]['desktop'] }}; Mobile: {{ devices['
   </div>
     <div style="clear:both;"><h2>Online Ads</h2></div>
 <div class="col-md-6 col-sm-6 col-xs-12" style="clear:both; width:60% !important;">
-    <div class="x_panel" style="width:50%; border:none; padding:0px 0px !important;">
+    <div class="x_panel" style="width:100%; border: 1px solid #c1b8b8; padding:0px 0px !important;">
       <div class="x_content">
         <table class="table table-hover">
           <thead>

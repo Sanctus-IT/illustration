@@ -1173,6 +1173,7 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1210,7 +1211,7 @@ def report():
                     events['pre_total']) + "(" + str(
                     events['change']) + "%).\n\nCommissioning Guide Views: "+str(commission['total_pre'])+
                                            " ("+str(commission['changes']['total_change'])+"%) --->[ UK: "+str(commission['present'][0]['UK'])+" ;USA: "+str(commission['present'][0]['USA'])+" ;India: "+str(commission['present'][0]['India'])+" ;SEA: "+str(commission['present'][0]['SG'])+" ;ANZ: "+str(commission['present'][0]['ANZ'])+" ;ROW: "+str(commission['present'][1]['ROW'])+" ]"+
-                                           "\n\nSocial Stats:---followers( this week)-->[Posts:--- ;Engagements:--- ;Connected:--- ]\n\n\n\nOnline adds:\n\nChannel     Clicks  Impr    CTR     Cost    Enq     Cost/Conv.\n\n" \
+                                           "\n\nSocial Stats: "+str(social_stats['total'])+" followers(as on "+str(day.now().strftime("%d-%b-%y"))+")-->[Posts:--- ;Engagements:--- ;Connected:--- ]\n\n\n\nOnline adds:\n\nChannel     Clicks  Impr    CTR     Cost    Enq     Cost/Conv.\n\n" \
                                            "google         " + str(googleads['total']) + "      " + str(googleads_imp['total']) + "    " + str(
                           ctr) + "%    $" + str(googleads_cost['total']) + "    " + str(googleads_en['total']) + "         $" + str(round((googleads_cost['total']/googleads_en['total']),2)) + "" \
                                                                                                        "\n\n  Bing            --       --       --             --       --           --" \
@@ -1236,8 +1237,8 @@ def report():
 
             return render_template('mail_data.html',dates=dates,option=option, keywords = keywords, sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,events=events,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,day=day,
+                                       googleads_imp=googleads_imp,events=events,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv,change_vists=change_vists)
 
         elif dates['option'] == "LastMonthPrevYear":
@@ -1257,6 +1258,7 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1281,8 +1283,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,
-                                       googleads_imp=googleads_imp,events=events,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,day=day,
+                                       googleads_imp=googleads_imp,events=events,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv,change_vists=change_vists)
 
         elif dates['option'] == "30":
@@ -1302,6 +1304,8 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1326,8 +1330,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,day=day,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastMonth":
@@ -1348,6 +1352,8 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1372,8 +1378,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,day=day,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "12":
@@ -1393,6 +1399,8 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1417,8 +1425,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,day=day,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "LastYear":
@@ -1438,6 +1446,8 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1462,8 +1472,8 @@ def report():
             return render_template('mail_data.html',dates=dates,option=option,
                                    keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,day=day,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
         elif dates['option'] == "Week":
@@ -1484,6 +1494,8 @@ def report():
             devices = Devices(present, previous).main()
             events = Events(present, previous).main()
             commission = Commissions(present, previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+
             AllVisitors_pre = (session_category[8].get('Organic Search', 0) +
                                session_category[8].get('Direct', 0) +
                                session_category[8].get('Referral', 0) +
@@ -1507,8 +1519,8 @@ def report():
             }
             return render_template('mail_data.html', dates=dates, option=option, keywords=keywords,sessions=sessions,AllVisitors_pre=AllVisitors_pre,
                                    AllVisitors_prev=AllVisitors_prev,lst=lst,devices=devices,googleads=googleads,
-                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,
-                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,
+                                       googleads_cost=googleads_cost, googleads_ctr=googleads_ctr,events=events,day=day,
+                                       googleads_imp=googleads_imp,change_vists=change_vists,commission=commission,social_stats=social_stats,
                                        googleads_en=googleads_en, googleads_cv=googleads_cv)
 
     except Exception as e:
@@ -1518,8 +1530,8 @@ def report():
         # else:
         #     return render_template("page_500.html")
 
-@app.route("/region" , methods=["GET", "POST"])
-def region():
+@app.route("/geo" , methods=["GET", "POST"])
+def geo():
     if 'credentials' not in session:
         return redirect('authorize')
 
@@ -1712,6 +1724,38 @@ def region():
             return render_template('Region_last_week.html', result=result, dates=dates, option=option,
                                    days=days, sessions=sessions
                                    )
+    except Exception as e:
+        print(e)
+        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
+        return redirect('authorize')
+        # else:
+        #     return render_template("page_500.html")
+
+@app.route("/social" , methods=["GET", "POST"])
+def social():
+    if 'credentials' not in session:
+        return redirect('authorize')
+
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    service = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    try:
+        dates = request.form.to_dict()
+    except:
+        dates = {}
+    try:
+        if dates == {} or dates['option'] == "Week":
+            option = 'Last 7 Days'
+            dates = get_dates_yest(7)
+            # print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+
+            return render_template('social_followers.html',social_stats=social_stats,day=day)
+
     except Exception as e:
         print(e)
         # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
