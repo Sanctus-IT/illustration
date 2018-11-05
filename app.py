@@ -1744,7 +1744,7 @@ def stock():
             stock = Stock_illustration(present,previous).main()
             social_stats = Social_stats(dates[0]['pre_end']).main()
             fromx = 'sanctusit.textmail@gmail.com'
-            to = ['nbveeresh1995@gmail.com', 'veeresh@sanctusit.com']
+            to = ['paul@sanctusit.com', 'veeresh@sanctusit.com']
             msg = MIMEText(
                 "Hi   \n\nHere are my weekly metrics \n\n1) Visits: " + str(stock['visit_changes']['total_visits']) + " (" + str(
                     stock['visit_changes']['total_change_visits']) + "%) " + "--->[Organic: " + str(stock['visit_changes']['Organic Search'])
