@@ -82,7 +82,40 @@ def get_week():
             }
             )
 
+def get_stock_week():
+    today = datetime.datetime.now()
+    if today.strftime('%a')=='Fri':
+        thursday = today + relativedelta(days=-1)
+    elif today.strftime('%a')=='Sat':
+        thursday=today+relativedelta(days=-2)
+    elif today.strftime('%a')=='Sun':
+        thursday=today+relativedelta(days=-3)
+    elif today.strftime('%a')=='Mon':
+        thursday=today+relativedelta(days=-4)
+    elif today.strftime('%a')=='Tue':
+        thursday=today+relativedelta(days=-5)
+    elif today.strftime('%a')=='Wed':
+        thursday=today+relativedelta(days=-6)
+    elif today.strftime('%a')=='Thu':
+        thursday=today+relativedelta(days=-7)
 
+    pre_start = thursday+relativedelta(days=-6)
+    prv_end = pre_start + relativedelta(days=-1)
+    prv_start = prv_end + relativedelta(days=-(7 - 1))
+    return (
+            {
+                'pre_start': pre_start.strftime('%Y-%m-%d'),
+                'pre_end': thursday.strftime('%Y-%m-%d'),
+                'prv_start': prv_start.strftime('%Y-%m-%d'),
+                'prv_end': prv_end.strftime('%Y-%m-%d')
+            },
+            {
+                'pre_start': pre_start.strftime('%d-%b-%y'),
+                'pre_end': thursday.strftime('%d-%b-%y'),
+                'prv_start': prv_start.strftime('%d-%b-%y'),
+                'prv_end': prv_end.strftime('%d-%b-%y')
+            }
+            )
 
 def get_dates(N):
 

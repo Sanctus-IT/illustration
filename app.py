@@ -7,7 +7,7 @@ from get_data import mainClass
 from dateutil.relativedelta import relativedelta
 from ResultServices.results import *
 from utilities import (
-    get_week,get_dates, get_dates_yest, get12months, change, get_two_month_dates, prev_month_last_year,  last_year, credentials_to_dict
+    get_week,get_dates, get_dates_yest, get12months, change, get_two_month_dates, prev_month_last_year,  last_year, credentials_to_dict,get_stock_week
 )
 from flask import Flask, render_template, redirect, session, url_for, jsonify, request
 import google.oauth2.credentials
@@ -54,11 +54,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'date').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           conversions = Conversions(present, previous, 'month').main()
           traffic = WebsiteTrafficResults(present, previous, 'date').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -117,11 +112,11 @@ def index():
               5] = 0, 0, 0, 0
           days = [((day.now() - timedelta(days=i)).strftime("%A")) for i in range(1, 8)]
 
-          session['credentials'] = credentials_to_dict(credentials)
+          #session['credentials'] = credentials_to_dict(credentials)
 
           return render_template('last_7_days.html', result=result, dates=dates, Change=Change, option=option,
-                                 days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
-                                 agents=agents,sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices)
+                                 days=days, visitors=visitors
+                                 )
       elif dates['option'] == "LastMonthPrevYear":
           option = 'Prev. Month of Past Year'
           dates = prev_month_last_year()
@@ -129,11 +124,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'date').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           traffic = WebsiteTrafficResults(present, previous, 'date').main()
           conversions = Conversions(present, previous, 'month').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -191,8 +181,7 @@ def index():
               5] = 0, 0, 0, 0
           session['credentials'] = credentials_to_dict(credentials)
           return render_template('last_month_prev_year.html', result=result, dates=dates, Change=Change,
-                                 option=option, visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+                                 option=option, visitors=visitors)
       elif dates['option'] == "30":
           dates = get_dates(30)
           option = 'This Month (Last 4 Weeks)'
@@ -200,11 +189,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'date').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           traffic = WebsiteTrafficResults(present, previous, 'date').main()
           conversions = Conversions(present, previous, 'month').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -265,8 +249,7 @@ def index():
           session['credentials'] = credentials_to_dict(credentials)
 
           return render_template('last_30_days.html', result=result, dates=dates, Change=Change, option=option,
-                                 visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+                                 visitors=visitors)
       elif dates['option'] == "LastMonth":
           dates = get_two_month_dates()
           # print(dates)
@@ -275,11 +258,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'date').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           traffic = WebsiteTrafficResults(present, previous, 'date').main()
           conversions = Conversions(present, previous, 'month').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -340,8 +318,7 @@ def index():
           session['credentials'] = credentials_to_dict(credentials)
 
           return render_template('last_month.html', result=result, dates=dates, Change=Change, option=option,
-                                 visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+                                 visitors=visitors)
 
       elif dates['option'] == "12":
           option = 'Last 12 Months'
@@ -350,11 +327,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'month').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           traffic = WebsiteTrafficResults(present, previous, 'month').main()
           conversions = Conversions(present, previous, 'month').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -419,8 +391,7 @@ def index():
           session['credentials'] = credentials_to_dict(credentials)
 
           return render_template('last_12_months.html', result=result, dates=dates, Change=Change, option=option,
-                                 months=months,month_num=month_num, visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+                                 months=months,month_num=month_num, visitors=visitors)
 
       elif dates['option'] == "LastYear":
           option = 'Last Year'
@@ -429,11 +400,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'month').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           traffic = WebsiteTrafficResults(present, previous, 'month').main()
           conversions = Conversions(present, previous, 'year  ').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -494,8 +460,7 @@ def index():
           session['credentials'] = credentials_to_dict(credentials)
 
           return render_template('last_year.html', result=result, dates=dates, Change=Change, option=option,
-                                 visitors=visitors,sessions=sessions,topkeywords=topkeywords,agents=agents,
-                                 sidebutton=sidebutton,portfolio=portfolio,events=events,devices=devices)
+                                 visitors=visitors)
       elif dates['option'] == "7":
           option = 'Last week'
           dates = get_week()
@@ -504,11 +469,6 @@ def index():
           previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
           sessions = SessionsCategoryResults(present, previous, 'date').main()
           topkeywords = Topkeywords(present, previous).main()
-          agents = Agents(present, previous).main()
-          sidebutton = SideButton(present, previous).main()
-          portfolio = Portfolio(present, previous).main()
-          events = Events(present, previous).main()
-          devices = Devices(present, previous).main()
           conversions = Conversions(present, previous, 'month').main()
           traffic = WebsiteTrafficResults(present, previous, 'date').main()
           bouncerate = BounceRateResults(present, previous).main()
@@ -570,10 +530,7 @@ def index():
           session['credentials'] = credentials_to_dict(credentials)
 
           return render_template('last_week.html', result=result, dates=dates, Change=Change, option=option,
-                                 days=days, visitors=visitors, sessions=sessions, topkeywords=topkeywords,
-                                 agents=agents,
-                                 sidebutton=sidebutton, portfolio=portfolio, events=events, devices=devices,
-                                 )
+                                 days=days, visitors=visitors)
 
 
   except Exception as e:
@@ -1755,6 +1712,71 @@ def social():
             social_stats = Social_stats(dates[0]['pre_end']).main()
 
             return render_template('social_followers.html',social_stats=social_stats,day=day)
+
+    except Exception as e:
+        print(e)
+        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
+        return redirect('authorize')
+        # else:
+        #     return render_template("page_500.html")
+
+@app.route("/stock" , methods=["GET", "POST"])
+def stock():
+    if 'credentials' not in session:
+        return redirect('authorize')
+
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    service = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    try:
+        dates = request.form.to_dict()
+    except:
+        dates = {}
+    try:
+        if dates == {} or dates['option'] == "7":
+            option = 'Last week'
+            dates = get_stock_week()
+            print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            stock = Stock_illustration(present,previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            fromx = 'sanctusit.textmail@gmail.com'
+            to = ['nbveeresh1995@gmail.com', 'veeresh@sanctusit.com']
+            msg = MIMEText(
+                "Hi   \n\nHere are my weekly metrics \n\n1) Visits: " + str(stock['visit_changes']['total_visits']) + " (" + str(
+                    stock['visit_changes']['total_change_visits']) + "%) " + "--->[Organic: " + str(stock['visit_changes']['Organic Search'])
+                     + "%; Direct: " + str(stock['visit_changes']['Direct']) + "%; Referral: " + str(stock['visit_changes']['Referral'])
+                     + "%; Social: " + str(stock['visit_changes']['Social']) + "%; Paid: " + str(stock['visit_changes']['Paid Search']) + "%]"
+                     +"\n\n2) Goal Convs.: "+str(stock['present'][3]['ga:goalCompletionsAll'])+" ["+str(stock['present'][1])+"]"
+                     +"\n\n3) Social Followers : "+str(social_stats['total_stock'])+" (as on "+str(day.now().strftime("%d-%b-%y"))+")"
+                     +"\n\n4) Social Engagement : --- (---%)"
+                     +"\n\n5) Keywords : Moved up (--); Moved down (--)"
+                     +"\n\n6) Search Visibility Score: ---% (---%)"
+                     +"\n\nOnline Ads"
+                     +"\nClicks : "+str(stock['present'][2]['ga:adClicks'])
+                     +"\nImpr : "+str(stock['present'][2]['ga:impressions'])
+                     +"\nCTR : "+str(round(float(stock['present'][2]['ga:CTR']),2))
+                     +"%\nCost : $"+str(stock['present'][2]['ga:adCost'])+" ("+str(stock['cost_change'])+"%)"
+                     +"\nEnquiries : 0"
+                     +"\n\nMany thanks\nPaul.")
+
+            msg['Subject'] = 'Weekly Metrics report'
+            msg['From'] = fromx
+            msg['To'] = ", ".join(to)
+
+            server = smtplib.SMTP('smtp.gmail.com:587')
+            server.starttls()
+            server.ehlo()
+            server.login('sanctusit.textmail@gmail.com', 'sanctusit.com')
+            server.sendmail(fromx, to, msg.as_string())
+            server.quit()
+
+
+
+            return render_template('stocks.html',stock=stock,social_stats=social_stats,day=day)
 
     except Exception as e:
         print(e)

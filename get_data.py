@@ -852,7 +852,39 @@ def print_commission(results):
 
 
 #----------------------------------------------------------------------------------------------------------------
-
+def get_stock_sessions(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:sessions',
+        dimensions='ga:channelgrouping',
+    ).execute()
+    # print('stock',result)
+    return result
+def get_stock_goals(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:goalCompletionsAll',
+        dimensions='ga:eventAction',
+    ).execute()
+    print('stock_goals',result)
+    return result
+def get_stock_ads(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:adClicks, ga:impressions, ga:CTR, ga:adCost, ga:goalCompletionsAll',
+        dimensions='ga:campaign',
+        # order='-ga:adClicks',
+        filters='ga:campaign==Stock UK,ga:campaign==Stock USA'
+    ).execute()
+    # print('stock_ads',result)
+    return dict(result.get('totalsForAllResults', [["", ""]]))
+#----------------------------------------------------------------------------------------------------------------
 class mainClass:
 
     def __init__(self, start_date, end_date, service):
@@ -1367,3 +1399,10 @@ class mainClass:
         res_data = self.group(commission_list, keys)
         res_data.append({"ROW":res_data[0]['ZZ']+res_data[0]['AE']})
         return res_data
+
+    def stock(self):
+        profile_id = '20784902'
+        session = get_stock_sessions(self.service,profile_id,self.start_date,self.end_date)
+        goals  = get_stock_goals(self.service,profile_id,self.start_date,self.end_date)
+        ads = get_stock_ads(self.service,profile_id,self.start_date,self.end_date)
+        return print_commission(session),print_commission(goals),ads,goals.get('totalsForAllResults', [["", ""]])
