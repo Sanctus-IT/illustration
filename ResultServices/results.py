@@ -560,3 +560,30 @@ class Social_stats:
         return {'pintrest':pintrest_followers,'facebook':facebook_followers,'twitter':twitter_followers,
                 'instagram':instagram_followers,'total':total,'total_stock':total_stock,
                 'stock_pintrest':stock_pintrest,'stock_twitter':stock_twitter,'stock_instagram':stock_instagram}
+
+class Stock_illustration:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def stock_change(self,present,previous):
+        change = round(((float(present)-float(previous))/float(previous))*100,2) if float(previous)!=0 else 100
+        return change
+
+    def main(self):
+        present = self.current_results.stock()
+        previous = self.previous_results.stock()
+        total_visits_pre = int(present[0]['Social'])+int(present[0]['Direct'])+int(present[0]['Referral'])+int(present[0]['Organic Search'])+int(present[0]['Paid Search'])
+        total_visits_prev = int(previous[0]['Social'])+int(previous[0]['Direct'])+int(previous[0]['Referral'])+int(previous[0]['Organic Search'])+int(previous[0]['Paid Search'])
+        visit_changes = {'total_visits':total_visits_pre,
+                   'Organic Search':self.stock_change(present[0]['Organic Search'],previous[0]['Organic Search']),
+                   'Direct': self.stock_change(present[0]['Direct'], previous[0]['Direct']),
+                   'Referral': self.stock_change(present[0]['Referral'], previous[0]['Referral']),
+                   'Paid Search': self.stock_change(present[0]['Paid Search'], previous[0]['Paid Search']),
+                   'Social': self.stock_change(present[0]['Social'], previous[0]['Social']),
+                   'total_change_visits' : self.stock_change(total_visits_pre,total_visits_prev)
+        }
+        cost_change = self.stock_change(float(present[2]['ga:adCost']),float(previous[2]['ga:adCost']))
+
+        return {'visit_changes':visit_changes,'present':present,'cost_change':cost_change}

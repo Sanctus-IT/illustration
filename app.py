@@ -7,7 +7,7 @@ from get_data import mainClass
 from dateutil.relativedelta import relativedelta
 from ResultServices.results import *
 from utilities import (
-    get_week,get_dates, get_dates_yest, get12months, change, get_two_month_dates, prev_month_last_year,  last_year, credentials_to_dict
+    get_week,get_dates, get_dates_yest, get12months, change, get_two_month_dates, prev_month_last_year,  last_year, credentials_to_dict, get_stock_week
 )
 from flask import Flask, render_template, redirect, session, url_for, jsonify, request
 import google.oauth2.credentials
@@ -1755,6 +1755,71 @@ def social():
             social_stats = Social_stats(dates[0]['pre_end']).main()
 
             return render_template('social_followers.html',social_stats=social_stats,day=day)
+
+    except Exception as e:
+        print(e)
+        # if e == 'The credentials do not contain the necessary fields need to refresh the access token. You must specify refresh_token, token_uri, client_id, and client_secret.':
+        return redirect('authorize')
+        # else:
+        #     return render_template("page_500.html")
+
+@app.route("/stock" , methods=["GET", "POST"])
+def stock():
+    if 'credentials' not in session:
+        return redirect('authorize')
+
+    credentials = google.oauth2.credentials.Credentials(
+        **session['credentials'])
+
+    service = googleapiclient.discovery.build(
+        API_SERVICE_NAME, API_VERSION, credentials=credentials)
+    try:
+        dates = request.form.to_dict()
+    except:
+        dates = {}
+    try:
+        if dates == {} or dates['option'] == "7":
+            option = 'Last week'
+            dates = get_stock_week()
+            print(dates)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            stock = Stock_illustration(present,previous).main()
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            fromx = 'sanctusit.textmail@gmail.com'
+            to = ['paul@sanctusit.com', 'veeresh@sanctusit.com']
+            msg = MIMEText(
+                "Hi   \n\nHere are my weekly metrics \n\n1) Visits: " + str(stock['visit_changes']['total_visits']) + " (" + str(
+                    stock['visit_changes']['total_change_visits']) + "%) " + "--->[Organic: " + str(stock['visit_changes']['Organic Search'])
+                     + "%; Direct: " + str(stock['visit_changes']['Direct']) + "%; Referral: " + str(stock['visit_changes']['Referral'])
+                     + "%; Social: " + str(stock['visit_changes']['Social']) + "%; Paid: " + str(stock['visit_changes']['Paid Search']) + "%]"
+                     +"\n\n2) Goal Convs.: "+str(stock['present'][3]['ga:goalCompletionsAll'])+" ["+str(stock['present'][1])+"]"
+                     +"\n\n3) Social Followers : "+str(social_stats['total_stock'])+" (as on "+str(day.now().strftime("%d-%b-%y"))+")"
+                     +"\n\n4) Social Engagement : --- (---%)"
+                     +"\n\n5) Keywords : Moved up (--); Moved down (--)"
+                     +"\n\n6) Search Visibility Score: ---% (---%)"
+                     +"\n\nOnline Ads"
+                     +"\nClicks : "+str(stock['present'][2]['ga:adClicks'])
+                     +"\nImpr : "+str(stock['present'][2]['ga:impressions'])
+                     +"\nCTR : "+str(round(float(stock['present'][2]['ga:CTR']),2))
+                     +"%\nCost : $"+str(stock['present'][2]['ga:adCost'])+" ("+str(stock['cost_change'])+"%)"
+                     +"\nEnquiries : 0"
+                     +"\n\nMany thanks\nPaul.")
+
+            msg['Subject'] = 'Weekly Metrics report'
+            msg['From'] = fromx
+            msg['To'] = ", ".join(to)
+
+            server = smtplib.SMTP('smtp.gmail.com:587')
+            server.starttls()
+            server.ehlo()
+            server.login('sanctusit.textmail@gmail.com', 'sanctusit.com')
+            server.sendmail(fromx, to, msg.as_string())
+            server.quit()
+
+
+
+            return render_template('stocks.html',stock=stock,social_stats=social_stats,day=day)
 
     except Exception as e:
         print(e)
