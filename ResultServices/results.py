@@ -586,4 +586,22 @@ class Stock_illustration:
         }
         cost_change = self.stock_change(float(present[2]['ga:adCost']),float(previous[2]['ga:adCost']))
 
-        return {'visit_changes':visit_changes,'present':present,'cost_change':cost_change}
+        dic = {}
+        for key, value in present[1].items():
+            dic[str(key)] = int(value)
+        new = {}
+        dic2 = dic.copy()
+        for key in dic2:
+            if key == 'Visitor_Sent_a_Message':
+                new['Chat Conversation'] = dic[key]
+                dic.pop(key)
+            elif key == 'Order':
+                new['Sales'] = dic[key]
+                dic.pop(key)
+        dic.update(new)
+        lst = []
+        for key, value in dic.items():
+            lst.append('{}: {}'.format(key, value))
+
+
+        return {'visit_changes':visit_changes,'present':present,'cost_change':cost_change,'goalcompletions':lst}

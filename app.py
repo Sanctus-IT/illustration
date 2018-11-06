@@ -1750,7 +1750,7 @@ def stock():
                     stock['visit_changes']['total_change_visits']) + "%) " + "--->[Organic: " + str(stock['visit_changes']['Organic Search'])
                      + "%; Direct: " + str(stock['visit_changes']['Direct']) + "%; Referral: " + str(stock['visit_changes']['Referral'])
                      + "%; Social: " + str(stock['visit_changes']['Social']) + "%; Paid: " + str(stock['visit_changes']['Paid Search']) + "%]"
-                     +"\n\n2) Goal Convs.: "+str(stock['present'][3]['ga:goalCompletionsAll'])+" ["+str(stock['present'][1])+"]"
+                     +"\n\n2) Goal Convs.: "+str(stock['present'][3]['ga:goalCompletionsAll'])+str(stock['goalcompletions'])
                      +"\n\n3) Social Followers : "+str(social_stats['total_stock'])+" (as on "+str(day.now().strftime("%d-%b-%y"))+")"
                      +"\n\n4) Social Engagement : --- (---%)"
                      +"\n\n5) Keywords : Moved up (--); Moved down (--)"
