@@ -613,4 +613,6 @@ class Social_visits:
     def main(self):
         pre_social_visits = self.current_results.social_visits()
         prev_social_visits = self.previous_results.social_visits()
-        return {'present':pre_social_visits,'previous':prev_social_visits}
+        pre_social_visits=pre_social_visits[0]
+        total = pre_social_visits['Instagram']+pre_social_visits['Pinterest']+pre_social_visits['Twitter']+pre_social_visits['LinkedIn']+pre_social_visits['Facebook']+pre_social_visits['Linkedin Groups']
+        return {'present':pre_social_visits,'previous':prev_social_visits,'total':total}
