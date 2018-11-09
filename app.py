@@ -1710,10 +1710,10 @@ def social():
             present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
             previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
             social_stats = Social_stats(dates[0]['pre_end']).main()
-            # social_visits = Social_visits(present,previous).main()
+            social_visits = Social_visits(present,previous).main()
             # print(social_visits)
 
-            return render_template('social_followers.html',social_stats=social_stats,day=day)
+            return render_template('social_followers.html',social_stats=social_stats,social_visits=social_visits,day=day)
 
     except Exception as e:
         print(e)
