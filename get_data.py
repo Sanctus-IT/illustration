@@ -888,22 +888,15 @@ def get_stock_ads(service, profile_id,pre_startDate,pre_endDate):
 
 def get_social_visits(service, profile_id,pre_startDate,pre_endDate):
 
-    if profile_id=='5110029':
-        metrics='ga:sessions, ga:goal2Completions, ga:goal5Completions'
-    elif profile_id=='84906789':
-        metrics='ga:sessions, ga:goal2Completions, ga:goal1Completions'
-    else:
-        metrics='ga:sessions'
     result = service.data().ga().get(
         ids='ga:' + profile_id,
         start_date=str(pre_startDate),
         end_date=str(pre_endDate),
         metrics='ga:sessions',
-        dimensions='ga:socialNetwork',
+        dimensions='ga:socialNetworks',
         filters='ga:source=~pinterest|facebook|twitter|instagram|linkedin'
     ).execute()
-
-    # print('social_visits',result)
+    print('social_visits',result)
     return result
 
 
@@ -1443,8 +1436,5 @@ class mainClass:
             result = get_social_visits(self.service, profile_id[0], self.start_date, self.end_date)
             print_result = print_commission(result)
             social_visits_list.append(print_result)
-        # print(social_visits_list)
-        keys = ['Pinterest', 'Instagram', 'Facebook', 'Twitter', 'LinkedIn', 'Linkedin Groups']
-        res_data = self.group(social_visits_list, keys)
-        # print(res_data)
-        return res_data
+        print(social_visits_list)
+        return social_visits_list
