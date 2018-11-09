@@ -885,6 +885,23 @@ def get_stock_ads(service, profile_id,pre_startDate,pre_endDate):
     # print('stock_ads',result)
     return dict(result.get('totalsForAllResults', [["", ""]]))
 #----------------------------------------------------------------------------------------------------------------
+
+def get_social_visits(service, profile_id,pre_startDate,pre_endDate):
+
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:sessions',
+        dimensions='ga:socialNetworks',
+        filters='ga:source=~pinterest|facebook|twitter|instagram|linkedin'
+    ).execute()
+    print('social_visits',result)
+    return result
+
+
+#----------------------------------------------------------------------------------------------------------------
+
 class mainClass:
 
     def __init__(self, start_date, end_date, service):
@@ -1406,3 +1423,18 @@ class mainClass:
         goals  = get_stock_goals(self.service,profile_id,self.start_date,self.end_date)
         ads = get_stock_ads(self.service,profile_id,self.start_date,self.end_date)
         return print_commission(session),print_commission(goals),ads,goals.get('totalsForAllResults', [["", ""]])
+
+    def social_visits(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States,ga:country==Canada'),
+            ('85625764', 'France'),
+            ('88496086', 'China'),
+        ]
+        social_visits_list=[]
+        for profile_id in profile_ids:
+            result = get_social_visits(self.service, profile_id[0], self.start_date, self.end_date)
+            print_result = print_commission(result)
+            social_visits_list.append(print_result)
+        print(social_visits_list)
+        return social_visits_list
