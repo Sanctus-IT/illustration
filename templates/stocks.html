@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+{% block topNav %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script>
+    $(function() {
+    var start = moment().subtract(1, 'days').subtract(6,'days');
+    var end = moment().subtract(1, 'days');
+    function cb(start, end) {
+        $('#reportrange').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
+    }
+    $('#reportrange').daterangepicker({
+        "minDate": "1/1/2016",
+        maxDate:moment().subtract(1, 'days'),
+        startDate: start,
+        endDate: end,
+        "opens": "center",
+        "alwaysShowCalendars": false,
+    }, cb);
+    cb(start, end);
+});
+$(document).ready(function(){
+    $(".applyBtn").off().on('click', function(){
+        $("#mySelect").val("CustomRange")
+    });
+});
+function func1() {
+  document.getElementById("mySelect").value="7"
+};
+window.onload=func1;
+</script>
+<div class="row">
+    <div>
+        <form class="form-inline" method="post" action="/report">
+          <div class="form-group mb-2">
+              <label style="margin:-2px"  class="lb"><b>SELECT DATES:&nbsp;</b></label>
+              <select style="width:200px;border-color:#EB1414 !important" class="form-control sl"  name="option" onChange="myFunction()" id="mySelect">
+                <option value="7">Weekly Report</option>
+                <option value="Week">Last 7 days</option>
+                <option value="30">This Month (Last 4 Weeks)</option>
+                <option value="LastMonth">Prev. Month</option>
+                <option value="LastMonthPrevYear">Prev. Month of Past Year</option>
+                <option value="12">Last 12 Months</option>
+                <option value="LastYear">Last Year</option>
+              </select>
+          </div>
+          <div id="demo" class="form-group "><input class="form-rounded" name="dates" id="reportrange" readonly/></div>
+          <button style="margin:10px" type="submit" name="action" value="submit" class="btn btn-danger">Submit</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
+{% block content %}
+<div  style="text-align:center;margin: 70px 10px 20px 10px;">
+   <h3> Your Website Traffic Report Has Been Sent to Your Email... <i class="fa fa-thumbs-o-up" style="font-size:35px;color:#099964"></i><br/>
+ <font size="2"> Here’s a copy of the report for your reference.</font></h3>
+</div>
+<footer style="margin:auto;">
+Hi,<br><br>
+Here are my weekly metrics<br><br>
+  1) Visits &emsp;&emsp;                        : {{stock['visit_changes']['total_visits']}} ({% if (stock['visit_changes']['total_change_visits']|float) >= 0 %}<font color="green">+{{(stock['visit_changes']['total_change_visits']|float)}}%</font>{% else %}<font color="red">{{stock['visit_changes']['total_change_visits']|float}}%</font>{% endif %}) —> [Organic: {% if (stock['visit_changes']['Organic Search']|float) >= 0 %}<font color="green">+{{stock['visit_changes']['Organic Search']}}%</font>{% else %}<font color="red">{{stock['visit_changes']['Organic Search']}}%</font>{% endif %},
+  Direct: {% if (stock['visit_changes']['Direct']|float) >= 0 %}<font color="green">+{{stock['visit_changes']['Direct']}}%</font>{% else %}<font color="red">{{stock['visit_changes']['Direct']}}%</font>{% endif %},
+  Referral: {% if (stock['visit_changes']['Referral']|float) >= 0 %}<font color="green">+{{stock['visit_changes']['Referral']}}%</font>{% else %}<font color="red">{{stock['visit_changes']['Referral']}}%</font>{% endif %},
+  Social: {% if (stock['visit_changes']['Social']|float) >= 0 %}<font color="green">+{{stock['visit_changes']['Social']}}%</font>{% else %}<font color="red">{{stock['visit_changes']['Social']}}%</font>{% endif %},
+  Paid: {% if (stock['visit_changes']['Paid Search']|float) >= 0 %}<font color="green">+{{stock['visit_changes']['Paid Search']}}%</font>{% else %}<font color="red">{{stock['visit_changes']['Paid Search']}}%</font>{% endif %}]<br><br>
+
+
+2) Goal Convs.: {{stock['present'][3]['ga:goalCompletionsAll']|int}} [{% for item in stock['goalcompletions'] %} {{item}}; {% endfor %}]<br><br>
+
+3) Social Followers : {{social_stats['total_stock']}} (as on {{day.now().strftime("%d-%b-%y")}})<br><br>
+
+4) Social Engagement : --- (---%)<br><br>
+
+5) Keywords : Moved up (--); Moved down (--)<br><br>
+
+6) Search Visibility Score: ---% (---%)<br><br>
+
+Online Ads<br>
+Clicks        : {{stock['present'][2]['ga:adClicks']|int}}<br>
+Impr.        : {{stock['present'][2]['ga:impressions']|int}}<br>
+CTR        : {{stock['present'][2]['ga:CTR']|float|round(2)}}%<br>
+Cost        : ${{stock['present'][2]['ga:adCost']|float}} ({% if (stock['cost_change']|float) >= 0 %}<font color="green">+{{stock['cost_change']}}%</font>{% else %}<font color="red">{{stock['cost_change']}}%</font>{% endif %}%)<br>
+Enquires    : 0<br>
+</footer>
+
+{% endblock %}

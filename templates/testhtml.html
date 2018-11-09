@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+    <html>
+
+    <head>
+        <script type="text/javascript">
+        function hideAll(Adiv) {
+         var text = "";
+         var i;
+
+         for (i = 1; i < 4; i++) {
+             var text = ""
+             text += "mydiv" + i;
+             document.getElementById(text).style.visibility = "hidden";
+         }
+         document.getElementById(Adiv).style.visibility = "visible";
+     }
+
+     function showAll(Adiv) {
+         var text = "";
+         var i;
+
+         for (i = 1; i < 4; i++) {
+             var text = ""
+             text += "mydiv" + i;
+             document.getElementById(text).style.visibility = "visible";
+         }
+
+     }
+        </script>
+<style>#topMenu {
+         width: 100%;
+         text-align: center;
+         position: fixed;
+         background-color: black;
+         color: white;
+         left: 0px;
+         top: 0px;
+     }
+
+     div#mydiv1,
+     div#mydiv2,
+     div#mydiv3 {
+         text-align:center;
+         width: 600px;
+         height: auto;
+         position: fixed;
+         left: 25%;
+         top: 20px;
+     }
+
+     div>button {
+         text-align: center;
+     }</style>    </head>
+
+    <body onload=hideAll('mydiv1')>
+        <div id='mydiv1'>dashbord</div>
+        <div id='mydiv2'>key metrics info</div>
+        <div id='mydiv3'>online ads</div>
+        <div id="topMenu">
+    <button type="button" onclick="hideAll('mydiv1')">Dashboard</button>
+    <button type="button" onclick="hideAll('mydiv2')">Key Metrics</button>
+    <button type="button" onclick="hideAll('mydiv3')">Online Ads</button>
+        </div>
+    </body>
+
+    </html>

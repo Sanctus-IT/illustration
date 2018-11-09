@@ -3,14 +3,14 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
     $(function() {
-    var start = moment().subtract(1, 'days').subtract(6,'days');
-    var end = moment().subtract(1, 'days');
+    var start = moment().subtract(2, 'days').subtract(6,'days');
+    var end = moment().subtract(2, 'days');
     function cb(start, end) {
         $('#reportrange').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'));
     }
     $('#reportrange').daterangepicker({
         "minDate": "1/1/2016",
-        maxDate:moment().subtract(1, 'days'),
+        maxDate:moment().subtract(2, 'days'),
         startDate: start,
         endDate: end,
         "opens": "center",
@@ -24,15 +24,15 @@ $(document).ready(function(){
     });
 });
 function func1() {
-  document.getElementById("mySelect").value="Week"
+  document.getElementById("mySelect").value="7"
 };
 window.onload=func1;
 </script>
 <div class="row">
     <div>
-        <form class="form-inline" method="post" action="/">
+        <form class="form-inline" style="margin-left:-185px" method="post" action="/">
           <div class="form-group mb-2">
-              <label style="margin:-2px"  class="lb"><b>SELECT DATES:&nbsp;</b></label>
+              <label style="margin:-2px" class="lb"><b>SELECT DATES:&nbsp;</b></label>
               <select style="width:200px;border-color:#EB1414 !important" class="form-control sl"  name="option" onChange="myFunction()" id="mySelect">
                 <option value="Week">Last 7 days</option>
                 <option value="30">This Month (Last 4 Weeks)</option>
@@ -54,7 +54,7 @@ window.onload=func1;
   <h3>Your Website Traffic Snapshots for {{option}}</h3>
   <p><font size="2"><b>({{dates['pre_date']}})</b></font> vs <font size="2"><b>({{dates['prev_date']}})</b></font></p>
 </div>
-<div id="mydiv1">
+<div class="content" id="graphs">
     <div class="row">
     <div class="col-md-12 col-sm-12 col-xs-12">
         <div class="row x_title">
@@ -129,7 +129,6 @@ window.onload=func1;
                           <canvas id="myChart4" height="90"></canvas>
                       </div>
                     </div>
-
                     <div role="tabpanel" class="tab-pane fade" id="tab_content6" aria-labelledby="Mobile+Tablet Traffic">
                         <div>
                           <div style="color:#8e9299;font-weight:bold">
@@ -190,11 +189,6 @@ window.onload=func1;
               </div>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="page-title">
-      <div class="title_left">
-        <h3>How did you acquire your users?</h3>
       </div>
     </div>
     <div class="row">
@@ -616,11 +610,12 @@ window.onload=func1;
       </div>
     </div>
 </div>
+
 {% block Graph %}
 <script>
 var chartData1 = {
 labels: [
-      "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+      "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
   ],
 datasets: [{
  label: 'Change',
@@ -706,7 +701,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData2 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
         ],
 datasets: [{
  label: 'Change',
@@ -783,7 +778,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData3 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -860,7 +855,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData4 = {
 labels: [
-    "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+          "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
     ],
 datasets: [{
  label: 'Change',
@@ -935,10 +930,9 @@ var myChart = new Chart(ctx, {
        }
    }
 });
-
 var chartData6 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -1015,7 +1009,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData7 = {
 labels: [
-            "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+            "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
             ],
 datasets: [{
  label: 'Change',
@@ -1092,7 +1086,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData8 = {
 labels:[
-          "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}",
+          "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
         ],
 datasets: [{
  label: 'Change',
@@ -1178,7 +1172,7 @@ var myChart = new Chart(ctx, {
 });
 var chartData9 = {
 labels: [
-          "{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}","{{days[-5]}}","{{days[-6]}}","{{days[-7]}}"
+          "{{days[-5]}}","{{days[-6]}}","{{days[-7]}}","{{days[-1]}}","{{days[-2]}}","{{days[-3]}}","{{days[-4]}}",
            ],
 datasets: [{
  label: 'Change',
@@ -1263,6 +1257,7 @@ var myChart = new Chart(ctx, {
    }
 });
 </script>
+
 <script>
 var ctx1 = document.getElementById("myChart-1").getContext('2d');
 var myChart1 = new Chart(ctx1, {
@@ -1465,7 +1460,6 @@ var myChart1 = new Chart(ctx1, {
         }
     }
 });
-
 var barChartData = {
         labels: ['UK', 'USA', 'France', 'China', 'India', 'SEA', 'ANZ','ROW'],
         datasets: [{

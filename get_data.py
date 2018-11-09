@@ -701,7 +701,206 @@ def print_conversions(results):
     for key, item in results:
         result.append(dict(ChainMap(*list(item))))
     return result
-#-----------------------------------------------------------------------------------------------------------------------
+#--------------------------------------------------------------------------------------------------------------
+
+def get_googleads(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:adClicks',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+def print_googleads(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+def get_googleads_cost(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:adCost',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_cost(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+
+def get_googleads_ctr(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:CTR',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_ctr(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+
+def get_googleads_imp(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:impressions',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_imp(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+def get_googleads_en(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:goalCompletionsAll',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_en(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+def get_googleads_cv(service, profile_id,pre_startDate,pre_endDate):
+  pres_month = service.data().ga().get(
+    ids='ga:' + profile_id,
+    start_date=str(pre_startDate),
+    end_date=str(pre_endDate),
+      metrics='ga:costPerConversion',
+      dimensions='ga:campaign',
+  ).execute()
+  # print(pres_month)
+  return pres_month
+
+def print_googleads_cv(results):
+    # print('portfolio')
+    present_result = (dict(results.get('rows', [["", ""]])))
+    # print(present_result)
+    return present_result
+# ----------------------------------------------------------------------------------------------------------------
+def get_converted_keywords(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:'+profile_id,
+        start_date = str(pre_startDate),
+        end_date = str(pre_endDate),
+        metrics='ga:goalCompletionsAll',
+        dimensions = 'ga:adMatchedQuery',
+        filters='ga:goalCompletionsAll==1'
+    ).execute()
+    return result
+
+def print_converted_keywords(results):
+    present_result = (dict(results.get('rows', [["", ""]])))
+    return present_result
+#----------------------------------------------------------------------------------------------------------------
+
+def get_agent_pop_ups(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:'+profile_id,
+        start_date = str(pre_startDate),
+        end_date = str(pre_endDate),
+        metrics='ga:uniqueEvents',
+        dimensions = 'ga:eventLabel',
+        filters='ga:eventAction==Impressions;ga:eventCategory==Agent Pop;ga:eventLabel==Juliette,ga:eventLabel==Alice,ga:eventLabel==Chad,ga:eventLabel==Archana,ga:eventLabel==Choon Meng,ga:eventLabel==Stacey,ga:eventLabel==Karen,ga:eventLabel==Lauren',
+        sort='ga:uniqueEvents',
+    ).execute()
+    # print('agent',result)
+    return result
+
+
+
+#----------------------------------------------------------------------------------------------------------------
+
+def get_commission(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:'+profile_id,
+        start_date = str(pre_startDate),
+        end_date = str(pre_endDate),
+        metrics='ga:uniqueEvents',
+        dimensions = 'ga:eventLabel',
+        filters='ga:eventCategory==CommissioningGuide',
+    ).execute()
+    # print('commision',result)
+    return result
+
+def print_commission(results):
+    present_result = (dict(results.get('rows', [["", ""]])))
+    return present_result
+
+
+#----------------------------------------------------------------------------------------------------------------
+def get_stock_sessions(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:sessions',
+        dimensions='ga:channelgrouping',
+    ).execute()
+    # print('stock',result)
+    return result
+def get_stock_goals(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:goalCompletionsAll',
+        dimensions='ga:eventAction',
+    ).execute()
+    print('stock_goals',result)
+    return result
+def get_stock_ads(service, profile_id,pre_startDate,pre_endDate):
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:adClicks, ga:impressions, ga:CTR, ga:adCost, ga:goalCompletionsAll',
+        dimensions='ga:campaign',
+        # order='-ga:adClicks',
+        filters='ga:campaign==Stock UK,ga:campaign==Stock USA'
+    ).execute()
+    # print('stock_ads',result)
+    return dict(result.get('totalsForAllResults', [["", ""]]))
+#----------------------------------------------------------------------------------------------------------------
+
+def get_social_visits(service, profile_id,pre_startDate,pre_endDate):
+
+    result = service.data().ga().get(
+        ids='ga:' + profile_id,
+        start_date=str(pre_startDate),
+        end_date=str(pre_endDate),
+        metrics='ga:sessions',
+        dimensions='ga:socialNetworks',
+        filters='ga:source=~pinterest|facebook|twitter|instagram|linkedin'
+    ).execute()
+    print('social_visits',result)
+    return result
+
+
+#----------------------------------------------------------------------------------------------------------------
 
 class mainClass:
 
@@ -928,7 +1127,7 @@ class mainClass:
         res_data = []
         for i, j, k, l in zip(traffic[0], traffic[1], traffic[2], traffic[3]):
             new = {'option': i['option'],
-                   'traffic': int(i['traffic']) + int(i['traffic']) + int(i['traffic']) + int(i['traffic'])}
+                   'traffic': int(i['traffic']) + int(j['traffic']) + int(k['traffic']) + int(l['traffic'])}
             res_data.append(new)
 
         return res_data
@@ -953,7 +1152,7 @@ class mainClass:
         res_data = []
         for i, j, k, l in zip(traffic[0], traffic[1], traffic[2], traffic[3]):
             new = {'option': i['option'],
-                   'traffic': int(i['traffic']) + int(i['traffic']) + int(i['traffic']) + int(i['traffic'])}
+                   'traffic': int(i['traffic']) + int(j['traffic']) + int(k['traffic']) + int(l['traffic'])}
             res_data.append(new)
 
         return res_data
@@ -1054,3 +1253,188 @@ class mainClass:
                 'ReturningUsers': sum(ReturningUsers)
         }
 
+    def googleads(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads(result)
+            googleads_list.append(print_result)
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_cost(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_cost(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_cost(result)
+            googleads_list.append(print_result)
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        # res_data = self.group(googleads_list, keys)
+        res_data = []
+        new = {}
+        for key in keys:
+            if key != 'country' and key != 'date':
+                x = 0
+                for data in googleads_list:
+                    x += float(data.get(key, 0))
+                new[key] = x
+        res_data.append(new)
+        # print(res_data)
+        return res_data
+    def googleads_ctr(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_ctr(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_ctr(result)
+            googleads_list.append(print_result)
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        # res_data = self.group(googleads_list, keys)
+        res_data = []
+        new = {}
+        for key in keys:
+            if key != 'country' and key != 'date':
+                x = 0
+                for data in googleads_list:
+                    x += float(data.get(key, 0))
+                new[key] = x
+        res_data.append(new)
+        return res_data
+    def googleads_imp(self):
+        googleads = [
+            ('5110029', 'UKPortfolio'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_imp(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_imp(result)
+            googleads_list.append(print_result)
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_en(self):
+        googleads = [
+            ('5110029', 'UK'),
+            ('84906789', 'USA'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_en(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_en(result)
+            googleads_list.append(print_result)
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        res_data = self.group(googleads_list, keys)
+        # print(res_data)
+        return res_data
+    def googleads_cv(self):
+        googleads = [
+            ('5110029', 'UK'),
+            ('84906789', 'USA'),
+        ]
+
+        googleads_list = []
+        for profile_id in googleads:
+            result = get_googleads_cv(self.service, profile_id[0], self.start_date, self.end_date)
+            # print(result)
+            print_result = print_googleads_cv(result)
+            googleads_list.append(print_result)
+        # print(googleads_list)
+        keys = ['Animators UK', 'Animators USA', 'Competitors', 'Illustration Search ANZ',
+                'Illustration Search UK', 'Illustration Search USA', 'Stock UK', 'Stock USA']
+        # res_data = self.group(googleads_list, keys)
+        res_data = []
+        new = {}
+        for key in keys:
+            if key != 'country' and key != 'date':
+                x = 0
+                for data in googleads_list:
+                    x += float(data.get(key, 0))
+                new[key] = x
+        res_data.append(new)
+        # print(res_data)
+        return res_data
+
+    def converted_keywords(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States,ga:country==Canada'),
+        ]
+        converted_keywords_list=[]
+        for profile_id in profile_ids:
+            result = get_converted_keywords(self.service,profile_id[0],self.start_date,self.end_date)
+            print_result = print_converted_keywords(result)
+            converted_keywords_list.append(print_result)
+        return converted_keywords_list
+
+    def agent_pop_ups(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States,ga:country==Canada'),
+        ]
+        agent_pop_ups_list=[]
+        for profile_id in profile_ids:
+            result = get_agent_pop_ups(self.service,profile_id[0],self.start_date,self.end_date)
+            print_result = print_converted_keywords(result)
+            agent_pop_ups_list.append(print_result)
+        return agent_pop_ups_list
+    def commission(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States'),
+        ]
+        commission_list=[]
+        for profile_id in profile_ids:
+            result = get_commission(self.service,profile_id[0],self.start_date,self.end_date)
+            print_result = print_commission(result)
+            commission_list.append(print_result)
+        keys = ['AE', 'ANZ', 'India', 'SG','UK', 'ZZ','USA']
+        res_data = self.group(commission_list, keys)
+        res_data.append({"ROW":res_data[0]['ZZ']+res_data[0]['AE']})
+        return res_data
+
+    def stock(self):
+        profile_id = '20784902'
+        session = get_stock_sessions(self.service,profile_id,self.start_date,self.end_date)
+        goals  = get_stock_goals(self.service,profile_id,self.start_date,self.end_date)
+        ads = get_stock_ads(self.service,profile_id,self.start_date,self.end_date)
+        return print_commission(session),print_commission(goals),ads,goals.get('totalsForAllResults', [["", ""]])
+
+    def social_visits(self):
+        profile_ids = [
+            ('5110029', 'United Kingdom'),
+            ('84906789', 'United States,ga:country==Canada'),
+            ('85625764', 'France'),
+            ('88496086', 'China'),
+        ]
+        social_visits_list=[]
+        for profile_id in profile_ids:
+            result = get_social_visits(self.service, profile_id[0], self.start_date, self.end_date)
+            print_result = print_commission(result)
+            social_visits_list.append(print_result)
+        print(social_visits_list)
+        return social_visits_list

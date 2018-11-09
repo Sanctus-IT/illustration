@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="icon" href="/static/images/Logo-Social.jpg" type="image/ico"/>
-    <title>SanctusIT | Illustration</title>
+    <title>Illustration Visitor Stats| Developed by Sanctus IT</title>
 
     <!-- Bootstrap -->
     <!-- Bootstrap -->
@@ -35,6 +35,29 @@
     <!-- Custom Theme Style -->
     <link href="/static/build/css/custom.min.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="/static/css/mystyle.css">
+    <script >        function hideAll(Adiv) {
+         var text = "";
+         var i;
+
+         for (i = 1; i < 4; i++) {
+             var text = ""
+             text += "mydiv" + i;
+             document.getElementById(text).style.visibility = "hidden";
+         }
+         document.getElementById(Adiv).style.visibility = "visible";
+     }
+
+     function showAll(Adiv) {
+         var text = "";
+         var i;
+
+         for (i = 1; i < 4; i++) {
+             var text = ""
+             text += "mydiv" + i;
+             document.getElementById(text).style.visibility = "visible";
+         }
+
+     }</script>
   </head>
   <body class="nav-md">
     <div class="container body">
@@ -52,21 +75,26 @@
             <!-- sidebar menu -->
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section"><a href="/"></a>
-                <ul class="nav side-menu">
-                  <li><a href="#graphs" ><i class="fa fa-bar-chart-o"></i> Graphs</a></li>
+                <ul class="nav side-menu" >
+                  <li><a href="/"><i class="fa fa-bar-chart-o"></i>Dashboard</a></li>
+                </ul>
+                <ul class="nav side-menu" >
+                  <li><a href="/geo"><i class="fa fa-bar-chart"></i> Geo Visits</a></li>
                 </ul>
                 <ul class="nav side-menu">
-                  <li><a href="#tables"><i class="fa fa-table"></i> Metrics</a></li>
+                  <li><a href="/ads"><i class="fa fa-desktop"></i>Online Ads</a></li>
+                </ul>
+                <ul class="nav side-menu">
+                  <li><a href="/social"><i class="fa fa-desktop"></i>Social Followers</a></li>
+                </ul>
+                <ul class="nav side-menu" >
+                  <li><a href="/metrics"><i class="fa fa-table"></i> Key Metrics</a></li>
                 </ul>
               </div>
             </div>
-            <!-- /sidebar menu -->
-            <!-- /menu footer buttons -->
-            <!-- /menu footer buttons -->
+
           </div>
         </div>
-
-        <!-- top navigation -->
         <div class="top_nav">
           <div class="nav_menu">
             <nav>
@@ -80,15 +108,9 @@
             </nav>
           </div>
         </div>
-        <!-- /top navigation -->
-
-        <!-- page content -->
         <div class="right_col" role="main">
           {% block content %}{% endblock %}
         </div>
-        <!-- /page content -->
-
-        <!-- footer content -->
         <footer>
           <div class="pull-right">
             Developed by <a href="http://www.sanctusit.com"><img src="/static/images/sanctusIT_logo.png" width="100" height="30"/></a>

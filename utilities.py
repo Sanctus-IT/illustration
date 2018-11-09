@@ -47,11 +47,100 @@ def date_converter(dates):
         date = dates[key].split('/')
         newdates[key] = date[2]+'-'+date[0]+'-'+date[1]
     return newdates
+def get_week():
+    today = datetime.datetime.now()
+    if today.strftime('%a')=='Tue':
+        monday = today + relativedelta(days=-1)
+    elif today.strftime('%a')=='Wed':
+        monday=today+relativedelta(days=-2)
+    elif today.strftime('%a')=='Thu':
+        monday=today+relativedelta(days=-3)
+    elif today.strftime('%a')=='Fri':
+        monday=today+relativedelta(days=-4)
+    elif today.strftime('%a')=='Sat':
+        monday=today+relativedelta(days=-5)
+    elif today.strftime('%a')=='Sun':
+        monday=today+relativedelta(days=-6)
+    elif today.strftime('%a')=='Mon':
+        monday=today+relativedelta(days=-7)
+
+    pre_start = monday+relativedelta(days=-6)
+    prv_end = pre_start + relativedelta(days=-1)
+    prv_start = prv_end + relativedelta(days=-(7 - 1))
+    return (
+            {
+                'pre_start': pre_start.strftime('%Y-%m-%d'),
+                'pre_end': monday.strftime('%Y-%m-%d'),
+                'prv_start': prv_start.strftime('%Y-%m-%d'),
+                'prv_end': prv_end.strftime('%Y-%m-%d')
+            },
+            {
+                'pre_start': pre_start.strftime('%d-%b-%y'),
+                'pre_end': monday.strftime('%d-%b-%y'),
+                'prv_start': prv_start.strftime('%d-%b-%y'),
+                'prv_end': prv_end.strftime('%d-%b-%y')
+            }
+            )
+
+def get_stock_week():
+    today = datetime.datetime.now()
+    if today.strftime('%a')=='Fri':
+        thursday = today + relativedelta(days=-1)
+    elif today.strftime('%a')=='Sat':
+        thursday=today+relativedelta(days=-2)
+    elif today.strftime('%a')=='Sun':
+        thursday=today+relativedelta(days=-3)
+    elif today.strftime('%a')=='Mon':
+        thursday=today+relativedelta(days=-4)
+    elif today.strftime('%a')=='Tue':
+        thursday=today+relativedelta(days=-5)
+    elif today.strftime('%a')=='Wed':
+        thursday=today+relativedelta(days=-6)
+    elif today.strftime('%a')=='Thu':
+        thursday=today+relativedelta(days=-7)
+
+    pre_start = thursday+relativedelta(days=-6)
+    prv_end = pre_start + relativedelta(days=-1)
+    prv_start = prv_end + relativedelta(days=-(7 - 1))
+    return (
+            {
+                'pre_start': pre_start.strftime('%Y-%m-%d'),
+                'pre_end': thursday.strftime('%Y-%m-%d'),
+                'prv_start': prv_start.strftime('%Y-%m-%d'),
+                'prv_end': prv_end.strftime('%Y-%m-%d')
+            },
+            {
+                'pre_start': pre_start.strftime('%d-%b-%y'),
+                'pre_end': thursday.strftime('%d-%b-%y'),
+                'prv_start': prv_start.strftime('%d-%b-%y'),
+                'prv_end': prv_end.strftime('%d-%b-%y')
+            }
+            )
 
 def get_dates(N):
 
     pre_end = datetime.datetime.now() + relativedelta(days=-2)
     pre_start = datetime.datetime.now() + relativedelta(days=-N-1)
+    prv_end = pre_start + relativedelta(days=-1)
+    prv_start = prv_end + relativedelta(days=-(N-1))
+    return (
+            {
+                'pre_start': pre_start.strftime('%Y-%m-%d'),
+                'pre_end': pre_end.strftime('%Y-%m-%d'),
+                'prv_start': prv_start.strftime('%Y-%m-%d'),
+                'prv_end': prv_end.strftime('%Y-%m-%d')
+            },
+            {
+                'pre_start': pre_start.strftime('%d-%b-%y'),
+                'pre_end': pre_end.strftime('%d-%b-%y'),
+                'prv_start': prv_start.strftime('%d-%b-%y'),
+                'prv_end': prv_end.strftime('%d-%b-%y')
+            }
+            )
+def get_dates_yest(N):
+
+    pre_end = datetime.datetime.now() + relativedelta(days=-1)
+    pre_start = datetime.datetime.now() + relativedelta(days=-N)
     prv_end = pre_start + relativedelta(days=-1)
     prv_start = prv_end + relativedelta(days=-(N-1))
     return (
@@ -102,7 +191,6 @@ def prev_month_last_year():
     num_days = calendar.monthrange(year, prev_month)
     pre_start = datetime.date(year, prev_month, 1)
     pre_end = datetime.date(year, prev_month, num_days[1])
-    print(pre_start, pre_end)
     prv_start = datetime.date(year - 1, prev_month, 1)
     prv_end = datetime.date(year - 1, prev_month, num_days[1])
 
@@ -184,5 +272,5 @@ def get_month_names(date1, date2):
     return month1, month2
 
 if __name__ == '__main__':
-    print(get_dates(7))
-    print(get_dates(30))
+    get_week()
+    get_dates(7)
