@@ -18,7 +18,7 @@ present = ({u'Social': u'49', u'Paid Search': u'36', u'Direct': u'161', u'Referr
 for key,value in present[1].items():
     dic.append({str(key):int(value)})
 # print dic
-for item in dic:
-    print item
-    if item.keys()=='Visitor_Sent_a_Message':
-        print item
+# for item in dic:
+#     print item
+#     if item.keys()=='Visitor_Sent_a_Message':
+#         print item

@@ -47,7 +47,6 @@ def date_converter(dates):
         date = dates[key].split('/')
         newdates[key] = date[2]+'-'+date[0]+'-'+date[1]
     return newdates
-
 def get_week():
     today = datetime.datetime.now()
     if today.strftime('%a')=='Tue':
@@ -273,6 +272,5 @@ def get_month_names(date1, date2):
     return month1, month2
 
 if __name__ == '__main__':
-    print get_week()
-    print get_stock_week()
-    print get_dates(7)
+    get_week()
+    get_dates(7)

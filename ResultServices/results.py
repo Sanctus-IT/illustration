@@ -586,4 +586,33 @@ class Stock_illustration:
         }
         cost_change = self.stock_change(float(present[2]['ga:adCost']),float(previous[2]['ga:adCost']))
 
-        return {'visit_changes':visit_changes,'present':present,'cost_change':cost_change}
+        dic = {}
+        for key, value in present[1].items():
+            dic[str(key)] = int(value)
+        new = {}
+        dic2 = dic.copy()
+        for key in dic2:
+            if key == 'Visitor_Sent_a_Message':
+                new['Chat Conversation'] = dic[key]
+                dic.pop(key)
+            elif key == 'Order':
+                new['Sales'] = dic[key]
+                dic.pop(key)
+        dic.update(new)
+        lst = []
+        for key, value in dic.items():
+            lst.append('{}: {}'.format(key, value))
+        return {'visit_changes':visit_changes,'present':present,'cost_change':cost_change,'goalcompletions':lst}
+
+class Social_visits:
+
+    def __init__(self, current_results, previous_results):
+        self.current_results = current_results
+        self.previous_results = previous_results
+
+    def main(self):
+        pre_social_visits = self.current_results.social_visits()
+        prev_social_visits = self.previous_results.social_visits()
+        pre_social_visits=pre_social_visits[0]
+        total = pre_social_visits['Instagram']+pre_social_visits['Pinterest']+pre_social_visits['Twitter']+pre_social_visits['LinkedIn']+pre_social_visits['Facebook']+pre_social_visits['Linkedin Groups']
+        return {'present':pre_social_visits,'previous':prev_social_visits,'total':total}
