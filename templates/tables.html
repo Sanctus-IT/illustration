@@ -240,58 +240,58 @@ window.onload=func1;
                           <td align="center">{{ topkeywords['change']['avgSession_change'][0]|round(2) }}%</td>
                         </tr>
                         <tr>
-                          <th scope="row">Agent Email Clicks</th>
-                          <td align="center">{{ agents['present'][0]['Click'] }}</td>
-                          <td align="center">{{ agents['previous'][0]['Click'] }}</td>
-                          <td align="center">{{ agents['change']['click_change'][0]|round(2) }}%</td>
+                          <th scope="row">Agent CallClick</th>
+                          <td align="center">{{ agents['present'][0]['CallClick'] }}</td>
+                          <td align="center">{{ agents['previous'][0]['CallClick'] }}</td>
+                          <td align="center">{{ agents['change']['call_change'][0]|round(2) }}%</td>
                         </tr>
-                        <tr>
-                          <th scope="row">Agent Pop Up - Email me Click</th>
+                      <tr>
+                          <th scope="row">Agent EmailClick</th>
                           <td align="center">{{ agents['present'][0]['EmailClick'] }}</td>
                           <td align="center">{{ agents['previous'][0]['EmailClick'] }}</td>
                           <td align="center">{{ agents['change']['email_change'][0]|round(2) }}%</td>
                         </tr>
                         <tr>
-                          <th scope="row">Agent Pop Up - Call me Click</th>
-                          <td align="center">{{ agents['present'][0]['CallClick'] }}</td>
-                          <td align="center">{{ agents['previous'][0]['CallClick'] }}</td>
-                          <td align="center">{{ agents['change']['call_change'][0]|round(2) }}%</td>
+                          <th scope="row">Agent Click</th>
+                          <td align="center">{{ agents['present'][0]['Click'] }}</td>
+                          <td align="center">{{ agents['previous'][0]['Click'] }}</td>
+                          <td align="center">{{ agents['change']['click_change'][0]|round(2) }}%</td>
                         </tr>
                         <tr>
-                          <th scope="row">Side Nav - Recently Viewed Clicks</th>
+                          <th scope="row">Side Nav - Help</th>
+                          <td align="center">{{ sidebutton['present'][0]['Help'] }}</td>
+                          <td align="center">{{ sidebutton['previous'][0]['Help'] }}</td>
+                          <td align="center">{{ sidebutton['change']['help_change'][0]|round(2) }}%</td>
+                        </tr>
+                      <tr>
+                          <th scope="row">Side Nav - RecentlyViewedPortfolios</th>
                           <td align="center">{{ sidebutton['present'][0]['RecentlyViewedPortfolios'] }}</td>
                           <td align="center">{{ sidebutton['previous'][0]['RecentlyViewedPortfolios'] }}</td>
                           <td align="center">{{ sidebutton['change']['recentlyViewed_change'][0]|round(2)|round(2) }}%</td>
                         </tr>
                         <tr>
-                          <th scope="row">Side Nav - Help Clicks</th>
-                          <td align="center">{{ sidebutton['present'][0]['Help'] }}</td>
-                          <td align="center">{{ sidebutton['previous'][0]['Help'] }}</td>
-                          <td align="center">{{ sidebutton['change']['help_change'][0]|round(2) }}%</td>
-                        </tr>
-                        <tr>
-                          <th scope="row">Artist Portfolio - PDF Downloads</th>
+                          <th scope="row">Artist Portfolio - PDFDownloads</th>
                           <td align="center">{{ portfolio['present'][0]['PDFClick'] }}</td>
                           <td align="center">{{ portfolio['previous'][0]['PDFClick'] }}</td>
                           <td align="center">{{ portfolio['change']['pdf_change'][0]|round(2) }}%</td>
                         </tr>
                         <tr>
-                          <th scope="row">Artist Portfolio - Email Clicks</th>
+                          <th scope="row">Artist Portfolio - EmailClick</th>
                           <td align="center">{{ portfolio['present'][0]['EmailClick'] }}</td>
                           <td align="center">{{ portfolio['previous'][0]['EmailClick'] }}</td>
                           <td align="center">{{ portfolio['change']['email_change'][0]|round(2) }}%</td>
                         </tr>
-                        <tr>
-                          <th scope="row">Artist Portfolio - Call Clicks</th>
-                          <td align="center">{{ portfolio['present'][0]['CallClick'] }}</td>
-                          <td align="center">{{ portfolio['previous'][0]['CallClick'] }}</td>
-                          <td align="center">{{ portfolio['change']['call_change'][0]|round(2) }}%</td>
-                        </tr>
                       <tr>
-                          <th scope="row">Artist Portfolio - Video Image Clicks</th>
+                          <th scope="row">Artist Portfolio - VideoImgClick</th>
                           <td align="center">{{ portfolio['present'][0]['VideoImgClick'] }}</td>
                           <td align="center">{{ portfolio['previous'][0]['VideoImgClick'] }}</td>
                           <td align="center">{{ portfolio['change']['video_change'][0]|round(2) }}%</td>
+                        </tr>
+                      <tr>
+                          <th scope="row">Artist Portfolio - CallClick</th>
+                          <td align="center">{{ portfolio['present'][0]['CallClick'] }}</td>
+                          <td align="center">{{ portfolio['previous'][0]['CallClick'] }}</td>
+                          <td align="center">{{ portfolio['change']['call_change'][0]|round(2) }}%</td>
                         </tr>
                       </tbody>
                     </table>

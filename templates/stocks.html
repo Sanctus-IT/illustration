@@ -64,7 +64,7 @@ Here are my weekly metrics<br><br>
   Paid: {% if (stock['visit_changes']['Paid Search']|float) >= 0 %}<font color="green">+{{stock['visit_changes']['Paid Search']}}%</font>{% else %}<font color="red">{{stock['visit_changes']['Paid Search']}}%</font>{% endif %}]<br><br>
 
 
-2) Goal Convs.: {{stock['present'][3]['ga:goalCompletionsAll']|int}} [{% for item in stock['goalcompletions'] %} {{item}}; {% endfor %}]<br><br>
+2) Goal Convs.: {{stock['present'][3]['ga:goalCompletionsAll']|int}} [{{stock['present'][1]}}]<br><br>
 
 3) Social Followers : {{social_stats['total_stock']}} (as on {{day.now().strftime("%d-%b-%y")}})<br><br>
 
