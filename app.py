@@ -1703,17 +1703,111 @@ def social():
     except:
         dates = {}
     try:
-        if dates == {} or dates['option'] == "Week":
-            option = 'Last 7 Days'
-            dates = get_dates_yest(7)
-            # print(dates)
+        if dates == {} or dates['option'] == "7":
+            option = 'Weekly Report'
+            dates = get_week()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            social_visits = Social_visits(present, previous).main()
+            # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('social_followers.html',option = option,dates = dates, social_stats=social_stats, social_visits=social_visits,
+                                   day=day)
+        elif dates['option'] == "LastMonthPrevYear":
+            option = 'Prev. Month of Past Year'
+            dates = prev_month_last_year()
             present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
             previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
             social_stats = Social_stats(dates[0]['pre_end']).main()
             social_visits = Social_visits(present,previous).main()
             # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
 
-            return render_template('social_followers.html',social_stats=social_stats,social_visits=social_visits,day=day)
+            return render_template('social_followers.html',option = option,dates = dates,social_stats=social_stats,social_visits=social_visits,day=day)
+
+        elif dates['option'] == "30":
+            dates = get_dates(30)
+            option = 'This Month (Last 4 Weeks)'
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            social_visits = Social_visits(present,previous).main()
+            # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('social_followers.html',option = option,dates = dates,social_stats=social_stats,social_visits=social_visits,day=day)
+
+        elif dates['option'] == "LastMonth":
+            dates = get_two_month_dates()
+            option = 'Prev. Month'
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            social_visits = Social_visits(present,previous).main()
+            # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('social_followers.html',option = option,dates = dates,social_stats=social_stats,social_visits=social_visits,day=day)
+
+        elif dates['option'] == "12":
+            option = 'Last 12 Months'
+            dates = get12months()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            social_visits = Social_visits(present,previous).main()
+            # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('social_followers.html',option = option,dates = dates,social_stats=social_stats,social_visits=social_visits,day=day)
+
+        elif dates['option'] == "LastYear":
+            option = 'Last Year'
+            dates = last_year()
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            social_visits = Social_visits(present,previous).main()
+            # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('social_followers.html',option = option,dates = dates,social_stats=social_stats,social_visits=social_visits,day=day)
+
+
+        elif dates['option'] == "Week":
+            option = 'Last 7 Days'
+            dates = get_dates_yest(7)
+            present = mainClass(dates[0]['pre_start'], dates[0]['pre_end'], service)
+            previous = mainClass(dates[0]['prv_start'], dates[0]['prv_end'], service)
+            social_stats = Social_stats(dates[0]['pre_end']).main()
+            social_visits = Social_visits(present,previous).main()
+            # print(social_visits)
+            dates = {
+                'pre_date': dates[1]['pre_start'] + ' to ' + dates[1]['pre_end'],
+                'prev_date': dates[1]['prv_start'] + ' to ' + dates[1]['prv_end']
+            }
+
+            return render_template('social_followers.html',option = option,dates = dates,social_stats=social_stats,social_visits=social_visits,day=day)
 
     except Exception as e:
         print(e)

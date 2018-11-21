@@ -24,7 +24,7 @@ $(document).ready(function(){
     });
 });
 function func1() {
-  document.getElementById("mySelect").value="Week"
+  document.getElementById("mySelect").value="7"
 };
 window.onload=func1;
 </script>
@@ -40,7 +40,7 @@ window.onload=func1;
                 <option value="LastMonthPrevYear">Prev. Month of Past Year</option>
                 <option value="12">Last 12 Months</option>
                 <option value="LastYear">Last Year</option>
-                  <option value="7">Weekly Report</option>
+                <option value="7">Weekly Report</option>
               </select>
           </div>
           <div id="demo" class="form-group "><input class="form-rounded" name="dates" id="reportrange" readonly/></div>
@@ -51,6 +51,8 @@ window.onload=func1;
 {% endblock %}
 {% block content %}
 <div  style="text-align:center;margin: 70px 10px 20px 10px;">
+    <h3>Your Website Traffic Snapshots for {{ option }}</h3>
+  <p><font size="2"><b>({{dates['pre_date']}})</b></font> vs <font size="2"><b>({{dates['prev_date']}})</b></font></p>
   <h3>Your Social Followers Snapshots for {{day.now().strftime("%d-%b-%Y")}}</h3>
 </div>
 <footer style="margin:auto; background-color:#f7f7f7 !important;">
