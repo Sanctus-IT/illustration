@@ -900,7 +900,7 @@ def get_social_visits(service, profile_id,pre_startDate,pre_endDate):
         end_date=str(pre_endDate),
         metrics='ga:sessions',
         dimensions='ga:socialNetwork',
-        filters='ga:source=~pinterest|facebook|twitter|instagram|linkedin'
+        filters='ga:socialNetwork=~pinterest|facebook|twitter|instagram|linkedin'
     ).execute()
 
     # print('social_visits',result)
